@@ -13,7 +13,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
+import planner.enums.EventStatus;
 import planner.enums.EventType;
 
 @Entity
@@ -27,19 +29,24 @@ public class Event implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "event_gen")
 	@Column(name = "EVENT_ID")
 	private long id;
-	
+
 	@Column(name = "EVENT_TITLE")
+	@NotNull
 	private String title;
-	
+
 	@Column(name = "EVENT_DESCRIPTION")
 	private String description;
-	
+
 	@Column(name = "EVENT_TYPE")
 	@Enumerated(EnumType.STRING)
 	private EventType eventType;
-	
+
 	@ElementCollection
 	private List<String> eventComments;
+
+	@Column(name = "EVENT_STATUS")
+	@Enumerated(EnumType.STRING)
+	private EventStatus eventStatus;
 
 	public long getId() {
 		return id;
@@ -81,11 +88,19 @@ public class Event implements Serializable {
 		this.eventComments = eventComments;
 	}
 
+	public EventStatus getEventStatus() {
+		return eventStatus;
+	}
+
+	public void setEventStatus(EventStatus eventStatus) {
+		this.eventStatus = eventStatus;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((description == null) ? 0 : description.hashCode());
+		result = prime * result + ((eventStatus == null) ? 0 : eventStatus.hashCode());
 		result = prime * result + ((eventType == null) ? 0 : eventType.hashCode());
 		result = prime * result + (int) (id ^ (id >>> 32));
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
@@ -101,10 +116,7 @@ public class Event implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Event other = (Event) obj;
-		if (description == null) {
-			if (other.description != null)
-				return false;
-		} else if (!description.equals(other.description))
+		if (eventStatus != other.eventStatus)
 			return false;
 		if (eventType != other.eventType)
 			return false;
@@ -117,5 +129,5 @@ public class Event implements Serializable {
 			return false;
 		return true;
 	}
-	
+
 }
