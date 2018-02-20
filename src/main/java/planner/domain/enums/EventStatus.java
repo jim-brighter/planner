@@ -1,4 +1,4 @@
-package planner.enums;
+package planner.domain.enums;
 
 public enum EventStatus {
 	

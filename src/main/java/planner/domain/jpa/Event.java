@@ -1,4 +1,4 @@
-package planner.jpa;
+package planner.domain.jpa;
 
 import java.io.Serializable;
 import java.util.List;
@@ -15,8 +15,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import planner.enums.EventStatus;
-import planner.enums.EventType;
+import planner.domain.enums.EventStatus;
+import planner.domain.enums.EventType;
 
 @Entity
 @Table(name = "EVENTS")
