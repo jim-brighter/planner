@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: true,
+  plannerBackendRootUrl: "http://jimandfangzhuo.com:8080",
+  plannerBackendEventsContext: "/api/events"
 };

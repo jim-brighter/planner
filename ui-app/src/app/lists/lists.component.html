@@ -1,6 +1,6 @@
 <div class="container-fluid row align-items-start">
-  <ul *ngIf="showDo" class="col-12 list-group d-inline-block">
-    <h6>To Do</h6>
+  <ul class="col-12 list-group d-inline-block">
+    <h6>{{listTitle}}</h6>
     <li class="list-group-item">
       test item 1
     </li>
@@ -8,25 +8,7 @@
       test item 2
     </li>
   </ul>
-  <ul *ngIf="showEat" class="col-12 list-group d-inline-block">
-    <h6>To Eat</h6>
-  </ul>
-  <ul *ngIf="showCook" class="col-12 list-group d-inline-block">
-    <h6>To Cook</h6>
-  </ul>
-  <ul *ngIf="showDo" class="col-12 list-group d-inline-block">
-    <h6>Done</h6>
-  </ul>
-  <ul *ngIf="showEat" class="col-12 list-group d-inline-block">
-    <h6>Eaten</h6>
-    <li class="list-group-item">
-      test item 1
-    </li>
-    <li class="list-group-item">
-      test item 1
-    </li>
-  </ul>
-  <ul *ngIf="showCook" class="col-12 list-group d-inline-block">
-    <h6>Cooked</h6>
+  <ul class="col-12 list-group d-inline-block">
+    <h6>{{completedListTitle}}</h6>
   </ul>
 </div>

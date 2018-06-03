@@ -12,10 +12,6 @@ export class DetailsComponent implements OnInit {
 
   list: String;
 
-  showDo: boolean = false;
-  showEat: boolean = false;
-  showCook: boolean = false;
-
   constructor(private route: ActivatedRoute,
     private location: Location) { }
 

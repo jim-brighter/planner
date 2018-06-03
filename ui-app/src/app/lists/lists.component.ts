@@ -1,8 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-const TO_DO: String = 'TO_DO';
-const TO_EAT: String = 'TO_EAT';
-const TO_COOK: String = 'TO_COOK';
+const listMap: { [id: string] : String } = {
+  "TO_DO": "Done",
+  "TO_EAT": "Eaten",
+  "TO_COOK": "Cooked"
+};
 
 @Component({
   selector: 'app-lists',
@@ -11,11 +13,10 @@ const TO_COOK: String = 'TO_COOK';
 })
 export class ListsComponent implements OnInit {
 
-  showDo: boolean;
-  showEat: boolean;
-  showCook: boolean;
+  listTitle: String;
+  completedListTitle: String;
 
-  @Input() list: String;
+  @Input() list: string;
 
   constructor() { }
 
@@ -24,9 +25,18 @@ export class ListsComponent implements OnInit {
   }
 
   setListToShow(): void {
-    this.showDo = this.list === TO_DO;
-    this.showEat = this.list === TO_EAT;
-    this.showCook = this.list === TO_COOK;
+    this.listTitle = this.makePresentable(this.list);
+    this.completedListTitle = listMap[this.list];
+  }
+
+  makePresentable(s): String {
+    s = s.toLowerCase().replace("_", " ");
+    for (let i = 0; i < s.length; i++) {
+      if (i === 0 || s.charAt(i - 1) === " ") {
+        s = s.substring(0, i) + s.charAt(i).toUpperCase() + s.substring(i + 1);
+      }
+    }
+    return s;
   }
 
 }
