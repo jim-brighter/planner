@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Location } from '@angular/common';
 
 @Component({
@@ -12,8 +12,19 @@ export class DetailsComponent implements OnInit {
 
   list: String;
 
-  constructor(private route: ActivatedRoute,
-    private location: Location) { }
+  navigationSubscription;
+
+  constructor(
+    private route: ActivatedRoute,
+    private location: Location,
+    private router: Router) {
+
+      this.navigationSubscription = this.router.events.subscribe((e: any) => {
+        if (e instanceof NavigationEnd) {
+          this.getList()
+        }
+      });
+    }
 
   ngOnInit() {
     this.getList()
@@ -26,6 +37,12 @@ export class DetailsComponent implements OnInit {
 
   private enumify(listname): String {
     return listname.replace("-","_").toUpperCase();
+  }
+
+  ngOnDestroy() {
+    if (this.navigationSubscription) {
+      this.navigationSubscription.unsubscribe();
+    }
   }
 
 }

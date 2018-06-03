@@ -39,4 +39,8 @@ export class ListsComponent implements OnInit {
     return s;
   }
 
+  ngOnChanges() {
+    this.setListToShow();
+  }
+
 }
