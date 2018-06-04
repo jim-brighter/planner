@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { EventService } from '../event.service';
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  results;
+
+  constructor(private eventService: EventService) { }
 
   ngOnInit() {
+  }
+
+  testClick() {
+    this.eventService.getEvents().subscribe(events => this.results = events);
   }
 
 }
