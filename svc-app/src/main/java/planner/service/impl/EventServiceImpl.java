@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import planner.dao.EventDAO;
 import planner.domain.enums.EventStatus;
+import planner.domain.enums.EventType;
 import planner.domain.jpa.Event;
 import planner.service.EventService;
 
@@ -41,6 +42,12 @@ public class EventServiceImpl implements EventService {
 	public List<Event> findAllEvents() {
 		logger.info("Finding all events");
 		return eventDAO.findAll();
+	}
+	
+	@Override
+	public List<Event> findEvents(EventType eventType) {
+		logger.info("Finding all events of type {}", eventType.toString());
+		return eventDAO.findByEventType(eventType);
 	}
 
 	@Override

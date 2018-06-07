@@ -16,8 +16,4 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
   }
 
-  testClick() {
-    this.eventService.getEvents().subscribe(events => this.results = events);
-  }
-
 }

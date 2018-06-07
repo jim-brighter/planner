@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap, timeout } from 'rxjs/operators';
 
 import { environment } from '../environments/environment';
-import { Event } from './event'
+import { PlannerEvent } from './event'
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -22,15 +22,22 @@ export class EventService {
 
   constructor(private http: HttpClient) { }
 
-  getEvents(): Observable<Event[]> {
-    return this.http.get<Event[]>(this.rootUrl + this.apiContext)
+  getEvents(): Observable<PlannerEvent[]> {
+    return this.http.get<PlannerEvent[]>(this.rootUrl + this.apiContext)
       .pipe(
         catchError(this.handleError('getEvents'))
       );
   }
 
-  saveEvent(event: Event): Observable<Event> {
-    return this.http.post<Event>(this.rootUrl + this.apiContext, event, httpOptions)
+  getEventsByType(type): Observable<PlannerEvent[]> {
+    return this.http.get<PlannerEvent[]>(this.rootUrl + this.apiContext + `/type/${type}`)
+      .pipe(
+        catchError(this.handleError('getEventsByType'))
+      );
+  }
+
+  saveEvent(event: PlannerEvent): Observable<PlannerEvent> {
+    return this.http.post<PlannerEvent>(this.rootUrl + this.apiContext, event, httpOptions)
       .pipe(
         catchError(this.handleError('saveEvent'))
       );

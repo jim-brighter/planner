@@ -1,4 +1,4 @@
-export class Event {
+export class PlannerEvent {
     id: number;
     title: string;
     description: string;

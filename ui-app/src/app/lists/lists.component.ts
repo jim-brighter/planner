@@ -1,10 +1,16 @@
 import { Component, OnInit, Input } from '@angular/core';
 
+import { EventService } from '../event.service';
+import { PlannerEvent } from '../event';
+
 const listMap: { [id: string] : String } = {
   "TO_DO": "Done",
   "TO_EAT": "Eaten",
   "TO_COOK": "Cooked"
 };
+
+const TO_DO = "TO_DO";
+const COMPLETE = "COMPLETE";
 
 @Component({
   selector: 'app-lists',
@@ -16,17 +22,30 @@ export class ListsComponent implements OnInit {
   listTitle: String;
   completedListTitle: String;
 
+  listData: PlannerEvent[];
+  toDoEvents: PlannerEvent[];
+  completeEvents: PlannerEvent[];
+
   @Input() list: string;
 
-  constructor() { }
+  constructor(private eventService: EventService) { }
 
   ngOnInit() {
     this.setListToShow();
+    this.populateLists();
   }
 
   setListToShow(): void {
     this.listTitle = this.makePresentable(this.list);
     this.completedListTitle = listMap[this.list];
+  }
+
+  populateLists(): void {
+    this.eventService.getEventsByType(this.list).subscribe(data => {
+      this.listData = data;
+      this.toDoEvents = this.listData.filter(event => event.eventStatus === TO_DO);
+      this.completeEvents = this.listData.filter(event => event.eventStatus === COMPLETE);
+    });
   }
 
   makePresentable(s): String {

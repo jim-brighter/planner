@@ -1,14 +1,16 @@
 <div class="container-fluid row align-items-start">
   <ul class="col-12 list-group d-inline-block">
-    <h6>{{listTitle}}</h6>
-    <li class="list-group-item">
-      test item 1
-    </li>
-    <li class="list-group-item">
-      test item 2
+    <h5>{{listTitle}}</h5>
+    <li class="list-group-item" *ngFor="let event of toDoEvents">
+      <h6>{{event.title}}</h6>
+      <p>{{event.description}}</p>
     </li>
   </ul>
   <ul class="col-12 list-group d-inline-block">
-    <h6>{{completedListTitle}}</h6>
+    <h5>{{completedListTitle}}</h5>
+    <li class="list-group-item" *ngFor="let event of completeEvents">
+      <h6>{{event.title}}</h6>
+      <p>{{event.description}}</p>
+    </li>
   </ul>
 </div>
