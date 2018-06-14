@@ -25,21 +25,21 @@ export class EventService {
   getEvents(): Observable<PlannerEvent[]> {
     return this.http.get<PlannerEvent[]>(this.rootUrl + this.apiContext)
       .pipe(
-        catchError(this.handleError('getEvents'))
+        catchError(this.handleError('getEvents', new Array<PlannerEvent>()))
       );
   }
 
   getEventsByType(type): Observable<PlannerEvent[]> {
     return this.http.get<PlannerEvent[]>(this.rootUrl + this.apiContext + `/type/${type}`)
       .pipe(
-        catchError(this.handleError('getEventsByType'))
+        catchError(this.handleError('getEventsByType', new Array<PlannerEvent>()))
       );
   }
 
   saveEvent(event: PlannerEvent): Observable<PlannerEvent> {
     return this.http.post<PlannerEvent>(this.rootUrl + this.apiContext, event, httpOptions)
       .pipe(
-        catchError(this.handleError('saveEvent'))
+        catchError(this.handleError('saveEvent', new PlannerEvent()))
       );
   }
 

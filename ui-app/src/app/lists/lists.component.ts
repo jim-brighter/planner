@@ -26,6 +26,8 @@ export class ListsComponent implements OnInit {
   toDoEvents: PlannerEvent[];
   completeEvents: PlannerEvent[];
 
+  newEvent: PlannerEvent = new PlannerEvent();
+
   @Input() list: string;
 
   constructor(private eventService: EventService) { }
@@ -58,8 +60,16 @@ export class ListsComponent implements OnInit {
     return s;
   }
 
+  saveNewEvent(): void {
+    this.newEvent.eventType = this.list;
+    this.eventService.saveEvent(this.newEvent).subscribe(data => {
+      this.toDoEvents.push(data);
+    });
+  }
+
   ngOnChanges() {
     this.setListToShow();
+    this.populateLists();
   }
 
 }
