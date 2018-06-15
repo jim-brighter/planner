@@ -80,7 +80,15 @@ export class ListsComponent implements OnInit {
     let toCompleteArray = [toComplete];
     this.eventService.updateEvents(toCompleteArray).subscribe(() => {
       this.populateLists();
-    })
+    });
+  }
+
+  onRedo(toRedo: PlannerEvent): void {
+    toRedo.eventStatus = TO_DO;
+    let toRedoArray = [toRedo];
+    this.eventService.updateEvents(toRedoArray).subscribe(() => {
+      this.populateLists();
+    });
   }
 
   ngOnChanges() {

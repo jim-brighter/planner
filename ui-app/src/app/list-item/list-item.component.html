@@ -4,7 +4,7 @@
     <p>{{plannerEvent.description}}</p>
   </div>
   <div class="col-2 d-inline-block">
-    <button type="button" class="btn btn-outline-success btn-sm mr-2" [hidden]="!showButtons" (click)="completeItem()">Done</button>
+    <button type="button" class="btn btn-outline-success btn-sm mr-2" [hidden]="!showButtons" (click)="updateItem()">{{updateAction}}</button>
     <button type="button" class="btn btn-outline-danger btn-sm" [hidden]="!showButtons" (click)="deleteItem()">Delete</button>
   </div>
 </div>
