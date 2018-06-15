@@ -1,5 +1,10 @@
-<div (mouseenter)="showDelete = true" (mouseleave)="showDelete = false">
-  <h6 class="col-11 d-inline-block">{{plannerEvent.title}}</h6>
-  <button class="btn btn-outline-danger btn-sm" [hidden]="!showDelete" (click)="deleteItem()">Delete</button>
-  <p>{{plannerEvent.description}}</p>
+<div class="row align-items-start" (mouseenter)="showButtons = true" (mouseleave)="showButtons = false">
+  <div class="col-10 d-inline-block">
+    <h6>{{plannerEvent.title}}</h6>  
+    <p>{{plannerEvent.description}}</p>
+  </div>
+  <div class="col-2 d-inline-block">
+    <button type="button" class="btn btn-outline-success btn-sm mr-2" [hidden]="!showButtons" (click)="completeItem()">Done</button>
+    <button type="button" class="btn btn-outline-danger btn-sm" [hidden]="!showButtons" (click)="deleteItem()">Delete</button>
+  </div>
 </div>

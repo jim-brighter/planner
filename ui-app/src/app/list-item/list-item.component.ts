@@ -11,8 +11,9 @@ export class ListItemComponent implements OnInit {
   @Input() plannerEvent: PlannerEvent;
 
   @Output() itemToDelete = new EventEmitter<PlannerEvent>();
+  @Output() itemToComplete = new EventEmitter<PlannerEvent>();
 
-  showDelete: boolean = false;
+  showButtons: boolean = false;
 
   constructor() { }
 
@@ -21,6 +22,10 @@ export class ListItemComponent implements OnInit {
 
   deleteItem(): void {
     this.itemToDelete.emit(this.plannerEvent);
+  }
+
+  completeItem(): void {
+    this.itemToComplete.emit(this.plannerEvent);
   }
 
 }

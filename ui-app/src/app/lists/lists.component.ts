@@ -75,6 +75,14 @@ export class ListsComponent implements OnInit {
     });
   }
 
+  onComplete(toComplete: PlannerEvent): void {
+    toComplete.eventStatus = COMPLETE;
+    let toCompleteArray = [toComplete];
+    this.eventService.updateEvents(toCompleteArray).subscribe(() => {
+      this.populateLists();
+    })
+  }
+
   ngOnChanges() {
     this.setListToShow();
     this.populateLists();
