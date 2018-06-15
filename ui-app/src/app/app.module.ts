@@ -11,6 +11,7 @@ import { AppRoutingModule } from './/app-routing.module';
 import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { EventService } from './event.service';
+import { ListItemComponent } from './list-item/list-item.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { EventService } from './event.service';
     ListsComponent,
     DetailsComponent,
     HomeComponent,
-    NavbarComponent
+    NavbarComponent,
+    ListItemComponent
   ],
   imports: [
     BrowserModule,

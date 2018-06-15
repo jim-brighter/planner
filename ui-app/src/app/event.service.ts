@@ -43,6 +43,13 @@ export class EventService {
       );
   }
 
+  deleteEvent(events: PlannerEvent[]): Observable<PlannerEvent> {
+    return this.http.post<PlannerEvent>(this.rootUrl + this.apiContext + '/delete', events, httpOptions)
+      .pipe(
+        catchError(this.handleError('deleteEvent', null))
+      );
+  }
+
   private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);

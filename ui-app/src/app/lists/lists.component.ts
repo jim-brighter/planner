@@ -64,6 +64,14 @@ export class ListsComponent implements OnInit {
     this.newEvent.eventType = this.list;
     this.eventService.saveEvent(this.newEvent).subscribe(data => {
       this.toDoEvents.push(data);
+      this.newEvent.clear();
+    });
+  }
+
+  onDelete(toDelete: PlannerEvent): void {
+    let toDeleteArray: PlannerEvent[] = [toDelete];
+    this.eventService.deleteEvent(toDeleteArray).subscribe(() => {
+      this.populateLists();
     });
   }
 

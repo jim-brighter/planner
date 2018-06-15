@@ -1,0 +1,5 @@
+<div (mouseenter)="showDelete = true" (mouseleave)="showDelete = false">
+  <h6 class="col-11 d-inline-block">{{plannerEvent.title}}</h6>
+  <button class="btn btn-outline-danger btn-sm" [hidden]="!showDelete" (click)="deleteItem()">Delete</button>
+  <p>{{plannerEvent.description}}</p>
+</div>

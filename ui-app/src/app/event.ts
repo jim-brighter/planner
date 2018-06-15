@@ -5,4 +5,13 @@ export class PlannerEvent {
     eventType: string;
     eventComments: string[];
     eventStatus: string;
+
+    clear(): void {
+        this.id = null;
+        this.title = null;
+        this.description = null;
+        this.eventType = null;
+        this.eventComments = null;
+        this.eventStatus = null;
+    }
 }

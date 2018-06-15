@@ -1,6 +1,7 @@
 package planner.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -29,6 +30,7 @@ public class EventServiceImpl implements EventService {
 	public Event createEvent(Event event) {
 		logger.info("Creating new event with title '{}'", event.getTitle());
 		event.setEventStatus(EventStatus.TO_DO);
+		event.setCreatedTime(new Date(System.currentTimeMillis()));
 		return eventDAO.save(event);
 	}
 

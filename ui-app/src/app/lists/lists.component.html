@@ -1,27 +1,26 @@
 <div class="container-fluid row align-items-start">
   <ul class="col-12 list-group-flush d-inline-block">
     <h5>{{listTitle}}</h5>
-    <li class="list-group-item" *ngFor="let event of toDoEvents">
-      <h6>{{event.title}}</h6>
-      <p>{{event.description}}</p>
+    <li class="list-group-item row" *ngFor="let plannerEvent of toDoEvents">
+      <app-list-item [plannerEvent]="plannerEvent" (itemToDelete)="onDelete($event)"></app-list-item>
     </li>
     <li class="list-group-item">
       <form>
         <div class="form-group">
           <input [(ngModel)]="newEvent.title" type="text" class="form-control form-control-sm" name="new-event-title" placeholder="New Event Title"/>
         </div>
-        <div class="form-group">
-          <textarea [(ngModel)]="newEvent.description" class="form-control form-control-sm" rows="3" name="new-event-desc" placeholder="New Event Description"></textarea>
+        <div class="form-group" *ngIf="newEvent.title">
+          <textarea [(ngModel)]="newEvent.description" class="form-control form-control-sm" rows="2" name="new-event-desc" placeholder="New Event Description"></textarea>
         </div>
-        <button *ngIf="newEvent.title" (click)="saveNewEvent()" class="btn btn-primary">Save</button>
+        <button *ngIf="newEvent.title" (click)="saveNewEvent()" class="btn btn-outline-primary">Save</button>
       </form>
     </li>
   </ul>
   <ul class="col-12 list-group-flush d-inline-block">
     <h5>{{completedListTitle}}</h5>
-    <li class="list-group-item" *ngFor="let event of completeEvents">
-      <h6>{{event.title}}</h6>
-      <p>{{event.description}}</p>
+    <li class="list-group-item" *ngFor="let plannerEvent of completeEvents">
+      <h6>{{plannerEvent.title}}</h6>
+      <p>{{plannerEvent.description}}</p>
     </li>
   </ul>
 </div>
