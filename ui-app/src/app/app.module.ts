@@ -12,6 +12,7 @@ import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { EventService } from './event.service';
 import { ListItemComponent } from './list-item/list-item.component';
+import { CommentService } from './comment.service';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { ListItemComponent } from './list-item/list-item.component';
     FormsModule
   ],
   providers: [
-    EventService
+    EventService,
+    CommentService
   ],
   bootstrap: [AppComponent]
 })
