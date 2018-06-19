@@ -1,6 +1,7 @@
 package planner.domain.jpa;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -47,6 +48,9 @@ public class Event implements Serializable {
 	@Column(name = "EVENT_STATUS")
 	@Enumerated(EnumType.STRING)
 	private EventStatus eventStatus;
+
+	@Column(name = "EVENT_CREATED_TIME")
+	private Date createdTime;
 
 	public long getId() {
 		return id;
@@ -96,12 +100,18 @@ public class Event implements Serializable {
 		this.eventStatus = eventStatus;
 	}
 
+	public Date getCreatedTime() {
+		return createdTime;
+	}
+
+	public void setCreatedTime(Date createdTime) {
+		this.createdTime = createdTime;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((eventStatus == null) ? 0 : eventStatus.hashCode());
-		result = prime * result + ((eventType == null) ? 0 : eventType.hashCode());
 		result = prime * result + (int) (id ^ (id >>> 32));
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		return result;
@@ -116,10 +126,6 @@ public class Event implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Event other = (Event) obj;
-		if (eventStatus != other.eventStatus)
-			return false;
-		if (eventType != other.eventType)
-			return false;
 		if (id != other.id)
 			return false;
 		if (title == null) {

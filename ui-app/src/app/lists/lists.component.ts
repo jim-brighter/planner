@@ -64,6 +64,30 @@ export class ListsComponent implements OnInit {
     this.newEvent.eventType = this.list;
     this.eventService.saveEvent(this.newEvent).subscribe(data => {
       this.toDoEvents.push(data);
+      this.newEvent.clear();
+    });
+  }
+
+  onDelete(toDelete: PlannerEvent): void {
+    let toDeleteArray: PlannerEvent[] = [toDelete];
+    this.eventService.deleteEvent(toDeleteArray).subscribe(() => {
+      this.populateLists();
+    });
+  }
+
+  onComplete(toComplete: PlannerEvent): void {
+    toComplete.eventStatus = COMPLETE;
+    let toCompleteArray = [toComplete];
+    this.eventService.updateEvents(toCompleteArray).subscribe(() => {
+      this.populateLists();
+    });
+  }
+
+  onRedo(toRedo: PlannerEvent): void {
+    toRedo.eventStatus = TO_DO;
+    let toRedoArray = [toRedo];
+    this.eventService.updateEvents(toRedoArray).subscribe(() => {
+      this.populateLists();
     });
   }
 

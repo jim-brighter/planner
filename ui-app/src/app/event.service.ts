@@ -43,6 +43,20 @@ export class EventService {
       );
   }
 
+  deleteEvent(events: PlannerEvent[]): Observable<PlannerEvent> {
+    return this.http.post<PlannerEvent[]>(this.rootUrl + this.apiContext + '/delete', events, httpOptions)
+      .pipe(
+        catchError(this.handleError('deleteEvent', null))
+      );
+  }
+
+  updateEvents(events: PlannerEvent[]): Observable<PlannerEvent[]> {
+    return this.http.post<PlannerEvent[]>(this.rootUrl + this.apiContext + '/update', events, httpOptions)
+      .pipe(
+        catchError(this.handleError('updateEvents', new Array<PlannerEvent>()))
+      );
+  };
+
   private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);
