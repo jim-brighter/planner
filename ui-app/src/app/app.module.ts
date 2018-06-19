@@ -13,6 +13,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { EventService } from './event.service';
 import { ListItemComponent } from './list-item/list-item.component';
 import { CommentService } from './comment.service';
+import { CommentItemComponent } from './comment-item/comment-item.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { CommentService } from './comment.service';
     DetailsComponent,
     HomeComponent,
     NavbarComponent,
-    ListItemComponent
+    ListItemComponent,
+    CommentItemComponent
   ],
   imports: [
     BrowserModule,
