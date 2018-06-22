@@ -4,13 +4,13 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap, timeout } from 'rxjs/operators';
 
 import { environment } from '../environments/environment';
-import { PlannerEvent } from './event'
+import { PlannerEvent } from './event';
 
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json'
   })
-}
+};
 
 @Injectable({
   providedIn: 'root'
@@ -55,13 +55,13 @@ export class EventService {
       .pipe(
         catchError(this.handleError('updateEvents', new Array<PlannerEvent>()))
       );
-  };
+  }
 
   private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);
       alert(`${operation} failed - check the console for more information`);
       return of(result as T);
-    }
+    };
   }
 }

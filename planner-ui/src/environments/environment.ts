@@ -4,9 +4,9 @@
 
 export const environment = {
   production: false,
-  plannerBackendRootUrl: "http://localhost:8080",
-  plannerBackendEventsContext: "/api/events",
-  plannerBackendCommentsContext: "/api/comments"
+  plannerBackendRootUrl: 'http://localhost:8080',
+  plannerBackendEventsContext: '/api/events',
+  plannerBackendCommentsContext: '/api/comments'
 };
 
 /*

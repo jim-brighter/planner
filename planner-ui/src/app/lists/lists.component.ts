@@ -3,14 +3,14 @@ import { Component, OnInit, Input } from '@angular/core';
 import { EventService } from '../event.service';
 import { PlannerEvent } from '../event';
 
-const listMap: { [id: string] : String } = {
-  "TO_DO": "Done",
-  "TO_EAT": "Eaten",
-  "TO_COOK": "Cooked"
+const listMap: { [id: string]: String } = {
+  'TO_DO': 'Done',
+  'TO_EAT': 'Eaten',
+  'TO_COOK': 'Cooked'
 };
 
-const TO_DO = "TO_DO";
-const COMPLETE = "COMPLETE";
+const TO_DO = 'TO_DO';
+const COMPLETE = 'COMPLETE';
 
 @Component({
   selector: 'app-lists',
@@ -51,9 +51,9 @@ export class ListsComponent implements OnInit {
   }
 
   makePresentable(s): String {
-    s = s.toLowerCase().replace("_", " ");
+    s = s.toLowerCase().replace('_', ' ');
     for (let i = 0; i < s.length; i++) {
-      if (i === 0 || s.charAt(i - 1) === " ") {
+      if (i === 0 || s.charAt(i - 1) === ' ') {
         s = s.substring(0, i) + s.charAt(i).toUpperCase() + s.substring(i + 1);
       }
     }
@@ -69,7 +69,7 @@ export class ListsComponent implements OnInit {
   }
 
   onDelete(toDelete: PlannerEvent): void {
-    let toDeleteArray: PlannerEvent[] = [toDelete];
+    const toDeleteArray: PlannerEvent[] = [toDelete];
     this.eventService.deleteEvent(toDeleteArray).subscribe(() => {
       this.populateLists();
     });
@@ -77,7 +77,7 @@ export class ListsComponent implements OnInit {
 
   onComplete(toComplete: PlannerEvent): void {
     toComplete.eventStatus = COMPLETE;
-    let toCompleteArray = [toComplete];
+    const toCompleteArray = [toComplete];
     this.eventService.updateEvents(toCompleteArray).subscribe(() => {
       this.populateLists();
     });
@@ -85,7 +85,7 @@ export class ListsComponent implements OnInit {
 
   onRedo(toRedo: PlannerEvent): void {
     toRedo.eventStatus = TO_DO;
-    let toRedoArray = [toRedo];
+    const toRedoArray = [toRedo];
     this.eventService.updateEvents(toRedoArray).subscribe(() => {
       this.populateLists();
     });

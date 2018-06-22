@@ -10,7 +10,7 @@ const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json'
   })
-}
+};
 
 @Injectable({
   providedIn: 'root'
@@ -19,9 +19,9 @@ export class CommentService {
 
   private rootUrl = environment.plannerBackendRootUrl;
   private apiContext = environment.plannerBackendCommentsContext;
-  
+
   constructor(private http: HttpClient) { }
-  
+
   getComments(): Observable<Comment[]> {
     return this.http.get<Comment[]>(this.rootUrl + this.apiContext)
       .pipe(
@@ -41,6 +41,6 @@ export class CommentService {
       console.error(error);
       alert(`${operation} failed - check the console for more information`);
       return of(result as T);
-    }
+    };
   }
 }
