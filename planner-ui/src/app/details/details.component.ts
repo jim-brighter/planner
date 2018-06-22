@@ -21,13 +21,13 @@ export class DetailsComponent implements OnInit {
 
       this.navigationSubscription = this.router.events.subscribe((e: any) => {
         if (e instanceof NavigationEnd) {
-          this.getList()
+          this.getList();
         }
       });
     }
 
   ngOnInit() {
-    this.getList()
+    this.getList();
   }
 
   getList(): void {
@@ -36,7 +36,7 @@ export class DetailsComponent implements OnInit {
   }
 
   private enumify(listname): String {
-    return listname.replace("-","_").toUpperCase();
+    return listname.replace('-', '_').toUpperCase();
   }
 
   ngOnDestroy() {

@@ -13,13 +13,13 @@ export class ListItemComponent implements OnInit {
   @Output() itemToDelete = new EventEmitter<PlannerEvent>();
   @Output() itemToUpdate = new EventEmitter<PlannerEvent>();
 
-  showButtons: boolean = false;
-  updateAction: string = "";
+  showButtons = false;
+  updateAction = '';
 
   constructor() { }
 
   ngOnInit() {
-    this.updateAction = this.plannerEvent.eventStatus === "TO_DO" ? "Done" : "Redo"
+    this.updateAction = this.plannerEvent.eventStatus === 'TO_DO' ? 'Done' : 'Redo';
   }
 
   deleteItem(): void {
