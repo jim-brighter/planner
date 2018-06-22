@@ -1,4 +1,4 @@
-const REPO_URL = "https://github.com/jim-brighter/planner.git"
+def REPO_URL = "https://github.com/jim-brighter/planner.git"
 
 node {
     stage("INIT") {
