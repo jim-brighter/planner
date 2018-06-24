@@ -1,8 +1,11 @@
-<div class="container h-100 d-flex justify-content-center">
+<div id="background-wrapper" class="h-100 w-100 position-absolute">
+  <div id="background" class="h-100 w-100 position-absolute"></div>
+</div>
+<div id="main" class="container h-100 w-100 d-flex justify-content-center">
   <div class="row h-100 d-flex justify-content-center align-items-center">
     <div class="col-12">
-      <h1>Jim and Fangzhuo</h1>
-      <app-navbar></app-navbar>
+      <h1 class="text-light">Jim and Fangzhuo</h1>
+      <app-navbar [linkColor]="'light'" ></app-navbar>
     </div>
   </div>
 </div>
