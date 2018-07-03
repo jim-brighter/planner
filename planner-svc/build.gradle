@@ -1,11 +1,28 @@
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath "io.spring.gradle:dependency-management-plugin:+"
+	}
+}
+
 plugins {
 	id 'java'
 	id 'org.springframework.boot' version '1.5.10.RELEASE'
 }
 
+apply plugin: "io.spring.dependency-management"
+
 repositories {
 	mavenCentral()
     jcenter()
+}
+
+dependencyManagement {
+	imports {
+		mavenBom 'com.amazonaws:aws-java-sdk-bom:+'
+	}
 }
 
 sourceCompatibility = 1.8
@@ -34,7 +51,8 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-actuator:+")
     compile("org.springframework:spring-tx:+")
 	compile("javax.inject:javax.inject:1")
-    
+	
+	compile("com.amazonaws:aws-java-sdk-s3:+")
     
     compile("org.postgresql:postgresql:9.4.1207.jre7")
     
