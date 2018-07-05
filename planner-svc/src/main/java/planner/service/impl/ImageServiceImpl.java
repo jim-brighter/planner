@@ -61,17 +61,20 @@ public class ImageServiceImpl implements ImageService {
 
 	@Override
 	public List<Image> getAllImages() {
+		//TODO: get all images FROM DIGITALOCEAN
 		return imageDAO.findAll();
 	}
 
 	@Override
 	public List<Image> getAllImagesForEvent(Event event) {
+		//TODO: get all images FROM DIGITALOCEAN
 		return imageDAO.findByParentEvent(event);
 	}
 
 	@Override
 	@Transactional
 	public void deleteImages(List<Image> images) {
+		//TODO: delete all images FROM DIGITALOCEAN
 		imageDAO.delete(images);
 	}
 
