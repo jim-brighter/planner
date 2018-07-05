@@ -44,8 +44,6 @@ public class DigitalOceanServiceImpl implements DigitalOceanService {
 	private ObjectMetadata buildMetadata(Map<String, Object> metaData) {
 		ObjectMetadata objectMetadata = new ObjectMetadata();
 		if (!CollectionUtils.isEmpty(metaData)) {
-			objectMetadata.setContentType(metaData.get(Headers.CONTENT_TYPE).toString());
-			objectMetadata.setContentEncoding(metaData.get(Headers.CONTENT_ENCODING).toString());
 			objectMetadata.setContentLength((long) metaData.get(Headers.CONTENT_LENGTH));
 		}
 		return objectMetadata;
