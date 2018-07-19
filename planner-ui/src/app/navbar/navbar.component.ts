@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { EventService } from '../event.service';
 
@@ -10,6 +10,8 @@ import { EventService } from '../event.service';
 export class NavbarComponent implements OnInit {
 
   results;
+
+  @Input() linkColor: string;
 
   constructor(private eventService: EventService) { }
 
