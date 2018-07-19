@@ -32,13 +32,13 @@ node {
                 git config user.name ${GIT_NAME}
                 git config user.email ${GIT_EMAIL}
                 git tag -a ${tag} -m "New Tag ${tag}"
-                git push origin ${tag}
+                git push ${origin} ${tag}
 
                 if [ "${GIT_BRANCH}" = "ci" ]; then
                     git checkout -- .
                     git checkout master
                     git merge ${GIT_BRANCH}
-                    git push origin master
+                    git push ${origin} master
                 else
                     exit 0
                 fi
