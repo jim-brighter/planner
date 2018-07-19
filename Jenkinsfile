@@ -23,6 +23,7 @@ node {
             string(credentialsId: 'git-name', variable: 'GIT_NAME'),
             string(credentialsId: 'git-email', variable: 'GIT_EMAIL')
         ]) {
+            GIT_PASSWORD = GIT_PASSWORD.replace('@','%40')
             def tag = "planner-${BUILD_TIMESTAMP}-${GIT_BRANCH}"
             tag = tag.replace(" ", "_",).replace(":","-")
             def origin = "https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/jim-brighter/planner.git"
