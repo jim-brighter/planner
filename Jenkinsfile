@@ -35,6 +35,7 @@ node {
     stage("BUILD UI") {
         sh """
             cd planner-ui
+            npm install
             npm run buildProd
             mkdir staging
             cp -R dist/ staging/
