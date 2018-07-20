@@ -28,7 +28,7 @@ node {
             def origin = "https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/jim-brighter/planner.git"
             sh """
                 git remote set-url origin https://github.com/jim-brighter/planner.git
-                git config user.name ${GIT_NAME}
+                git config user.name "${GIT_NAME}"
                 git config user.email ${GIT_EMAIL}
                 git tag -a ${tag} -m "New Tag ${tag}"
                 git push ${origin} ${tag}
