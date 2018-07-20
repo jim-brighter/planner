@@ -11,10 +11,22 @@ node {
         currentBuild.setDisplayName("${GIT_BRANCH}-${BUILD_NUMBER}")
     }
 
-    stage("BUILD") {
+    stage("BUILD JAVA") {
         sh """
             ./gradlew clean build
+            docker build -t jimbrighter/planner-svc:latest -f planner-svc/Dockerfile planner-svc
         """
+    }
+
+    stage("PUSH DOCKER") {
+        withCredentials([
+            usernamePassword(credentialsId: "docker-login", passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')
+        ]) {
+            sh """
+                docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
+                docker push jimbrighter/planner-svc:latest
+            """
+        }
     }
 
     stage("MERGE") {
