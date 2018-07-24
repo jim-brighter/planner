@@ -75,7 +75,7 @@ public class ImageServiceImpl implements ImageService {
 	@Transactional
 	public void deleteImages(List<Image> images) {
 		//TODO: delete all images FROM DIGITALOCEAN
-		imageDAO.delete(images);
+		imageDAO.deleteInBatch(images);
 	}
 
 }

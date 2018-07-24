@@ -41,14 +41,14 @@ public class CommentServiceImpl implements CommentService {
 	@Transactional
 	public void deleteComments(List<Comment> comments) {
 		logger.info("Deleting comments {}", getIdsAndText(comments));
-		commentDAO.delete(comments);
+		commentDAO.deleteInBatch(comments);
 	}
 
 	@Override
 	@Transactional
 	public List<Comment> updateComments(List<Comment> comments) {
 		logger.info("Updating comments {}", getIdsAndText(comments));
-		return commentDAO.save(comments);
+		return commentDAO.saveAll(comments);
 	}
 	
 	private List<String> getIdsAndText(List<Comment> comments) {

@@ -9,3 +9,7 @@ psql -v ON_ERROR_STOP=1 -U postgres <<-EOSQL
     DROP DATABASE IF EXISTS eventsdb;
     CREATE DATABASE EVENTSDB OWNER postgres;
 EOSQL
+
+psql -v ON_ERROR_STOP=1 -U postgres -d eventsdb <<-EOSQL
+    CREATE SCHEMA IF NOT EXISTS events;
+EOSQL

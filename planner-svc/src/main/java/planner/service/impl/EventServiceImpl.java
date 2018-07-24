@@ -56,14 +56,14 @@ public class EventServiceImpl implements EventService {
 	@Transactional
 	public void deleteEvents(List<Event> events) {
 		logger.info("Deleting events {}", getIdsAndTitles(events));
-		eventDAO.delete(events);
+		eventDAO.deleteInBatch(events);
 	}
 
 	@Override
 	@Transactional
 	public List<Event> updateEvents(List<Event> events) {
 		logger.info("Updating events {}", getIdsAndTitles(events));
-		return eventDAO.save(events);
+		return eventDAO.saveAll(events);
 	}
 
 	private List<String> getIdsAndTitles(List<Event> events) {

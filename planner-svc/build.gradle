@@ -1,15 +1,20 @@
 buildscript {
+	ext {
+		awsVersion = '1.11.372'
+		springbootVersion = '2.0.3.RELEASE'
+		swaggerVersion = '2.4.0'
+	}
 	repositories {
 		mavenCentral()
 	}
 	dependencies {
-		classpath "io.spring.gradle:dependency-management-plugin:+"
+		classpath "io.spring.gradle:dependency-management-plugin:1.0.6.RELEASE"
 	}
-}
+} 
 
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '1.5.10.RELEASE'
+	id 'org.springframework.boot' version '2.0.3.RELEASE'
 }
 
 apply plugin: "io.spring.dependency-management"
@@ -21,7 +26,7 @@ repositories {
 
 dependencyManagement {
 	imports {
-		mavenBom 'com.amazonaws:aws-java-sdk-bom:+'
+		mavenBom "com.amazonaws:aws-java-sdk-bom:${awsVersion}"
 	}
 }
 
@@ -44,19 +49,19 @@ task wrapper(type: Wrapper) {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.+'
     
-    compile("org.springframework.boot:spring-boot-starter:+")
-    compile("org.springframework.boot:spring-boot-starter-web:+")
-    compile("org.springframework.boot:spring-boot-starter-data-jpa:+")
-    compile("org.springframework.boot:spring-boot-starter-security:+")
-    compile("org.springframework.boot:spring-boot-starter-actuator:+")
-    compile("org.springframework:spring-tx:+")
+    compile("org.springframework.boot:spring-boot-starter:${springbootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-web:${springbootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-data-jpa:${springbootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-security:${springbootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-actuator:${springbootVersion}")
+    compile("org.springframework:spring-tx:5.0.7.RELEASE")
 	compile("javax.inject:javax.inject:1")
 	
-	compile("com.amazonaws:aws-java-sdk-s3:+")
+	compile("com.amazonaws:aws-java-sdk-s3:${awsVersion}")
     
-    compile("org.postgresql:postgresql:9.4.1207.jre7")
+    compile("org.postgresql:postgresql:42.2.4.jre7")
     
-    compile("io.springfox:springfox-swagger2:2.4.0")
-    compile("io.springfox:springfox-swagger-ui:2.4.0")
+    compile("io.springfox:springfox-swagger2:${swaggerVersion}")
+    compile("io.springfox:springfox-swagger-ui:${swaggerVersion}")
 }
 
