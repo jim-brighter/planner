@@ -1,6 +1,9 @@
 def REPO_URL = "https://github.com/jim-brighter/planner.git"
 
 node {
+
+    deleteDir()
+
     stage("INIT") {
         GIT_BRANCH = GIT_BRANCH.replace("origin/", "")
         git(
