@@ -17,8 +17,8 @@ node {
     stage("PULL BASE IMAGES") {
         sh """
             docker pull openjdk:8-jre-alpine
-            docker pull postgres:alpine
-            docker pull nginx:alpine
+            docker pull postgres:10-alpine
+            docker pull nginx:1.15-alpine
         """
     }
 
