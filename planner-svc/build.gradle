@@ -3,12 +3,18 @@ buildscript {
 		awsVersion = '1.11.372'
 		springbootVersion = '2.0.3.RELEASE'
 		swaggerVersion = '2.4.0'
+		springTxVersion = '5.0.7.RELEASE'
+		javaxInjectVersion = '1'
+		postgresVersion = '42.2.4.jre7'
+		dependencyManagementVersion = '1.0.6.RELEASE'
+		gradleWrapperVersion = '4.5.1'
+		junitVersion = '4.+'
 	}
 	repositories {
 		mavenCentral()
 	}
 	dependencies {
-		classpath "io.spring.gradle:dependency-management-plugin:1.0.6.RELEASE"
+		classpath "io.spring.gradle:dependency-management-plugin:${dependencyManagementVersion}"
 	}
 } 
 
@@ -43,23 +49,23 @@ jar {
 }
 
 task wrapper(type: Wrapper) {
-	gradleVersion = '4.5.1'
+	gradleVersion = "${gradleWrapperVersion}"
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.+'
+    testCompile group: 'junit', name: 'junit', version: "${junitVersion}"
     
     compile("org.springframework.boot:spring-boot-starter:${springbootVersion}")
     compile("org.springframework.boot:spring-boot-starter-web:${springbootVersion}")
     compile("org.springframework.boot:spring-boot-starter-data-jpa:${springbootVersion}")
     compile("org.springframework.boot:spring-boot-starter-security:${springbootVersion}")
     compile("org.springframework.boot:spring-boot-starter-actuator:${springbootVersion}")
-    compile("org.springframework:spring-tx:5.0.7.RELEASE")
-	compile("javax.inject:javax.inject:1")
+    compile("org.springframework:spring-tx:${springTxVersion}")
+	compile("javax.inject:javax.inject:${javaxInjectVersion}")
 	
 	compile("com.amazonaws:aws-java-sdk-s3:${awsVersion}")
     
-    compile("org.postgresql:postgresql:42.2.4.jre7")
+    compile("org.postgresql:postgresql:${postgresVersion}")
     
     compile("io.springfox:springfox-swagger2:${swaggerVersion}")
     compile("io.springfox:springfox-swagger-ui:${swaggerVersion}")
