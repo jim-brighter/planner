@@ -45,6 +45,7 @@ public class DigitalOceanServiceImpl implements DigitalOceanService {
 		ObjectMetadata objectMetadata = new ObjectMetadata();
 		if (!CollectionUtils.isEmpty(metaData)) {
 			objectMetadata.setContentLength((long) metaData.get(Headers.CONTENT_LENGTH));
+			objectMetadata.setHeader("x-amz-acl", "public-read");
 		}
 		return objectMetadata;
 	}

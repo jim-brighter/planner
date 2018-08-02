@@ -23,6 +23,7 @@ public class ImageController {
 	
 	@ApiOperation("Save new images")
 	@RequestMapping(value = "", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+	//TODO: return a list of created IMAGES
 	public List<Long> uploadImages(@RequestPart("images") MultipartFile[] files) throws IOException {
 		return imageService.saveImages(files);
 	}

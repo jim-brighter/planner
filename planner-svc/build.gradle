@@ -69,5 +69,7 @@ dependencies {
     
     compile("io.springfox:springfox-swagger2:${swaggerVersion}")
     compile("io.springfox:springfox-swagger-ui:${swaggerVersion}")
+    
+    testCompile("org.springframework.boot:spring-boot-starter-test:${springbootVersion}")
 }
 

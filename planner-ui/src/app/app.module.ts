@@ -14,6 +14,9 @@ import { EventService } from './event.service';
 import { ListItemComponent } from './list-item/list-item.component';
 import { CommentService } from './comment.service';
 import { CommentItemComponent } from './comment-item/comment-item.component';
+import { UploadComponent } from './upload/upload.component';
+import { FileUploadModule } from 'ng2-file-upload';
+import { ImageService } from './image.service';
 
 @NgModule({
   declarations: [
@@ -24,17 +27,20 @@ import { CommentItemComponent } from './comment-item/comment-item.component';
     HomeComponent,
     NavbarComponent,
     ListItemComponent,
-    CommentItemComponent
+    CommentItemComponent,
+    UploadComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    FileUploadModule
   ],
   providers: [
     EventService,
-    CommentService
+    CommentService,
+    ImageService
   ],
   bootstrap: [AppComponent]
 })
