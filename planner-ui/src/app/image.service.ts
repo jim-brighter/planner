@@ -6,11 +6,7 @@ import { catchError, map, tap, timeout } from 'rxjs/operators';
 import { environment } from '../environments/environment';
 import { PlannerImage } from './image';
 
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type': 'application/json'
-  })
-};
+const httpOptions = {};
 
 @Injectable({
   providedIn: 'root'

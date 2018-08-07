@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
 import { ImageService } from '../image.service';
+import { PlannerEvent } from '../event';
 
 @Component({
   selector: 'app-upload',
@@ -25,6 +26,9 @@ export class UploadComponent implements OnInit {
       for (let i = 0; i < queueLength; i++) {
         formData.append('images', this.uploader.queue[i].file.rawFile);
       }
+      formData.append('event', new Blob([JSON.stringify(new PlannerEvent())], {
+        type: 'application/json'
+      }));
 
       this.imageService.uploadImages(formData).subscribe(data => {
         console.log("upload success");
