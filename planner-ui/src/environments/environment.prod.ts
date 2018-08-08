@@ -2,5 +2,6 @@ export const environment = {
   production: true,
   plannerBackendRootUrl: 'http://jimandfangzhuo.com:8080',
   plannerBackendEventsContext: '/api/events',
-  plannerBackendCommentsContext: '/api/comments'
+  plannerBackendCommentsContext: '/api/comments',
+  plannerBackendImageContext: '/api/images'
 };

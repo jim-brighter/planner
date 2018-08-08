@@ -1,0 +1,51 @@
+version: '2'
+networks:
+  planner:
+volumes:
+  planner-db-volume:
+services:
+  planner-svc:
+    container_name: planner-svc
+    image: jimbrighter/planner-svc:latest
+    ports:
+      - "8080:8080"
+    mem_limit: 512m
+    depends_on:
+      - planner-db
+    networks:
+      planner:
+        aliases:
+          - app
+    environment:
+      - PLANNER_DB_URL=jdbc:postgresql://db/eventsdb
+      - PLANNER_DB_USER=postgres
+      - PLANNER_DB_PASS=admin
+      - AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY
+
+  planner-ui:
+    container_name: planner-ui
+    image: jimbrighter/planner-ui:latest
+    ports:
+      - "9001:80"
+    mem_limit: 50m
+    networks:
+      planner:
+        aliases:
+          - ui
+
+  planner-db:
+    container_name: planner-db
+    image: jimbrighter/planner-db:latest
+    ports:
+      - "5432:5432"
+    mem_limit: 50m
+    networks:
+      planner:
+        aliases:
+          - db
+    volumes:
+      - planner-db-volume:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin

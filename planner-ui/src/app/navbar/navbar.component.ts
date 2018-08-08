@@ -1,7 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { EventService } from '../event.service';
-
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -13,7 +11,7 @@ export class NavbarComponent implements OnInit {
 
   @Input() linkColor: string;
 
-  constructor(private eventService: EventService) { }
+  constructor() { }
 
   ngOnInit() {
   }
