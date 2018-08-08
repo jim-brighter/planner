@@ -3,6 +3,6 @@
     <h2 class="text-center">Upload Photos</h2>
     <input class="fileInput" type="file" ng2FileSelect [uploader]="uploader" multiple id="fileInput" name="fileInput" data-multiple-caption="{count} files"/>
     <label class="btn btn-outline-primary d-block" for="fileInput">{{uploader.queue.length == 0 ? 'Select Files' : uploader.queue.length + ' files selected'}}</label>
-    <button class="btn btn-outline-primary" (click)="upload()" type="submit">Upload</button>
+    <button [disabled]="uploader.queue.length < 1" class="btn btn-outline-success" (click)="upload()" type="submit">Upload</button>
   </div>
 </form>
