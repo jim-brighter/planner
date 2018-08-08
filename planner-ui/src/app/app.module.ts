@@ -17,6 +17,7 @@ import { CommentItemComponent } from './comment-item/comment-item.component';
 import { UploadComponent } from './upload/upload.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { ImageService } from './image.service';
+import { PhotosComponent } from './photos/photos.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ImageService } from './image.service';
     NavbarComponent,
     ListItemComponent,
     CommentItemComponent,
-    UploadComponent
+    UploadComponent,
+    PhotosComponent
   ],
   imports: [
     BrowserModule,
