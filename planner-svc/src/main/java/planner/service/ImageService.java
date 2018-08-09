@@ -9,9 +9,9 @@ import planner.domain.jpa.Image;
 
 public interface ImageService {
 
-	public List<Long> saveImages(MultipartFile[] files);
+	public List<Image> saveImages(MultipartFile[] files);
 	
-	public List<Long> saveImages(MultipartFile[] files, Event event);
+	public List<Image> saveImages(MultipartFile[] files, Event event);
 	
 	public List<Image> getAllImages();
 	

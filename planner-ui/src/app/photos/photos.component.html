@@ -4,7 +4,9 @@
   </div>      
 </div>
 <div class="container-fluid d-flex">
-  <div class="row d-flex">
-    <h1>Photos page is not finished yet! Images will not be displayed!</h1>
-  </div>
+  <ul class="list-inline d-inline-block">
+    <li class="list-inline-item custom-image" *ngFor="let image of images">
+      <img src="{{'https://image-space-jbrighter92.nyc3.digitaloceanspaces.com/' + image.digitalOceanSpaceKey}}"/>
+    </li>
+  </ul>
 </div>
