@@ -31,8 +31,10 @@ export class UploadComponent implements OnInit {
       }));
 
       this.imageService.uploadImages(formData).subscribe(data => {
-        alert("Upload Success!");
-      })
+        if (data !== null) {
+          alert("Upload Success!");
+        }
+      });
     } else {
       console.log("no images selected");
     }

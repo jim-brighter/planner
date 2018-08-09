@@ -5,8 +5,9 @@ import { catchError, map, tap, timeout } from 'rxjs/operators';
 
 import { environment } from '../environments/environment';
 import { PlannerImage } from './image';
+import { pipe } from '@angular/core/src/render3/pipe';
 
-const httpOptions = {};
+const uploadHttpOptions = {};
 
 @Injectable({
   providedIn: 'root'
@@ -19,9 +20,16 @@ export class ImageService {
   constructor(private http: HttpClient) { }
 
   uploadImages(images: FormData): Observable<PlannerImage[]> {
-    return this.http.post<FormData>(this.rootUrl + this.apiContext, images, httpOptions)
+    return this.http.post<FormData>(this.rootUrl + this.apiContext, images, uploadHttpOptions)
       .pipe(
         catchError(this.handleError('uploadImages', null))
+      );
+  }
+
+  getAllImages(): Observable<PlannerImage[]> {
+    return this.http.get<PlannerImage[]>(this.rootUrl + this.apiContext)
+      .pipe(
+        catchError(this.handleError('getAllImages', null))
       );
   }
 

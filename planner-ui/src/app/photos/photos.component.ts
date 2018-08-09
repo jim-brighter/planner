@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { PlannerImage } from '../image';
+import { ImageService } from '../image.service';
 
 @Component({
   selector: 'app-photos',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PhotosComponent implements OnInit {
 
-  constructor() { }
+  constructor(private imageService: ImageService) { }
+
+  images: PlannerImage[];
 
   ngOnInit() {
+    this.getImages();
+  }
+
+  getImages(): void {
+    this.imageService.getAllImages().subscribe(data => {
+      console.log(data);
+      this.images = data;
+    });
   }
 
 }

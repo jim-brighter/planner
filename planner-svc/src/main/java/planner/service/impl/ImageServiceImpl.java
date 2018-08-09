@@ -30,38 +30,37 @@ public class ImageServiceImpl implements ImageService {
 	private ImageDAO imageDAO;
 	
 	@Override
-	public List<Long> saveImages(MultipartFile[] files) {
+	public List<Image> saveImages(MultipartFile[] files) {
 		return saveImages(files, null);
 	}
 
 	@Override
 	@Transactional
-	public List<Long> saveImages(MultipartFile[] files, Event event) {
+	public List<Image> saveImages(MultipartFile[] files, Event event) {
 		Map<String, Object> metaData = new HashMap<String, Object>();
-		List<Long> ids = new ArrayList<Long>();
+		List<Image> images = new ArrayList<Image>();
 		for (MultipartFile file : files) {
 			try {
 				metaData.put(Headers.CONTENT_LENGTH, file.getSize());
 				String key = doService.store(file.getInputStream(), metaData);
-				long id = persistImageRecord(key, event);
-				ids.add(id);
+				Image i = persistImageRecord(key, event);
+				images.add(i);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-		return ids;
+		return images;
 	}
 	
-	private long persistImageRecord(String key, Event event) {
+	private Image persistImageRecord(String key, Event event) {
 		Image image = new Image();
 		image.setDigitalOceanSpaceKey(key);
 		image.setParentEvent(event);
-		return imageDAO.save(image).getId();
+		return imageDAO.save(image);
 	}
 
 	@Override
 	public List<Image> getAllImages() {
-		//TODO: get all images FROM DIGITALOCEAN
 		return imageDAO.findAll();
 	}
 

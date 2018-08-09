@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import io.swagger.annotations.ApiOperation;
 import planner.domain.jpa.Event;
+import planner.domain.jpa.Image;
 import planner.service.ImageService;
 
 @RestController
@@ -25,8 +26,14 @@ public class ImageController {
 	@ApiOperation("Save new images")
 	@RequestMapping(value = "", method = RequestMethod.POST, consumes = "multipart/form-data", produces = "application/json")
 	//TODO: return a list of created IMAGES
-	public List<Long> uploadImages(@RequestPart("images") MultipartFile[] files, @RequestPart("event") Event event) throws IOException {
+	public List<Image> uploadImages(@RequestPart("images") MultipartFile[] files, @RequestPart("event") Event event) throws IOException {
 		return imageService.saveImages(files);
+	}
+	
+	@ApiOperation("Retrieve all images")
+	@RequestMapping(value = "", method = RequestMethod.GET, produces = "application/json")
+	public List<Image> getAllImages() {
+		return imageService.getAllImages();
 	}
 
 }
