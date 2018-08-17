@@ -21,7 +21,7 @@ public class Image implements Serializable {
 	private static final long serialVersionUID = -8183662133829448118L;
 	
 	@Id
-	@SequenceGenerator(name = "image_gen", sequenceName = "IMAGE_SEQ")
+	@SequenceGenerator(name = "image_gen", sequenceName = "IMAGE_SEQ", allocationSize = 50)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "image_gen")
 	@Column(name = "IMAGE_ID")
 	private long id;

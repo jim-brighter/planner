@@ -58,9 +58,9 @@ psql -v ON_ERROR_STOP=1 -U postgres -d eventsdb <<-EOSQL
         OIDS=FALSE
     ) ;
 
-    CREATE SEQUENCE events.event_seq START 1;
-    CREATE SEQUENCE events.image_seq START 1;
-    CREATE SEQUENCE events.comment_seq START 1;
-    CREATE SEQUENCE events.event_comment_seq START 1;
+    CREATE SEQUENCE events.event_seq START 1 INCREMENT 50;
+    CREATE SEQUENCE events.image_seq START 1 INCREMENT 50;
+    CREATE SEQUENCE events.comment_seq START 1 INCREMENT 50;
+    CREATE SEQUENCE events.event_comment_seq START 1 INCREMENT 50;
 
 EOSQL
