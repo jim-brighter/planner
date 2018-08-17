@@ -20,7 +20,7 @@ public class Comment implements Serializable {
 	
 	@Id
 	@SequenceGenerator(name = "comment_gen", sequenceName = "COMMENT_SEQ")
-	@GeneratedValue(strategy = GenerationType.TABLE, generator = "comment_gen")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "comment_gen")
 	@Column(name = "COMMENT_ID")
 	private long id;
 	

@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -29,7 +28,7 @@ public class Event implements Serializable {
 
 	@Id
 	@SequenceGenerator(name = "event_gen", sequenceName = "EVENT_SEQ")
-	@GeneratedValue(strategy = GenerationType.TABLE, generator = "event_gen")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "event_gen")
 	@Column(name = "EVENT_ID")
 	private long id;
 
@@ -44,8 +43,8 @@ public class Event implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private EventType eventType;
 
-	@ElementCollection
-	private List<String> eventComments;
+	@OneToMany(mappedBy = "parentEvent")
+	private List<EventComment> eventComments;
 
 	@Column(name = "EVENT_STATUS")
 	@Enumerated(EnumType.STRING)
@@ -53,7 +52,7 @@ public class Event implements Serializable {
 
 	@Column(name = "EVENT_CREATED_TIME")
 	private Date createdTime;
-	
+
 	@OneToMany(mappedBy = "parentEvent")
 	private Set<Image> images;
 
@@ -89,12 +88,20 @@ public class Event implements Serializable {
 		this.eventType = eventType;
 	}
 
-	public List<String> getEventComments() {
+	public List<EventComment> getEventComments() {
 		return eventComments;
 	}
 
-	public void setEventComments(List<String> eventComments) {
+	public void setEventComments(List<EventComment> eventComments) {
 		this.eventComments = eventComments;
+	}
+
+	public Set<Image> getImages() {
+		return images;
+	}
+
+	public void setImages(Set<Image> images) {
+		this.images = images;
 	}
 
 	public EventStatus getEventStatus() {

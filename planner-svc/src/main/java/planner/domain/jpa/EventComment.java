@@ -15,24 +15,24 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "IMAGES")
-public class Image implements Serializable {
+@Table(name = "EVENT_COMMENTS")
+public class EventComment implements Serializable {
 
-	private static final long serialVersionUID = -8183662133829448118L;
-	
+	private static final long serialVersionUID = -5379517551740151319L;
+
 	@Id
-	@SequenceGenerator(name = "image_gen", sequenceName = "IMAGE_SEQ")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "image_gen")
-	@Column(name = "IMAGE_ID")
+	@SequenceGenerator(name = "event_comment_gen", sequenceName = "EVENT_COMMENT_SEQ")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "event_comment_gen")
+	@Column(name = "EVENT_COMMENT_ID")
 	private long id;
-	
-	@Column(name = "DIGITAL_OCEAN_KEY")
-	@NotNull
-	private String digitalOceanSpaceKey;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "fk_event")
+	@NotNull
 	private Event parentEvent;
+
+	@Column(name = "COMMENT")
+	private String comment;
 
 	public long getId() {
 		return id;
@@ -42,14 +42,6 @@ public class Image implements Serializable {
 		this.id = id;
 	}
 
-	public String getDigitalOceanSpaceKey() {
-		return digitalOceanSpaceKey;
-	}
-
-	public void setDigitalOceanSpaceKey(String digitalOceanSpaceKey) {
-		this.digitalOceanSpaceKey = digitalOceanSpaceKey;
-	}
-
 	public Event getParentEvent() {
 		return parentEvent;
 	}
@@ -57,5 +49,13 @@ public class Image implements Serializable {
 	public void setParentEvent(Event parentEvent) {
 		this.parentEvent = parentEvent;
 	}
-	
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+
 }
