@@ -21,7 +21,7 @@ public class EventComment implements Serializable {
 	private static final long serialVersionUID = -5379517551740151319L;
 
 	@Id
-	@SequenceGenerator(name = "event_comment_gen", sequenceName = "EVENT_COMMENT_SEQ")
+	@SequenceGenerator(name = "event_comment_gen", sequenceName = "EVENT_COMMENT_SEQ", allocationSize = 50)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "event_comment_gen")
 	@Column(name = "EVENT_COMMENT_ID")
 	private long id;
