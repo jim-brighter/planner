@@ -29,7 +29,7 @@ public class Event implements Serializable {
 
 	@Id
 	@SequenceGenerator(name = "event_gen", sequenceName = "EVENT_SEQ")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "event_gen")
+	@GeneratedValue(strategy = GenerationType.TABLE, generator = "event_gen")
 	@Column(name = "EVENT_ID")
 	private long id;
 
