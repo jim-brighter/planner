@@ -1,9 +1,19 @@
 <div class="row align-items-start" (mouseenter)="showButtons = true" (mouseleave)="showButtons = false">
-  <div class="col-10 d-inline-block">
-    <h6>{{plannerEvent.title}}</h6>  
-    <p>{{plannerEvent.description}}</p>
+  <div class="col-9 d-inline-block">
+    <h6 *ngIf="!this.editing">{{plannerEvent.title}}</h6>  
+    <p *ngIf="!this.editing">{{plannerEvent.description}}</p>
+    <form *ngIf="this.editing">
+      <div class="form-group">
+        <input [(ngModel)]="plannerEvent.title" type="text" autocomplete="off" class="form-control form-control-sm" name="edit-event-title" placeholder="Edit Event Title"/>
+      </div>
+      <div class="form-group" *ngIf="plannerEvent.title">
+        <textarea [(ngModel)]="plannerEvent.description" autocomplete="off" class="form-control form-control-sm" rows="2" name="edit-event-desc" placeholder="Edit Event Description"></textarea>
+      </div>
+      <button *ngIf="plannerEvent.title" (click)="saveEvent()" class="btn btn-outline-primary">Save</button>
+    </form>
   </div>
-  <div class="col-2 d-inline-block">
+  <div class="col-3 d-inline-block">
+    <button type="button" class="btn btn-outline-info btn-sm mr-2" [hidden]="!showButtons" (click)="editItem()">Edit</button>
     <button type="button" class="btn btn-outline-success btn-sm mr-2" [hidden]="!showButtons" (click)="updateItem()">{{updateAction}}</button>
     <button type="button" class="btn btn-outline-danger btn-sm" [hidden]="!showButtons" (click)="deleteItem()">Delete</button>
   </div>

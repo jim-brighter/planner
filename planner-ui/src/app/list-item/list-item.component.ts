@@ -12,9 +12,12 @@ export class ListItemComponent implements OnInit {
 
   @Output() itemToDelete = new EventEmitter<PlannerEvent>();
   @Output() itemToUpdate = new EventEmitter<PlannerEvent>();
+  @Output() itemToEdit = new EventEmitter<PlannerEvent>();
 
   showButtons = false;
   updateAction = '';
+
+  editing = false;
 
   constructor() { }
 
@@ -28,6 +31,15 @@ export class ListItemComponent implements OnInit {
 
   updateItem(): void {
     this.itemToUpdate.emit(this.plannerEvent);
+  }
+
+  editItem(): void {
+    this.editing = true;
+  }
+
+  saveEvent(): void {
+    this.editing = false;
+    this.itemToEdit.emit(this.plannerEvent);
   }
 
 }

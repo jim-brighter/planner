@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 
 import { EventService } from '../event.service';
 import { PlannerEvent } from '../event';
@@ -17,7 +17,7 @@ const COMPLETE = 'COMPLETE';
   templateUrl: './lists.component.html',
   styleUrls: ['./lists.component.css']
 })
-export class ListsComponent implements OnInit {
+export class ListsComponent implements OnInit, OnChanges {
 
   listTitle: String;
   completedListTitle: String;
@@ -27,6 +27,7 @@ export class ListsComponent implements OnInit {
   completeEvents: PlannerEvent[];
 
   newEvent: PlannerEvent = new PlannerEvent();
+  editing = false;
 
   @Input() list: string;
 
@@ -87,6 +88,12 @@ export class ListsComponent implements OnInit {
     toRedo.eventStatus = TO_DO;
     const toRedoArray = [toRedo];
     this.eventService.updateEvents(toRedoArray).subscribe(() => {
+      this.populateLists();
+    });
+  }
+
+  onEdit(toEdit: PlannerEvent): void {
+    this.eventService.updateEvents([toEdit]).subscribe(() => {
       this.populateLists();
     });
   }
