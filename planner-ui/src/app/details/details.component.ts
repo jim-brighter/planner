@@ -1,18 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Location } from '@angular/common';
+
+
+const MIN_WIDTH = 768;
 
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.css']
 })
-export class DetailsComponent implements OnInit {
+export class DetailsComponent implements OnInit, OnDestroy {
 
   list: String;
 
   navigationSubscription;
+
+  hideLists = false;
+  hideComments = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -28,6 +34,10 @@ export class DetailsComponent implements OnInit {
 
   ngOnInit() {
     this.getList();
+    if (window.innerWidth <= MIN_WIDTH) {
+      this.hideComments = true;
+      this.hideLists = false;
+    }
   }
 
   getList(): void {
@@ -37,6 +47,16 @@ export class DetailsComponent implements OnInit {
 
   private enumify(listname): String {
     return listname.replace('-', '_').toUpperCase();
+  }
+
+  goToDetails(): void {
+    this.hideComments = true;
+    this.hideLists = false;
+  }
+
+  goToComments(): void {
+    this.hideLists = true;
+    this.hideComments = false;
   }
 
   ngOnDestroy() {
