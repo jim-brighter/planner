@@ -60,6 +60,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-data-jpa:${springbootVersion}")
     compile("org.springframework.boot:spring-boot-starter-security:${springbootVersion}")
     compile("org.springframework.boot:spring-boot-starter-actuator:${springbootVersion}")
+    compile("org.springframework.boot:spring-boot-devtools:${springbootVersion}")
     compile("org.springframework:spring-tx:${springTxVersion}")
 	compile("javax.inject:javax.inject:${javaxInjectVersion}")
 	
