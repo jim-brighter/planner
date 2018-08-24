@@ -12,6 +12,7 @@ export class AuthenticationService {
   private rootUrl = environment.plannerBackendRootUrl;
 
   authenticated = false;
+  authToken: String;
 
   constructor(private http: HttpClient) { }
 
@@ -27,8 +28,10 @@ export class AuthenticationService {
       .subscribe(response => {
         if (response && response['name']) {
           this.authenticated = true;
+          this.authToken = headers.get('Authorization');
         } else {
           this.authenticated = false;
+          this.authToken = null;
         }
         return callback && callback();
       });
