@@ -6,6 +6,9 @@
   <div class="container-fluid justify-content-center align-content-center text-center">
     <span *ngFor="let errorMessage of authenticator.errorMessages" class="alert alert-danger">{{errorMessage}}</span>
   </div>
+  <div class="d-block justify-content-end text-right align-content-end">
+    <a class="btn btn-outline-secondary" (click)="logout()">Logout</a>
+  </div>
   <div class="d-block d-md-none">
     <ul class="nav nav-tabs">
       <li class="nav-item">
@@ -24,9 +27,6 @@
       <app-comments></app-comments>
     </div>
   </div>
-  <div class="d-block position-absolute justify-content-end text-right align-content-end">
-      <a class="btn btn-outline-secondary" (click)="logout()">Logout</a>
-    </div>
 </div>
 <div *ngIf="!authenticated()">
   <app-login [endpoint]="list"></app-login>
