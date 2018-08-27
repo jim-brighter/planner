@@ -25,7 +25,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private location: Location,
     private router: Router,
-    private authenticator: AuthenticationService) {
+    public authenticator: AuthenticationService) {
 
       this.navigationSubscription = this.router.events.subscribe((e: any) => {
         if (e instanceof NavigationEnd) {

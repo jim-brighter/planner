@@ -5,12 +5,7 @@ import { catchError, map, tap, timeout } from 'rxjs/operators';
 
 import { environment } from '../environments/environment';
 import { Comment } from './comment';
-
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type': 'application/json'
-  })
-};
+import { AuthenticationService } from './authentication.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,17 +15,32 @@ export class CommentService {
   private rootUrl = environment.plannerBackendRootUrl;
   private apiContext = environment.plannerBackendCommentsContext;
 
-  constructor(private http: HttpClient) { }
+  private postHttpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': this.auth.authToken
+    }),
+    withCredentials: true
+  };
+
+  private getHttpOptions = {
+    headers: new HttpHeaders({
+      'Authorization': this.auth.authToken
+    }),
+    withCredentials: true
+  };
+
+  constructor(private http: HttpClient, private auth: AuthenticationService) { }
 
   getComments(): Observable<Comment[]> {
-    return this.http.get<Comment[]>(this.rootUrl + this.apiContext)
+    return this.http.get<Comment[]>(this.rootUrl + this.apiContext, this.getHttpOptions)
       .pipe(
         catchError(this.handleError('getComments', new Array<Comment>()))
       );
   }
 
   createComment(comment: Comment): Observable<Comment> {
-    return this.http.post<Comment>(this.rootUrl + this.apiContext, comment, httpOptions)
+    return this.http.post<Comment>(this.rootUrl + this.apiContext, comment, this.postHttpOptions)
       .pipe(
         catchError(this.handleError('createComment', new Comment()))
       );

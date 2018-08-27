@@ -8,7 +8,5 @@ import { AuthenticationService } from './authentication.service';
 })
 export class AppComponent {
   title = 'app';
-  constructor(private authenticator: AuthenticationService) {
-    this.authenticator.authenticate(undefined, undefined);
-  }
+  constructor(private authenticator: AuthenticationService) { }
 }
