@@ -48,6 +48,23 @@ export class AuthenticationService {
       });
   }
 
+  logout() {
+    this.http.post(this.rootUrl + '/logout', {}, {
+      responseType: 'text',
+      headers: new HttpHeaders({
+        authorization: this.authToken
+      })
+    })
+    .pipe(
+      catchError(this.handleError('logout', null))
+    )
+    .subscribe(response => {
+      this.authenticated = false;
+      this.authToken = null;
+      localStorage.clear();
+    });
+  }
+
   private handleError<T>(operation = 'operation', result ?: T) {
     return (error: any): Observable<T> => {
       this.authenticated = false;

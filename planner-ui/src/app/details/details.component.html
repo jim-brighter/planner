@@ -24,6 +24,9 @@
       <app-comments></app-comments>
     </div>
   </div>
+  <div class="d-block position-absolute justify-content-end text-right align-content-end">
+      <a class="btn btn-outline-secondary" (click)="logout()">Logout</a>
+    </div>
 </div>
 <div *ngIf="!authenticated()">
   <app-login [endpoint]="list"></app-login>
