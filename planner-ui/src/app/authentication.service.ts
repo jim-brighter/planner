@@ -87,6 +87,7 @@ export class AuthenticationService {
       this.csrfCookie = null;
       localStorage.clear();
       this.errors.addError(`${operation} failed! Show Jim this error!`);
+      console.error(error);
       return of(result as T);
     };
   }
