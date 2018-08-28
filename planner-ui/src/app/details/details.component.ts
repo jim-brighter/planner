@@ -3,6 +3,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Location } from '@angular/common';
 import { AuthenticationService } from '../authentication.service';
+import { ErrorService } from '../error.service';
 
 
 const MIN_WIDTH = 768;
@@ -25,7 +26,8 @@ export class DetailsComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private location: Location,
     private router: Router,
-    public authenticator: AuthenticationService) {
+    private authenticator: AuthenticationService,
+    public errors: ErrorService) {
 
       this.navigationSubscription = this.router.events.subscribe((e: any) => {
         if (e instanceof NavigationEnd) {

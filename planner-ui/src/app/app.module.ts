@@ -20,6 +20,7 @@ import { ImageService } from './image.service';
 import { PhotosComponent } from './photos/photos.component';
 import { LoginComponent } from './login/login.component';
 import { AuthenticationService } from './authentication.service';
+import { ErrorService } from './error.service';
 
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
@@ -57,6 +58,7 @@ export class XhrInterceptor implements HttpInterceptor {
     CommentService,
     ImageService,
     AuthenticationService,
+    ErrorService,
     {provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]

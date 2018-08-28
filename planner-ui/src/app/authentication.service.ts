@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { environment } from '../environments/environment';
+import { ErrorService } from './error.service';
 
 const TOKEN_KEY = 'authToken';
 
@@ -15,13 +16,23 @@ export class AuthenticationService {
 
   authenticated = false;
   authToken: string;
-  errorMessages: Array<string> = new Array<string>();
+  csrfCookie: string;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private errors: ErrorService) {
     const token = localStorage.getItem(TOKEN_KEY);
     if (token) {
       this.authenticated = true;
       this.authToken = token;
+    }
+  }
+
+  private getCsrfCookie(): string {
+    const tab = document.cookie.split(';');
+    if (tab.length > 0) {
+      const tab1 = tab[0].split('=');
+      if (tab1.length > 1) {
+        return tab1[1];
+      }
     }
   }
 
@@ -39,21 +50,24 @@ export class AuthenticationService {
           this.authenticated = true;
           this.authToken = headers.get('Authorization');
           localStorage.setItem(TOKEN_KEY, this.authToken);
+          this.csrfCookie = this.getCsrfCookie();
         } else {
           this.authenticated = false;
           this.authToken = null;
           localStorage.clear();
+          this.csrfCookie = null;
         }
         return callback && callback();
       });
   }
 
   logout() {
-    this.http.post(this.rootUrl + '/logout', {}, {
+    this.http.post(this.rootUrl + `/logout?_csrf=${this.csrfCookie}`, {}, {
       responseType: 'text',
       headers: new HttpHeaders({
         authorization: this.authToken
-      })
+      }),
+      withCredentials: true
     })
     .pipe(
       catchError(this.handleError('logout', null))
@@ -62,20 +76,17 @@ export class AuthenticationService {
       this.authenticated = false;
       this.authToken = null;
       localStorage.clear();
+      this.csrfCookie = null;
     });
   }
 
   private handleError<T>(operation = 'operation', result ?: T) {
     return (error: any): Observable<T> => {
       this.authenticated = false;
-
-      if (error.status === 401) {
-        this.errorMessages.push('Failed to authenticate');
-      } else {
-        console.error(error);
-        alert(`${operation} failed - check the console for the error`);
-      }
-
+      this.authToken = null;
+      this.csrfCookie = null;
+      localStorage.clear();
+      this.errors.addError(`${operation} failed! Show Jim this error!`);
       return of(result as T);
     };
   }

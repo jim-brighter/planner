@@ -7,6 +7,7 @@ import { environment } from '../environments/environment';
 import { PlannerImage } from './image';
 import { pipe } from '@angular/core/src/render3/pipe';
 import { AuthenticationService } from './authentication.service';
+import { ErrorService } from './error.service';
 
 @Injectable({
   providedIn: 'root'
@@ -30,10 +31,10 @@ export class ImageService {
     withCredentials: true
   };
 
-  constructor(private http: HttpClient, private auth: AuthenticationService) { }
+  constructor(private http: HttpClient, private auth: AuthenticationService, private errors: ErrorService) { }
 
   uploadImages(images: FormData): Observable<PlannerImage[]> {
-    return this.http.post<FormData>(this.rootUrl + this.apiContext, images, this.postHttpOptions)
+    return this.http.post<FormData>(this.rootUrl + this.apiContext + `?_csrf=${this.auth.csrfCookie}`, images, this.postHttpOptions)
       .pipe(
         catchError(this.handleError('uploadImages', null))
       );
@@ -48,8 +49,7 @@ export class ImageService {
 
   private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-      console.error(error);
-      alert(`${operation} failed - check the console for more information`);
+      this.errors.addError(`${operation} failed! Show Jim this error!`);;
       return of(result as T);
     }
   }

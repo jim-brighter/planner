@@ -4,7 +4,7 @@
 </div>
 <div *ngIf="authenticated()" class="container-fluid" id="all-container">
   <div class="container-fluid justify-content-center align-content-center text-center">
-    <span *ngFor="let errorMessage of authenticator.errorMessages" class="alert alert-danger">{{errorMessage}}</span>
+    <span *ngFor="let errorMessage of errors.getErrors()" class="d-block alert alert-danger">{{errorMessage}}</span>
   </div>
   <div class="d-block justify-content-end text-right align-content-end">
     <a class="btn btn-outline-secondary" (click)="logout()">Logout</a>
