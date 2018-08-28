@@ -36,21 +36,21 @@ export class EventService {
   getEvents(): Observable<PlannerEvent[]> {
     return this.http.get<PlannerEvent[]>(this.rootUrl + this.apiContext, this.getHttpOptions)
       .pipe(
-        catchError(this.handleError('getEvents', new Array<PlannerEvent>()))
+        catchError(this.errors.handleError('getEvents', new Array<PlannerEvent>()))
       );
   }
 
   getEventsByType(type): Observable<PlannerEvent[]> {
     return this.http.get<PlannerEvent[]>(this.rootUrl + this.apiContext + `/type/${type}`, this.getHttpOptions)
       .pipe(
-        catchError(this.handleError('getEventsByType', new Array<PlannerEvent>()))
+        catchError(this.errors.handleError('getEventsByType', new Array<PlannerEvent>()))
       );
   }
 
   saveEvent(event: PlannerEvent): Observable<PlannerEvent> {
     return this.http.post<PlannerEvent>(this.rootUrl + this.apiContext + `?_csrf=${this.auth.csrfCookie}`, event, this.postHttpOptions)
       .pipe(
-        catchError(this.handleError('saveEvent', new PlannerEvent()))
+        catchError(this.errors.handleError('saveEvent', new PlannerEvent()))
       );
   }
 
@@ -58,7 +58,7 @@ export class EventService {
     return this.http.post<PlannerEvent[]>(this.rootUrl + this.apiContext + `/delete?_csrf=${this.auth.csrfCookie}`,
       events, this.postHttpOptions)
       .pipe(
-        catchError(this.handleError('deleteEvent', null))
+        catchError(this.errors.handleError('deleteEvent', null))
       );
   }
 
@@ -66,14 +66,8 @@ export class EventService {
     return this.http.post<PlannerEvent[]>(this.rootUrl + this.apiContext + `/update?_csrf=${this.auth.csrfCookie}`,
       events, this.postHttpOptions)
       .pipe(
-        catchError(this.handleError('updateEvents', new Array<PlannerEvent>()))
+        catchError(this.errors.handleError('updateEvents', new Array<PlannerEvent>()))
       );
   }
 
-  private handleError<T> (operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      this.errors.addError(`${operation} failed! Show Jim this error!`);
-      return of(result as T);
-    };
-  }
 }
