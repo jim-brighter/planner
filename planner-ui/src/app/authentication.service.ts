@@ -4,8 +4,10 @@ import { catchError } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { environment } from '../environments/environment';
 import { ErrorService } from './error.service';
+import { Router } from '@angular/router';
 
 const TOKEN_KEY = 'authToken';
+const CSRF_KEY = 'csrfToken';
 
 @Injectable({
   providedIn: 'root'
@@ -18,19 +20,23 @@ export class AuthenticationService {
   authToken: string;
   csrfCookie: string;
 
-  constructor(private http: HttpClient, private errors: ErrorService) {
-    const token = localStorage.getItem(TOKEN_KEY);
-    if (token) {
+  constructor(private http: HttpClient, private errors: ErrorService, private router: Router) {
+    const tokenAuth = localStorage.getItem(TOKEN_KEY);
+    const tokenCsrf = localStorage.getItem(CSRF_KEY);
+    if (tokenAuth && tokenCsrf) {
       this.authenticated = true;
-      this.authToken = token;
+      this.authToken = tokenAuth;
+      this.csrfCookie = tokenCsrf;
     }
   }
 
   private getCsrfCookie(): string {
+    console.log(`cookie: ${document.cookie}`);
     const tab = document.cookie.split(';');
     if (tab.length > 0) {
       const tab1 = tab[0].split('=');
       if (tab1.length > 1) {
+        console.log(`csrf token: ${tab1[1]}`);
         return tab1[1];
       }
     }
@@ -43,19 +49,20 @@ export class AuthenticationService {
 
     this.http.get(this.rootUrl + '/user', { headers: headers })
       .pipe(
-        catchError(this.handleError('authenticate', null))
+        catchError(this.errors.handleError('authenticate', null))
       )
       .subscribe(response => {
         if (response && response['name']) {
+          console.log('auth success');
           this.authenticated = true;
           this.authToken = headers.get('Authorization');
           localStorage.setItem(TOKEN_KEY, this.authToken);
           this.csrfCookie = this.getCsrfCookie();
+          localStorage.setItem(CSRF_KEY, this.csrfCookie);
+          this.errors.clear();
         } else {
-          this.authenticated = false;
-          this.authToken = null;
-          localStorage.clear();
-          this.csrfCookie = null;
+          console.log('auth fail');
+          this.wipeSession();
         }
         return callback && callback();
       });
@@ -70,25 +77,19 @@ export class AuthenticationService {
       withCredentials: true
     })
     .pipe(
-      catchError(this.handleError('logout', null))
+      catchError(this.errors.handleError('logout', null))
     )
     .subscribe(response => {
-      this.authenticated = false;
-      this.authToken = null;
-      localStorage.clear();
-      this.csrfCookie = null;
+      this.wipeSession();
     });
   }
 
-  private handleError<T>(operation = 'operation', result ?: T) {
-    return (error: any): Observable<T> => {
-      this.authenticated = false;
-      this.authToken = null;
-      this.csrfCookie = null;
-      localStorage.clear();
-      this.errors.addError(`${operation} failed! Show Jim this error!`);
-      console.error(error);
-      return of(result as T);
-    };
+  private wipeSession() {
+    console.log('wiping session');
+    this.authenticated = false;
+    this.authToken = null;
+    this.csrfCookie = null;
+    localStorage.clear();
   }
+
 }

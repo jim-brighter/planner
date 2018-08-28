@@ -36,21 +36,15 @@ export class ImageService {
   uploadImages(images: FormData): Observable<PlannerImage[]> {
     return this.http.post<FormData>(this.rootUrl + this.apiContext + `?_csrf=${this.auth.csrfCookie}`, images, this.postHttpOptions)
       .pipe(
-        catchError(this.handleError('uploadImages', null))
+        catchError(this.errors.handleError('uploadImages', null))
       );
   }
 
   getAllImages(): Observable<PlannerImage[]> {
     return this.http.get<PlannerImage[]>(this.rootUrl + this.apiContext, this.getHttpOptions)
       .pipe(
-        catchError(this.handleError('getAllImages', null))
+        catchError(this.errors.handleError('getAllImages', null))
       );
   }
 
-  private handleError<T> (operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      this.errors.addError(`${operation} failed! Show Jim this error!`);;
-      return of(result as T);
-    }
-  }
 }

@@ -36,21 +36,15 @@ export class CommentService {
   getComments(): Observable<Comment[]> {
     return this.http.get<Comment[]>(this.rootUrl + this.apiContext, this.getHttpOptions)
       .pipe(
-        catchError(this.handleError('getComments', new Array<Comment>()))
+        catchError(this.errors.handleError('getComments', new Array<Comment>()))
       );
   }
 
   createComment(comment: Comment): Observable<Comment> {
     return this.http.post<Comment>(this.rootUrl + this.apiContext + `?_csrf=${this.auth.csrfCookie}`, comment, this.postHttpOptions)
       .pipe(
-        catchError(this.handleError('createComment', new Comment()))
+        catchError(this.errors.handleError('createComment', new Comment()))
       );
   }
 
-  private handleError<T> (operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      this.errors.addError(`${operation} failed! Show Jim this error!`);
-      return of(result as T);
-    };
-  }
 }
