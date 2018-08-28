@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Location } from '@angular/common';
+import { AuthenticationService } from '../authentication.service';
+import { ErrorService } from '../error.service';
 
 
 const MIN_WIDTH = 768;
@@ -23,7 +25,9 @@ export class DetailsComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private location: Location,
-    private router: Router) {
+    private router: Router,
+    private authenticator: AuthenticationService,
+    public errors: ErrorService) {
 
       this.navigationSubscription = this.router.events.subscribe((e: any) => {
         if (e instanceof NavigationEnd) {
@@ -38,6 +42,15 @@ export class DetailsComponent implements OnInit, OnDestroy {
       this.hideComments = true;
       this.hideLists = false;
     }
+  }
+
+  authenticated(): boolean {
+    return this.authenticator.authenticated;
+  }
+
+  logout(): void {
+    this.authenticator.logout();
+    this.router.navigateByUrl('/');
   }
 
   getList(): void {

@@ -5,12 +5,8 @@ import { catchError, map, tap, timeout } from 'rxjs/operators';
 
 import { environment } from '../environments/environment';
 import { PlannerEvent } from './event';
-
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type': 'application/json'
-  })
-};
+import { AuthenticationService } from './authentication.service';
+import { ErrorService } from './error.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,38 +16,55 @@ export class EventService {
   private rootUrl = environment.plannerBackendRootUrl;
   private apiContext = environment.plannerBackendEventsContext;
 
-  constructor(private http: HttpClient) { }
+  private postHttpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': this.auth.authToken
+    }),
+    withCredentials: true
+  };
+
+  private getHttpOptions = {
+    headers: new HttpHeaders({
+      'Authorization': this.auth.authToken
+    }),
+    withCredentials: true
+  };
+
+  constructor(private http: HttpClient, private auth: AuthenticationService, private errors: ErrorService) { }
 
   getEvents(): Observable<PlannerEvent[]> {
-    return this.http.get<PlannerEvent[]>(this.rootUrl + this.apiContext)
+    return this.http.get<PlannerEvent[]>(this.rootUrl + this.apiContext, this.getHttpOptions)
       .pipe(
         catchError(this.handleError('getEvents', new Array<PlannerEvent>()))
       );
   }
 
   getEventsByType(type): Observable<PlannerEvent[]> {
-    return this.http.get<PlannerEvent[]>(this.rootUrl + this.apiContext + `/type/${type}`)
+    return this.http.get<PlannerEvent[]>(this.rootUrl + this.apiContext + `/type/${type}`, this.getHttpOptions)
       .pipe(
         catchError(this.handleError('getEventsByType', new Array<PlannerEvent>()))
       );
   }
 
   saveEvent(event: PlannerEvent): Observable<PlannerEvent> {
-    return this.http.post<PlannerEvent>(this.rootUrl + this.apiContext, event, httpOptions)
+    return this.http.post<PlannerEvent>(this.rootUrl + this.apiContext + `?_csrf=${this.auth.csrfCookie}`, event, this.postHttpOptions)
       .pipe(
         catchError(this.handleError('saveEvent', new PlannerEvent()))
       );
   }
 
   deleteEvent(events: PlannerEvent[]): Observable<PlannerEvent> {
-    return this.http.post<PlannerEvent[]>(this.rootUrl + this.apiContext + '/delete', events, httpOptions)
+    return this.http.post<PlannerEvent[]>(this.rootUrl + this.apiContext + `/delete?_csrf=${this.auth.csrfCookie}`,
+      events, this.postHttpOptions)
       .pipe(
         catchError(this.handleError('deleteEvent', null))
       );
   }
 
   updateEvents(events: PlannerEvent[]): Observable<PlannerEvent[]> {
-    return this.http.post<PlannerEvent[]>(this.rootUrl + this.apiContext + '/update', events, httpOptions)
+    return this.http.post<PlannerEvent[]>(this.rootUrl + this.apiContext + `/update?_csrf=${this.auth.csrfCookie}`,
+      events, this.postHttpOptions)
       .pipe(
         catchError(this.handleError('updateEvents', new Array<PlannerEvent>()))
       );
@@ -59,8 +72,7 @@ export class EventService {
 
   private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-      console.error(error);
-      alert(`${operation} failed - check the console for more information`);
+      this.errors.addError(`${operation} failed! Show Jim this error!`);
       return of(result as T);
     };
   }

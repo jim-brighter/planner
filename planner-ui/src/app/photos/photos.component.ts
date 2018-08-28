@@ -19,7 +19,6 @@ export class PhotosComponent implements OnInit {
 
   getImages(): void {
     this.imageService.getAllImages().subscribe(data => {
-      console.log(data);
       this.images = data;
     });
   }

@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { NgModule, Injectable } from '@angular/core';
+import { HttpClientModule, HttpRequest, HttpHandler, HttpInterceptor, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
 
 import { AppComponent } from './app.component';
@@ -18,6 +18,19 @@ import { UploadComponent } from './upload/upload.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { ImageService } from './image.service';
 import { PhotosComponent } from './photos/photos.component';
+import { LoginComponent } from './login/login.component';
+import { AuthenticationService } from './authentication.service';
+import { ErrorService } from './error.service';
+
+@Injectable()
+export class XhrInterceptor implements HttpInterceptor {
+  intercept(req: HttpRequest<any>, next: HttpHandler) {
+    const xhr = req.clone({
+      headers: req.headers.set('X-Requested-With', 'XMLHttpRequest')
+    });
+    return next.handle(xhr);
+  }
+}
 
 @NgModule({
   declarations: [
@@ -30,7 +43,8 @@ import { PhotosComponent } from './photos/photos.component';
     ListItemComponent,
     CommentItemComponent,
     UploadComponent,
-    PhotosComponent
+    PhotosComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +56,10 @@ import { PhotosComponent } from './photos/photos.component';
   providers: [
     EventService,
     CommentService,
-    ImageService
+    ImageService,
+    AuthenticationService,
+    ErrorService,
+    {provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })
