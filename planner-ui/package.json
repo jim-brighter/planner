@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "buildProd": "ng build --prod -c production --output-path=staging/dist"
+    "buildProd": "ng build --prod -c production --output-path=staging/dist/planner-ui"
   },
   "private": true,
   "dependencies": {
