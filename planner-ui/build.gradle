@@ -31,6 +31,14 @@ task buildAngularProd(type: NpmTask, dependsOn: npmInstall) {
     args = ['run', 'buildProd']
 }
 
+task cleanAngular(type: Exec) {
+    commandLine 'rm', '-rf', 'staging'
+}
+
+task clean {
+    dependsOn 'cleanAngular'
+}
+
 task serveAngular(type: NpmTask, dependsOn: npmInstall) {
     description = 'Serve Angular and Watch'
     args = ['run', 'start']
@@ -38,4 +46,9 @@ task serveAngular(type: NpmTask, dependsOn: npmInstall) {
 
 task assemble {
     dependsOn 'buildAngular'
+}
+
+task build(type: Exec) {
+    dependsOn 'buildAngularProd'
+    commandLine 'cp', 'nginx.conf', 'staging/'
 }
