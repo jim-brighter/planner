@@ -1,0 +1,54 @@
+buildscript {
+    ext {
+        gradleNodeVersion = '1.2.0'
+    }
+    repositories {
+        mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+    dependencies {
+        classpath "com.moowork.gradle:gradle-node-plugin:$gradleNodeVersion"
+    }
+}
+
+apply plugin: 'com.moowork.node'
+
+node {
+    version = '10.8.0'
+    npmVersion = '6.3.0'
+    download = true
+    workDir = file("${rootDir}/planner-ui/node")
+    nodeModulesDir = file("${rootDir}/planner-ui")
+}
+
+task buildAngular(type: NpmTask, dependsOn: npmInstall) {
+    description = 'Build Angular App'
+    args = ['run', 'build']
+}
+
+task buildAngularProd(type: NpmTask, dependsOn: npmInstall) {
+    description = 'Build Angular for Prod'
+    args = ['run', 'buildProd']
+}
+
+task cleanAngular(type: Exec) {
+    commandLine 'rm', '-rf', 'staging'
+}
+
+task clean {
+    dependsOn 'cleanAngular'
+}
+
+task serveAngular(type: NpmTask, dependsOn: npmInstall) {
+    description = 'Serve Angular and Watch'
+    args = ['run', 'start']
+}
+
+task assemble {
+    dependsOn 'buildAngular'
+}
+
+task build(type: Exec) {
+    dependsOn 'buildAngularProd'
+    commandLine 'cp', 'nginx.conf', 'staging/'
+}

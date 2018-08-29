@@ -1,4 +1,4 @@
-package planner.config;
+package auth.planner.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
@@ -18,11 +18,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 		.cors()
+		.and()
+		.httpBasic()
 		.and().authorizeRequests()
+		.antMatchers("/actuator/health").permitAll()
 		.anyRequest().authenticated()
 		.and().csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
 	}
-
+	
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		web.ignoring().antMatchers("/v2/api-docs",

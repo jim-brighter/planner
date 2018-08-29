@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { catchError, map, tap, timeout } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 import { environment } from '../environments/environment';
 import { PlannerEvent } from './event';
@@ -19,14 +19,16 @@ export class EventService {
   private postHttpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': this.auth.authToken
+      'X-Auth-Token': this.auth.authToken,
+      'X-Xsrf-Token': this.auth.csrfCookie
     }),
     withCredentials: true
   };
 
   private getHttpOptions = {
     headers: new HttpHeaders({
-      'Authorization': this.auth.authToken
+      'X-Auth-Token': this.auth.authToken,
+      'X-Xsrf-Token': this.auth.csrfCookie
     }),
     withCredentials: true
   };

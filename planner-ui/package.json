@@ -3,12 +3,12 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --watch",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "buildProd": "ng build --prod -c production"
+    "buildProd": "ng build --prod -c production --output-path=staging/dist/planner-ui"
   },
   "private": true,
   "dependencies": {

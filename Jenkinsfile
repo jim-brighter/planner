@@ -22,28 +22,18 @@ node {
         """
     }
 
-    stage("BUILD JAVA") {
+    stage("BUILD ARTIFACTS") {
         sh """
             ./gradlew clean build
+        """
+    }
+
+    stage("BUILD DOCKER") {
+        sh """
             docker build -t jimbrighter/planner-svc:latest -f planner-svc/Dockerfile planner-svc
-        """
-    }
-
-    stage("BUILD DATABASE") {
-        sh """
+            docker build -t jimbrighter/planner-auth:latest -f planner-auth/Dockerfile planner-auth
             docker build -t jimbrighter/planner-db:latest -f planner-db/Dockerfile planner-db
-        """
-    }
-
-    stage("BUILD UI") {
-        sh """
-            cd planner-ui
-            npm install
-            npm run buildProd
-            mkdir staging
-            cp -R dist/ staging/
-            cp nginx.conf staging/
-            docker build -t jimbrighter/planner-ui:latest -f Dockerfile staging
+            docker build -t jimbrighter/planner-ui:latest -f planner-ui/Dockerfile planner-ui/staging
         """
     }
 
@@ -54,6 +44,7 @@ node {
             sh """
                 docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
                 docker push jimbrighter/planner-svc:latest
+                docker push jimbrighter/planner-auth:latest
                 docker push jimbrighter/planner-db:latest
                 docker push jimbrighter/planner-ui:latest
             """

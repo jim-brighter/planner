@@ -1,21 +1,11 @@
 buildscript {
 	ext {
-		awsVersion = '1.11.372'
 		springbootVersion = '2.0.3.RELEASE'
 		swaggerVersion = '2.4.0'
-		springTxVersion = '5.0.7.RELEASE'
 		javaxInjectVersion = '1'
-		postgresVersion = '42.2.4.jre7'
-		dependencyManagementVersion = '1.0.6.RELEASE'
 		gradleWrapperVersion = '4.5.1'
 		junitVersion = '4.+'
 		springSessionVersion = '2.0.5.RELEASE'
-	}
-	repositories {
-		mavenCentral()
-	}
-	dependencies {
-		classpath "io.spring.gradle:dependency-management-plugin:${dependencyManagementVersion}"
 	}
 } 
 
@@ -24,17 +14,9 @@ plugins {
 	id 'org.springframework.boot' version '2.0.3.RELEASE'
 }
 
-apply plugin: "io.spring.dependency-management"
-
 repositories {
 	mavenCentral()
     jcenter()
-}
-
-dependencyManagement {
-	imports {
-		mavenBom "com.amazonaws:aws-java-sdk-bom:${awsVersion}"
-	}
 }
 
 sourceCompatibility = 1.8
@@ -43,10 +25,10 @@ version = '1.0'
 
 jar {
 	manifest {
-		attributes 'Implementation-Title': 'Planner',
+		attributes 'Implementation-Title': 'Planner-Auth',
 					'Implementation-Version': version
 	}
-	baseName = 'planner'
+	baseName = 'planner-auth'
 }
 
 task wrapper(type: Wrapper) {
@@ -58,19 +40,13 @@ dependencies {
     
     compile("org.springframework.boot:spring-boot-starter:${springbootVersion}")
     compile("org.springframework.boot:spring-boot-starter-web:${springbootVersion}")
-    compile("org.springframework.boot:spring-boot-starter-data-jpa:${springbootVersion}")
     compile("org.springframework.boot:spring-boot-starter-security:${springbootVersion}")
     compile("org.springframework.boot:spring-boot-starter-actuator:${springbootVersion}")
     compile("org.springframework.boot:spring-boot-devtools:${springbootVersion}")
     compile("org.springframework.boot:spring-boot-starter-data-redis:${springbootVersion}")
-	compile("org.springframework.session:spring-session-data-redis:${springSessionVersion}")
-    compile("org.springframework:spring-tx:${springTxVersion}")
+    compile("org.springframework.session:spring-session-data-redis:${springSessionVersion}")
 	compile("javax.inject:javax.inject:${javaxInjectVersion}")
 	
-	compile("com.amazonaws:aws-java-sdk-s3:${awsVersion}")
-    
-    compile("org.postgresql:postgresql:${postgresVersion}")
-    
     compile("io.springfox:springfox-swagger2:${swaggerVersion}")
     compile("io.springfox:springfox-swagger-ui:${swaggerVersion}")
     

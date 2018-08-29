@@ -3,7 +3,23 @@ networks:
   planner:
 volumes:
   planner-db-volume:
+  planner-redis-volume:
 services:
+  planner-auth:
+    container_name: planner-auth
+    image: jimbrighter/planner-auth:latest
+    ports:
+      - "8282:8282"
+    mem_limit: 256m
+    depends_on:
+      - planner-redis
+    networks:
+      planner:
+        aliases:
+          - auth
+    environment:
+      - PLANNER_REDIS_HOST=redis
+  
   planner-svc:
     container_name: planner-svc
     image: jimbrighter/planner-svc:latest
@@ -12,6 +28,7 @@ services:
     mem_limit: 512m
     depends_on:
       - planner-db
+      - planner-redis
     networks:
       planner:
         aliases:
@@ -27,7 +44,7 @@ services:
     container_name: planner-ui
     image: jimbrighter/planner-ui:latest
     ports:
-      - "9001:80"
+      - "80:80"
     mem_limit: 50m
     networks:
       planner:
@@ -39,7 +56,7 @@ services:
     image: jimbrighter/planner-db:latest
     ports:
       - "5432:5432"
-    mem_limit: 50m
+    mem_limit: 100m
     networks:
       planner:
         aliases:
@@ -49,3 +66,16 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=admin
+
+  planner-redis:
+    container_name: planner-redis
+    image: redis:4-alpine
+    ports:
+      - "6379:6379"
+    mem_limit: 50m
+    networks:
+      planner:
+        aliases:
+          - redis
+    volumes:
+      - planner-redis-volume:/data

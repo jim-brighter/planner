@@ -3,5 +3,6 @@ export const environment = {
   plannerBackendRootUrl: 'http://jimandfangzhuo.com:8080',
   plannerBackendEventsContext: '/api/events',
   plannerBackendCommentsContext: '/api/comments',
-  plannerBackendImageContext: '/api/images'
+  plannerBackendImageContext: '/api/images',
+  plannerAuthBackend: 'http://jimandfangzhuo.com:8282'
 };
