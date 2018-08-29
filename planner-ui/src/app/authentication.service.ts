@@ -66,7 +66,7 @@ export class AuthenticationService {
   }
 
   logout() {
-    this.http.post(this.rootUrl + `/logout?_csrf=${this.csrfCookie}`, {}, {
+    this.http.post(this.rootAuthUrl + `/logout?_csrf=${this.csrfCookie}`, {}, {
       responseType: 'text',
       headers: new HttpHeaders({
         'X-Auth-Token': this.authToken,
