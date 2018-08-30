@@ -1,5 +1,5 @@
 FROM openjdk:8-jre-alpine
-EXPOSE 8282
+EXPOSE 8442
 ENTRYPOINT "/entrypoint.sh"
 COPY build/libs/planner-auth-1.0.jar app.jar
 COPY entrypoint.sh entrypoint.sh
