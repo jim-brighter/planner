@@ -22,7 +22,7 @@ public class ProdCorsConfig {
 	public CorsConfigurationSource corsConfigurationSource() {
 		logger.info("Loading prod CORS config");
 		List<String> origins = new ArrayList<String>();
-		origins.add("http://jimandfangzhuo.com");
+		origins.add("https://jimandfangzhuo.com");
 		List<String> methods = new ArrayList<String>();
 		methods.add("GET");
 		methods.add("POST");
