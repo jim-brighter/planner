@@ -1,8 +1,8 @@
 export const environment = {
   production: true,
-  plannerBackendRootUrl: 'http://jimandfangzhuo.com:8080',
+  plannerBackendRootUrl: 'http://planner-svc',
   plannerBackendEventsContext: '/api/events',
   plannerBackendCommentsContext: '/api/comments',
   plannerBackendImageContext: '/api/images',
-  plannerAuthBackend: 'http://jimandfangzhuo.com:8282'
+  plannerAuthBackend: 'http://planner-auth'
 };
