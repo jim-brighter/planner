@@ -1,12 +1,31 @@
-<div class="container-fluid d-flex">
-  <div class="row d-flex">
-    <app-upload></app-upload>  
-  </div>      
+<div class="container-fluid">
+  <h1 class="container-fluid d-flex justify-content-center">Jim and Fangzhuo's Pics!</h1>
+  <app-navbar></app-navbar>
 </div>
-<div class="container-fluid d-flex">
-  <ul class="list-inline d-inline-block">
-    <li class="list-inline-item custom-image" *ngFor="let image of images">
-      <img src="{{'https://image-space-jbrighter92.nyc3.digitaloceanspaces.com/' + image.digitalOceanSpaceKey}}"/>
-    </li>
-  </ul>
+<div *ngIf="authenticated()" class="container-fluid">
+  <div class="d-block justify-content-end text-right align-content-end">
+    <a class="btn btn-outline-secondary" (click)="logout()">Logout</a>
+  </div>
+  <div class="container-fluid justify-content-center align-content-center text-center">
+    <span *ngFor="let errorMessage of errors.getErrors()" class="d-block alert alert-danger">{{errorMessage}}</span>
+  </div>
+  <div class="container-fluid d-flex">
+    <div class="row d-flex">
+      <app-upload></app-upload>
+    </div>
+  </div>
+  <div class="container-fluid d-flex">
+    <ul class="list-inline d-inline-block">
+      <li class="list-inline-item custom-image" *ngFor="let image of images">
+        <img src="{{'https://image-space-jbrighter92.nyc3.digitaloceanspaces.com/' + image.digitalOceanSpaceKey}}" />
+      </li>
+    </ul>
+  </div>
+</div>
+<div *ngIf="!authenticated()" class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-sm-4 col-10">
+      <app-login [endpoint]="'photos'"></app-login>
+    </div>
+  </div>
 </div>

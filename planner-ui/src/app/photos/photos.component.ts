@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { PlannerImage } from '../image';
 import { ImageService } from '../image.service';
+import { ErrorService } from '../error.service';
+import { AuthenticationService } from '../authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-photos',
@@ -9,12 +12,26 @@ import { ImageService } from '../image.service';
 })
 export class PhotosComponent implements OnInit {
 
-  constructor(private imageService: ImageService) { }
+  constructor(private imageService: ImageService, 
+    public errors: ErrorService, 
+    private authenticator: AuthenticationService,
+    private router: Router) { }
 
   images: PlannerImage[];
 
   ngOnInit() {
-    this.getImages();
+    if (this.authenticated()) {
+      this.getImages();
+    }
+  }
+
+  authenticated(): boolean {
+    return this.authenticator.authenticated;
+  }
+
+  logout(): void {
+    this.authenticator.logout();
+    this.router.navigateByUrl('/');
   }
 
   getImages(): void {
