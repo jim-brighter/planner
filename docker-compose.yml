@@ -34,6 +34,7 @@ services:
         aliases:
           - app
     environment:
+      - PLANNER_REDIS_HOST=redis
       - PLANNER_DB_URL=jdbc:postgresql://db/eventsdb
       - PLANNER_DB_USER=postgres
       - PLANNER_DB_PASS=admin

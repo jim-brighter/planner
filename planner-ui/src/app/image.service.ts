@@ -18,14 +18,16 @@ export class ImageService {
 
   private postHttpOptions = {
     headers: new HttpHeaders({
-      'X-Auth-Token': this.auth.authToken
+      'X-Auth-Token': this.auth.authToken,
+      'X-Xsrf-Token': this.auth.csrfCookie
     }),
     withCredentials: true
   };
 
   private getHttpOptions = {
     headers: new HttpHeaders({
-      'X-Auth-Token': this.auth.authToken
+      'X-Auth-Token': this.auth.authToken,
+      'X-Xsrf-Token': this.auth.csrfCookie
     }),
     withCredentials: true
   };
