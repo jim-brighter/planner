@@ -14,7 +14,7 @@ node {
             branch: "${GIT_BRANCH}"
         )
         currentBuild.setDisplayName("${GIT_BRANCH}-${BUILD_NUMBER}")
-        DOCKER_TAG = "${BUILD_TIMESTAMP}".replace(" ","").replace(":","")
+        DOCKER_TAG = "${BUILD_TIMESTAMP}".replace(" ","").replace(":","").replace("-","")
     }
 
     stage("PULL BASE IMAGES") {
