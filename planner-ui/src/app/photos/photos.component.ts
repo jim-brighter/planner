@@ -29,6 +29,9 @@ export class PhotosComponent implements OnInit, OnDestroy {
   images: PlannerImage[];
 
   ngOnInit() {
+    if (this.authenticated()) {
+      this.getImages();
+    }
   }
 
   authenticated(): boolean {
