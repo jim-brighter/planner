@@ -1,5 +1,7 @@
 def REPO_URL = "https://github.com/jim-brighter/planner.git"
 
+def DOCKER_TAG
+
 node {
 
     deleteDir()
@@ -12,6 +14,7 @@ node {
             branch: "${GIT_BRANCH}"
         )
         currentBuild.setDisplayName("${GIT_BRANCH}-${BUILD_NUMBER}")
+        DOCKER_TAG = "${BUILD_TIMESTAMP}".replace(" ","").replace(":","").replace("-","")
     }
 
     stage("PULL BASE IMAGES") {
@@ -29,11 +32,12 @@ node {
     }
 
     stage("BUILD DOCKER") {
+
         sh """
-            docker build -t jimbrighter/planner-svc:latest -f planner-svc/Dockerfile planner-svc
-            docker build -t jimbrighter/planner-auth:latest -f planner-auth/Dockerfile planner-auth
-            docker build -t jimbrighter/planner-db:latest -f planner-db/Dockerfile planner-db
-            docker build -t jimbrighter/planner-ui:latest -f planner-ui/Dockerfile planner-ui/staging
+            docker build -t jimbrighter/planner-svc:${DOCKER_TAG} -f planner-svc/Dockerfile planner-svc
+            docker build -t jimbrighter/planner-auth:${DOCKER_TAG} -f planner-auth/Dockerfile planner-auth
+            docker build -t jimbrighter/planner-db:${DOCKER_TAG} -f planner-db/Dockerfile planner-db
+            docker build -t jimbrighter/planner-ui:${DOCKER_TAG} -f planner-ui/Dockerfile planner-ui/staging
         """
     }
 
@@ -43,10 +47,22 @@ node {
         ]) {
             sh """
                 docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
-                docker push jimbrighter/planner-svc:latest
-                docker push jimbrighter/planner-auth:latest
-                docker push jimbrighter/planner-db:latest
-                docker push jimbrighter/planner-ui:latest
+                docker push jimbrighter/planner-svc:${DOCKER_TAG}
+                docker push jimbrighter/planner-auth:${DOCKER_TAG}
+                docker push jimbrighter/planner-db:${DOCKER_TAG}
+                docker push jimbrighter/planner-ui:${DOCKER_TAG}
+
+                if [ "${GIT_BRANCH}" = "ci" ]; then
+                    docker tag jimbrighter/planner-svc:${DOCKER_TAG} jimbrighter/planner-svc:latest
+                    docker tag jimbrighter/planner-auth:${DOCKER_TAG} jimbrighter/planner-auth:latest
+                    docker tag jimbrighter/planner-db:${DOCKER_TAG} jimbrighter/planner-db:latest
+                    docker tag jimbrighter/planner-ui:${DOCKER_TAG} jimbrighter/planner-ui:latest
+
+                    docker push jimbrighter/planner-svc:latest
+                    docker push jimbrighter/planner-auth:latest
+                    docker push jimbrighter/planner-db:latest
+                    docker push jimbrighter/planner-ui:latest
+                fi
             """
         }
     }
