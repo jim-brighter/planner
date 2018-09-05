@@ -16,33 +16,29 @@ export class ImageService {
   private rootUrl = environment.plannerBackendRootUrl;
   private apiContext = environment.plannerBackendImageContext;
 
-  private postHttpOptions = {
-    headers: new HttpHeaders({
-      'X-Auth-Token': this.auth.authToken,
-      'X-Xsrf-Token': this.auth.csrfCookie
-    }),
-    withCredentials: true
-  };
-
-  private getHttpOptions = {
-    headers: new HttpHeaders({
-      'X-Auth-Token': this.auth.authToken,
-      'X-Xsrf-Token': this.auth.csrfCookie
-    }),
-    withCredentials: true
-  };
-
   constructor(private http: HttpClient, private auth: AuthenticationService, private errors: ErrorService) { }
 
   uploadImages(images: FormData): Observable<PlannerImage[]> {
-    return this.http.post<FormData>(this.rootUrl + this.apiContext + `?_csrf=${this.auth.csrfCookie}`, images, this.postHttpOptions)
+    return this.http.post<FormData>(this.rootUrl + this.apiContext + `?_csrf=${this.auth.csrfCookie}`, images, {
+      headers: new HttpHeaders({
+        'X-Auth-Token': this.auth.authToken,
+        'X-Xsrf-Token': this.auth.csrfCookie
+      }),
+      withCredentials: true
+    })
       .pipe(
         catchError(this.errors.handleError('uploadImages', null))
       );
   }
 
   getAllImages(): Observable<PlannerImage[]> {
-    return this.http.get<PlannerImage[]>(this.rootUrl + this.apiContext, this.getHttpOptions)
+    return this.http.get<PlannerImage[]>(this.rootUrl + this.apiContext, {
+      headers: new HttpHeaders({
+        'X-Auth-Token': this.auth.authToken,
+        'X-Xsrf-Token': this.auth.csrfCookie
+      }),
+      withCredentials: true
+    })
       .pipe(
         catchError(this.errors.handleError('getAllImages', null))
       );

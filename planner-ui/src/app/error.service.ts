@@ -24,7 +24,6 @@ export class ErrorService {
 
   handleError<T> (operation = 'operation', result ?: T) {
     return (error: any): Observable<T> => {
-      console.log(error);
       let message = `${operation} failed! Show Jim this error!`;
       if (error.status === 403) {
         message = 'Your session is invalid. Please try logging in again.';
