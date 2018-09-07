@@ -16,6 +16,16 @@
   </li>
   <li class="list-inline-item">
     <h5 class="d-flex justify-content-center">
+      <a class="btn" [ngClass]="{'btn-outline-light': linkColor === 'light', 'btn-outline-secondary': linkColor !== 'light'}" routerLink="/details/to-go">Going!</a>
+    </h5>
+  </li>
+  <li class="list-inline-item">
+    <h5 class="d-flex justify-content-center">
+      <a class="btn" [ngClass]="{'btn-outline-light': linkColor === 'light', 'btn-outline-secondary': linkColor !== 'light'}" routerLink="/details/to-watch">Watching!</a>
+    </h5>
+  </li>
+  <li class="list-inline-item">
+    <h5 class="d-flex justify-content-center">
       <a class="btn" [ngClass]="{'btn-outline-light': linkColor === 'light', 'btn-outline-secondary': linkColor !== 'light'}" routerLink="/photos">Photos!</a>
     </h5>
   </li>
