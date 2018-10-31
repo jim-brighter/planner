@@ -1,3 +1,5 @@
+import org.apache.tools.ant.taskdefs.condition.Os;
+
 buildscript {
     ext {
         gradleNodeVersion = '1.2.0'
@@ -14,7 +16,7 @@ buildscript {
 apply plugin: 'com.moowork.node'
 
 node {
-    version = '8.12.0'
+    version = '10.13.0'
     npmVersion = '6.4.1'
     download = true
     workDir = file("${rootDir}/planner-ui/node")
@@ -32,7 +34,12 @@ task buildAngularProd(type: NpmTask, dependsOn: npmInstall) {
 }
 
 task cleanAngular(type: Exec) {
-    commandLine 'rm', '-rf', 'staging'
+    if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+        commandLine 'cmd', '/c', 'powershell -file remove-staging.ps1'
+    }
+    else {
+        commandLine 'rm', '-rf', 'staging'
+    }
 }
 
 task clean {
