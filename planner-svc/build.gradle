@@ -7,7 +7,6 @@ buildscript {
 		javaxInjectVersion = '1'
 		postgresVersion = '42.2.4.jre7'
 		dependencyManagementVersion = '1.0.6.RELEASE'
-		gradleWrapperVersion = '4.5.1'
 		junitVersion = '4.+'
 		springSessionVersion = '2.0.5.RELEASE'
 	}
@@ -47,10 +46,6 @@ jar {
 					'Implementation-Version': version
 	}
 	baseName = 'planner'
-}
-
-task wrapper(type: Wrapper) {
-	gradleVersion = "${gradleWrapperVersion}"
 }
 
 dependencies {
