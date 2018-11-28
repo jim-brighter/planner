@@ -3,7 +3,6 @@ buildscript {
 		springbootVersion = '2.0.3.RELEASE'
 		swaggerVersion = '2.4.0'
 		javaxInjectVersion = '1'
-		gradleWrapperVersion = '4.5.1'
 		junitVersion = '4.+'
 		springSessionVersion = '2.0.5.RELEASE'
 	}
@@ -29,10 +28,6 @@ jar {
 					'Implementation-Version': version
 	}
 	baseName = 'planner-auth'
-}
-
-task wrapper(type: Wrapper) {
-	gradleVersion = "${gradleWrapperVersion}"
 }
 
 dependencies {

@@ -1,3 +1,3 @@
-include 'planner-svc', 'planner-auth', 'planner-ui'
+include 'planner', 'planner-svc', 'planner-auth', 'planner-ui'
 
 rootProject.name = 'planner'

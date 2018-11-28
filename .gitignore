@@ -6,3 +6,6 @@ bin/
 .settings
 .vscode
 .dbeaver-data-sources.xml
+.idea
+out/
+
