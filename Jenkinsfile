@@ -52,7 +52,7 @@ node {
                 docker push jimbrighter/planner-db:${DOCKER_TAG}
                 docker push jimbrighter/planner-ui:${DOCKER_TAG}
 
-                if [ "${GIT_BRANCH}" = "ci" ]; then
+                if [ "${GIT_BRANCH}" = "ci" ] || [ "${GIT_BRANCH}" = "master" ]; then
                     docker tag jimbrighter/planner-svc:${DOCKER_TAG} jimbrighter/planner-svc:latest
                     docker tag jimbrighter/planner-auth:${DOCKER_TAG} jimbrighter/planner-auth:latest
                     docker tag jimbrighter/planner-db:${DOCKER_TAG} jimbrighter/planner-db:latest
