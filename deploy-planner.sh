@@ -2,6 +2,7 @@
 
 set -e
 
+# Authenticate to DigitalOcean
 doctl auth init -t $DO_TOKEN
 
 # Initialize variables
@@ -29,6 +30,21 @@ doctl compute droplet create $NEW_DROPLET \
 NEW_DROPLET_ID=$(doctl compute droplet list $NEW_DROPLET --format ID | sed -n 2p)
 NEW_DROPLET_IP=$(doctl compute droplet list $NEW_DROPLET --format "Public IPv4" | sed -n 2p)
 echo "New Droplet ID: $NEW_DROPLET_ID"
+
+attempts=0
+max_attempts=36
+
+until $(curl -k --output /dev/null --silent --head --fail https://$NEW_DROPLET_IP:8443/actuator/health); do
+
+  if [ ${attempts} -eq ${max_attempts} ]; then
+    echo "App failed to respond in a timely manner!"
+    exit 1
+  fi
+
+  attempts=$(($attempts+1))
+  echo "Waiting for app to respond at https://$NEW_DROPLET_IP ..."
+  sleep 10
+done
 
 ## Figure out some sort of healthcheck here
 
