@@ -9,3 +9,4 @@ bin/
 .idea
 out/
 
+planner-user-data.sh
