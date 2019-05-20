@@ -20,7 +20,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http
 		.cors()
 		.and().authorizeRequests()
-		.antMatchers(HttpMethod.GET, "/actuator/health").permitAll()
+		.antMatchers("/actuator/health").permitAll()
 		.anyRequest().authenticated()
 		.and().csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
 	}
