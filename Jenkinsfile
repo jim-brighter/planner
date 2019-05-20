@@ -67,6 +67,17 @@ node {
         }
     }
 
+    stage("DEPLOY") {
+        withCredentials([
+            usernamePassword(credentialsId: "git-login", passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME'),
+            string(credentialsId: 'do-token', variable: 'DO_TOKEN')
+        ]) {
+            sh """
+                DO_TOKEN=${DO_TOKEN} GIT_USERNAME=${GIT_USERNAME} GIT_PASSWORD=${GIT_PASSWORD} ./deploy-planner.sh
+            """
+        }
+    }
+
     stage("MERGE") {
         withCredentials([
             usernamePassword(credentialsId: "git-login", passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME'),

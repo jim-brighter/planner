@@ -53,3 +53,6 @@ doctl compute floating-ip-action assign 45.55.122.61 $NEW_DROPLET_ID
 
 # Move new droplet to jimandfangzhuo.com project
 doctl projects resources assign 945d09ea-b636-4fcb-ab18-4eb8002ce53b --resource=do:droplet:$NEW_DROPLET_ID
+
+# Delete old droplet
+doctl compute droplet delete -f $OLD_DROPLET
