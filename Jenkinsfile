@@ -73,6 +73,7 @@ node {
             string(credentialsId: 'do-token', variable: 'DO_TOKEN')
         ]) {
             sh """
+                chmod +x deploy-planner.sh
                 DO_TOKEN=${DO_TOKEN} GIT_USERNAME=${GIT_USERNAME} GIT_PASSWORD=${GIT_PASSWORD} ./deploy-planner.sh
             """
         }
