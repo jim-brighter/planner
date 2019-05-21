@@ -75,6 +75,7 @@ node {
             sh """
                 chown jenkins:jenkins ~/.ssh/id_rsa
                 chmod 700 ~/.ssh/id_rsa
+                eval \$(ssh-agent -s)
                 ssh-add ~/.ssh/id_rsa
                 echo > ~/.ssh/known_hosts
                 docker-compose -H "ssh://jbrighter@jimandfangzhuo.com" pull
