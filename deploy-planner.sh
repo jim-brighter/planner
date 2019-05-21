@@ -20,7 +20,7 @@ doctl compute droplet create $NEW_DROPLET \
 --region nyc3 \
 --size s-1vcpu-1gb \
 --image 47146497 \
---ssh-keys 22134471,23526912 \
+--ssh-keys 22134471,23526912,24637185 \
 --enable-monitoring \
 --tag-names $NEW_DROPLET \
 --user-data-file planner-user-data.sh \
