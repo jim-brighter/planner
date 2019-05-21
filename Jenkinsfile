@@ -79,11 +79,9 @@ node {
                 ssh-add ~/.ssh/id_rsa
                 echo > ~/.ssh/known_hosts
 
-                ssh -o StrictHostKeyChecking=no jbrighter@jimandfangzhuo.com << EOF
-                    docker-compose -f docker-compose.yml pull
-                    docker-compose -f docker-compose.yml down
-                    docker-compose -f docker-compose.yml up -d
-                EOF
+                chmod +x deploy-containers.sh
+
+                cat deploy-containers.sh | ssh -o StrictHostKeyChecking=no jbrighter@jimandfangzhuo.com
             """
             // sh """
             //     chmod +x deploy-planner.sh
