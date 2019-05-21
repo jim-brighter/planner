@@ -73,9 +73,18 @@ node {
             string(credentialsId: 'do-token', variable: 'DO_TOKEN')
         ]) {
             sh """
-                chmod +x deploy-planner.sh
-                DO_TOKEN=${DO_TOKEN} GIT_USERNAME=${GIT_USERNAME} GIT_PASSWORD=${GIT_PASSWORD} ./deploy-planner.sh
+                chown jenkins:jenkins ~/.ssh/id_rsa
+                chmod 700 ~/.ssh/id_rsa
+                ssh-add ~/.ssh/id_rsa
+                echo > ~/.ssh/known_hosts
+                docker-compose -H "ssh://jbrighter@jimandfangzhuo.com" pull
+                docker-compose -H "ssh://jbrighter@jimandfangzhuo.com" down
+                docker-compose -H "ssh://jbrighter@jimandfangzhuo.com" up -d
             """
+            // sh """
+            //     chmod +x deploy-planner.sh
+            //     DO_TOKEN=${DO_TOKEN} GIT_USERNAME=${GIT_USERNAME} GIT_PASSWORD=${GIT_PASSWORD} ./deploy-planner.sh
+            // """
         }
     }
 
