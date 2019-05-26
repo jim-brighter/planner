@@ -31,6 +31,10 @@ NEW_DROPLET_ID=$(doctl compute droplet list $NEW_DROPLET --format ID | sed -n 2p
 NEW_DROPLET_IP=$(doctl compute droplet list $NEW_DROPLET --format "Public IPv4" | sed -n 2p)
 echo "New Droplet ID: $NEW_DROPLET_ID"
 
+# Put droplet in firewall
+doctl compute firewall add-droplets fd9c6ca0-736e-48e8-84a3-93cb6aa32026 --droplet-ids $NEW_DROPLET_ID
+
+# Healthcheck
 attempts=0
 max_attempts=36
 
@@ -45,8 +49,6 @@ until $(curl -k --output /dev/null --silent --head --fail https://$NEW_DROPLET_I
   echo "Waiting for app to respond at https://$NEW_DROPLET_IP ..."
   sleep 10
 done
-
-## Figure out some sort of healthcheck here
 
 # Reassign jimandfangzhuo.com floating IP to new droplet
 doctl compute floating-ip-action assign 45.55.122.61 $NEW_DROPLET_ID
