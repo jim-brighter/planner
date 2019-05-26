@@ -81,7 +81,7 @@ node {
 
                 chmod +x deploy-containers.sh
 
-                cat deploy-containers.sh | ssh -o StrictHostKeyChecking=no jbrighter@jimandfangzhuo.com
+                ssh -o StrictHostKeyChecking=no jbrighter@jimandfangzhuo.com 'sh redeploy.sh'
             """
             // sh """
             //     chmod +x deploy-planner.sh
