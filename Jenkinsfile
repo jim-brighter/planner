@@ -79,8 +79,6 @@ node {
                 ssh-add ~/.ssh/id_rsa
                 echo > ~/.ssh/known_hosts
 
-                chmod +x deploy-containers.sh
-
                 ssh -o StrictHostKeyChecking=no jbrighter@jimandfangzhuo.com 'sh redeploy.sh'
             """
             // sh """
