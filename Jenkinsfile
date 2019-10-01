@@ -29,17 +29,26 @@ node {
 
     stage("BUILD DOCKER") {
 
-        sh label: "Build Docker Images", script: "./pipeline/build-docker.sh"
+        withEnv([
+            "DOCKER_TAG=${DOCKER_TAG}"
+        ]) {
+            sh label: "Build Docker Images", script: "./pipeline/build-docker.sh"
+        }
     }
 
     stage("PUSH DOCKER") {
         withCredentials([
             usernamePassword(credentialsId: "docker-login", passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')
         ]) {
-            sh label: "Push Docker Images - Tag", script: "./pipeline/push-docker-tag.sh"
 
-            if (GIT_BRANCH == "ci" || GIT_BRANCH == "master") {
-                sh label: "Push Docker Images - Latest", script: "./pipeline/push-docker-latest.sh"
+            withEnv([
+                "DOCKER_TAG=${DOCKER_TAG}"
+            ]) {
+                sh label: "Push Docker Images - Tag", script: "./pipeline/push-docker-tag.sh"
+
+                if (GIT_BRANCH == "ci" || GIT_BRANCH == "master") {
+                    sh label: "Push Docker Images - Latest", script: "./pipeline/push-docker-latest.sh"
+                }
             }
         }
     }
