@@ -8,7 +8,8 @@ const listMap: { [id: string]: String } = {
   'TO_EAT': 'Eaten',
   'TO_COOK': 'Cooked',
   'TO_GO': 'Went',
-  'TO_WATCH': 'Watched'
+  'TO_WATCH': 'Watched',
+  'TO_BUY': 'Bought'
 };
 
 const TO_DO = 'TO_DO';
