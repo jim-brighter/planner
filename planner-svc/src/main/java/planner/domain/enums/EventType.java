@@ -6,7 +6,8 @@ public enum EventType {
 	TO_EAT("To Eat"),
 	TO_COOK("To Cook"),
 	TO_GO("To Go"),
-	TO_WATCH("To Watch");
+	TO_WATCH("To Watch"),
+	TO_BUY("To Buy");
 	
 	private String desc;
 	
