@@ -59,6 +59,7 @@ node {
             string(credentialsId: 'do-token', variable: 'DO_TOKEN')
         ]) {
             sh label: "Deploy App to DO Droplet", script: "./pipeline/deploy.sh"
+            sh label: "Run Healthcheck", script: "./pipeline/healthcheck.sh"
         }
     }
 
