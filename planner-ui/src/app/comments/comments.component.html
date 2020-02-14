@@ -1,4 +1,4 @@
-<div class="container-fluid row align-items-start">
+<div *ngIf="!isLoading" class="container-fluid row align-items-start">
   <ul class="col-12 list-group-flush d-inline-block">
     <h5>Comments</h5>
     <li class="list-group-item" *ngFor="let comment of comments">
@@ -15,4 +15,7 @@
       </form>
     </li>
   </ul>
+</div>
+<div *ngIf="isLoading">
+  <div class="spinner"></div>
 </div>

@@ -2,7 +2,7 @@
   <h1 class="container-fluid d-flex justify-content-center">Jim and Fangzhuo's Pics!</h1>
   <app-navbar></app-navbar>
 </div>
-<div *ngIf="authenticated()" class="container-fluid">
+<div *ngIf="authenticated() && !isLoading" class="container-fluid">
   <div class="d-block justify-content-end text-right align-content-end">
     <a class="btn btn-outline-secondary" (click)="logout()">Logout</a>
   </div>
@@ -21,6 +21,9 @@
       </li>
     </ul>
   </div>
+</div>
+<div *ngIf="authenticated() && isLoading">
+  <div class="spinner"></div>
 </div>
 <div *ngIf="!authenticated()" class="container-fluid">
   <div class="row justify-content-center">

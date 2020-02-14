@@ -32,6 +32,8 @@ export class ListsComponent implements OnInit, OnChanges {
   newEvent: PlannerEvent = new PlannerEvent();
   editing = false;
 
+  isLoading = true;
+
   @Input() list: string;
 
   constructor(private eventService: EventService) { }
@@ -51,6 +53,7 @@ export class ListsComponent implements OnInit, OnChanges {
       this.listData = data;
       this.toDoEvents = this.listData.filter(event => event.eventStatus === TO_DO);
       this.completeEvents = this.listData.filter(event => event.eventStatus === COMPLETE);
+      this.isLoading = false;
     });
   }
 
