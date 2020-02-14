@@ -1,4 +1,4 @@
-<div class="container-fluid row align-items-start">
+<div *ngIf="!isLoading" class="container-fluid row align-items-start">
   <ul class="col-12 list-group-flush d-inline-block">
     <h5>{{listTitle}}</h5>
     <li class="list-group-item" *ngFor="let plannerEvent of toDoEvents">
@@ -22,4 +22,7 @@
       <app-list-item [plannerEvent]="plannerEvent" (itemToDelete)="onDelete($event)" (itemToUpdate)="onRedo($event)" (itemToEdit)="onEdit($event)"></app-list-item>
     </li>
   </ul>
+</div>
+<div *ngIf="isLoading">
+  <div class="spinner"></div>
 </div>
