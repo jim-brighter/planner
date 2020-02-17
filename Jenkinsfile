@@ -29,6 +29,7 @@ node {
         sh label: "Build App Artifacts", script: "./pipeline/build-artifacts.sh"
     }
 
+
     stage("BUILD DOCKER") {
 
         withEnv([
