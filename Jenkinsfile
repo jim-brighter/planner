@@ -4,6 +4,10 @@ def DOCKER_TAG
 
 node {
 
+    print env
+
+    abort
+
     deleteDir()
 
     stage("INIT") {
