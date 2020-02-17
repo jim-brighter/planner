@@ -15,6 +15,11 @@ node {
     deleteDir()
 
     stage("INIT") {
+        git(
+            url: "${REPO_URL}",
+            credentialsId: 'git-login',
+            branch: isPr() ? env.CHANGE_BRANCH : env.BRANCH_NAME
+        )
         DOCKER_TAG = "${BUILD_TIMESTAMP}".replace(" ","").replace(":","").replace("-","")
 
         sh "chmod +x ./pipeline/*.sh"
