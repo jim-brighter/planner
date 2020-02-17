@@ -4,13 +4,11 @@ def DOCKER_TAG
 
 node {
 
-    print env
-
-    abort()
-
     deleteDir()
 
     stage("INIT") {
+        sh "env | sort"
+        sh "exit 1"
         GIT_BRANCH = GIT_BRANCH.replace("origin/", "")
         git(
             url: "${REPO_URL}",
