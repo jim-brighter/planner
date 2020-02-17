@@ -14,6 +14,8 @@ export class PhotosComponent implements OnInit, OnDestroy {
 
   navigationSubscription;
 
+  isLoading = true;
+
   constructor(private imageService: ImageService, 
     public errors: ErrorService, 
     private authenticator: AuthenticationService,
@@ -46,6 +48,7 @@ export class PhotosComponent implements OnInit, OnDestroy {
   getImages(): void {
     this.imageService.getAllImages().subscribe(data => {
       this.images = data;
+      this.isLoading = false;
     });
   }
 

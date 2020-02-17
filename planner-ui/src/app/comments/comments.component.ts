@@ -14,6 +14,8 @@ export class CommentsComponent implements OnInit {
 
   newComment: Comment = new Comment();
 
+  isLoading = true;
+
   constructor(private commentService: CommentService) { }
 
   ngOnInit() {
@@ -23,6 +25,7 @@ export class CommentsComponent implements OnInit {
   retrieveComments(): void {
     this.commentService.getComments().subscribe(data => {
       this.comments = data;
+      this.isLoading = false;
     });
   }
 
