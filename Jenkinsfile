@@ -6,7 +6,7 @@ node {
 
     print env
 
-    abort
+    abort()
 
     deleteDir()
 
