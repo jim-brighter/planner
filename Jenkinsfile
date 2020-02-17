@@ -78,15 +78,19 @@ node {
 
     if (isPushToMaster()) {
         stage("TAG") {
-            def tag = "planner-${BUILD_TIMESTAMP}-${BRANCH_NAME}"
-            tag = tag.replace(" ", "_",).replace(":","-")
-            def origin = "https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/jim-brighter/planner.git"
-
-            withEnv([
-                "origin=${origin}",
-                "tag=${tag}"
+            withCredentials([
+                usernamePassword(credentialsId: "git-login", passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')
             ]) {
-                sh label: "Push Git Tag", script: "./pipeline/push-git-tag.sh"
+                def tag = "planner-${BUILD_TIMESTAMP}-${BRANCH_NAME}"
+                tag = tag.replace(" ", "_",).replace(":","-")
+                def origin = "https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/jim-brighter/planner.git"
+
+                withEnv([
+                    "origin=${origin}",
+                    "tag=${tag}"
+                ]) {
+                    sh label: "Push Git Tag", script: "./pipeline/push-git-tag.sh"
+                }
             }
         }
     }
