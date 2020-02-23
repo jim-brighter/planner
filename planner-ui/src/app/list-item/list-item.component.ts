@@ -16,13 +16,15 @@ export class ListItemComponent implements OnInit {
 
   showButtons = false;
   updateAction = '';
+  updateTitle = '';
 
   editing = false;
 
   constructor() { }
 
   ngOnInit() {
-    this.updateAction = this.plannerEvent.eventStatus === 'TO_DO' ? 'Done' : 'Redo';
+    this.updateAction = this.plannerEvent.eventStatus === 'TO_DO' ? '' : '';
+    this.updateTitle = this.plannerEvent.eventStatus === 'TO_DO' ? 'Done' : 'Redo';
   }
 
   deleteItem(): void {
