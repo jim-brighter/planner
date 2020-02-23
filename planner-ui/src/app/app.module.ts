@@ -3,6 +3,8 @@ import { NgModule, Injectable } from '@angular/core';
 import { HttpClientModule, HttpRequest, HttpHandler, HttpInterceptor, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
 
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 import { AppComponent } from './app.component';
 import { CommentsComponent } from './comments/comments.component';
 import { ListsComponent } from './lists/lists.component';
@@ -51,7 +53,8 @@ export class XhrInterceptor implements HttpInterceptor {
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    FileUploadModule
+    FileUploadModule,
+    FontAwesomeModule
   ],
   providers: [
     EventService,

@@ -1,0 +1,28 @@
+version: '2'
+networks:
+  planner:
+services:
+  planner-db:
+    container_name: planner-db
+    image: jimbrighter/planner-db:latest
+    mem_limit: 100m
+    ports:
+      - "5432:5432"
+    networks:
+      planner:
+        aliases:
+          - db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+  planner-redis:
+    container_name: planner-redis
+    image: redis:4-alpine
+    mem_limit: 50m
+    ports:
+      - "6379:6379"
+    networks:
+      planner:
+        aliases:
+          - redis

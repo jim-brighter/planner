@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { PlannerEvent } from '../event';
+import { faEdit, faTimes, faCheck, faRedo } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-list-item',
@@ -14,6 +15,11 @@ export class ListItemComponent implements OnInit {
   @Output() itemToUpdate = new EventEmitter<PlannerEvent>();
   @Output() itemToEdit = new EventEmitter<PlannerEvent>();
 
+  faEdit = faEdit;
+  faTimes = faTimes;
+  faCheck = faCheck;
+  faRedo = faRedo;
+
   showButtons = false;
   updateAction = '';
   updateTitle = '';
@@ -23,7 +29,7 @@ export class ListItemComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.updateAction = this.plannerEvent.eventStatus === 'TO_DO' ? '' : '';
+    this.updateAction = this.plannerEvent.eventStatus === 'TO_DO' ? 'faCheck' : 'faRedo';
     this.updateTitle = this.plannerEvent.eventStatus === 'TO_DO' ? 'Done' : 'Redo';
   }
 
