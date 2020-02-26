@@ -4,7 +4,7 @@
 </div>
 <div *ngIf="authenticated() && !isLoading" class="container-fluid">
   <div class="d-block justify-content-end text-right align-content-end">
-    <a class="btn btn-outline-secondary" (click)="logout()">Logout</a>
+    <button class="btn btn-outline-secondary" (click)="logout()"><fa-icon [icon]="faSignOutAlt"></fa-icon> Logout</button>
   </div>
   <div class="container-fluid justify-content-center align-content-center text-center">
     <span *ngFor="let errorMessage of errors.getErrors()" class="d-block alert alert-danger">{{errorMessage}}</span>

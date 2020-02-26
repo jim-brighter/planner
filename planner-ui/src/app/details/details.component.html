@@ -7,7 +7,7 @@
 </div>
 <div *ngIf="authenticated()" class="container-fluid" id="all-container">
   <div class="d-block justify-content-end text-right align-content-end">
-    <a class="btn btn-outline-secondary" (click)="logout()">Logout</a>
+    <button class="btn btn-outline-secondary" (click)="logout()"><fa-icon [icon]="faSignOutAlt"></fa-icon> Logout</button>
   </div>
   <div class="d-block d-md-none">
     <ul class="nav nav-tabs">

@@ -4,6 +4,7 @@ import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Location } from '@angular/common';
 import { AuthenticationService } from '../authentication.service';
 import { ErrorService } from '../error.service';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 
 const MIN_WIDTH = 768;
@@ -21,6 +22,8 @@ export class DetailsComponent implements OnInit, OnDestroy {
 
   hideLists = false;
   hideComments = false;
+
+  faSignOutAlt = faSignOutAlt;
 
   constructor(
     private route: ActivatedRoute,
