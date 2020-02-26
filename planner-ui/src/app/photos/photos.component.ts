@@ -4,6 +4,7 @@ import { ImageService } from '../image.service';
 import { ErrorService } from '../error.service';
 import { AuthenticationService } from '../authentication.service';
 import { Router, NavigationEnd } from '@angular/router';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-photos',
@@ -15,6 +16,8 @@ export class PhotosComponent implements OnInit, OnDestroy {
   navigationSubscription;
 
   isLoading = true;
+
+  faSignOutAlt = faSignOutAlt;
 
   constructor(private imageService: ImageService, 
     public errors: ErrorService, 
