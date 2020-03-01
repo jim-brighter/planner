@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 
+import { faAngleDown, faAngleRight } from '@fortawesome/free-solid-svg-icons';
+
 import { EventService } from '../event.service';
 import { PlannerEvent } from '../event';
 
@@ -34,6 +36,12 @@ export class ListsComponent implements OnInit, OnChanges {
 
   isLoading = true;
 
+  faAngleDown = faAngleDown;
+  faAngleRight = faAngleRight;
+
+  expandToDo = false;
+  expandDone = false;
+
   @Input() list: string;
 
   constructor(private eventService: EventService) { }
@@ -41,6 +49,8 @@ export class ListsComponent implements OnInit, OnChanges {
   ngOnInit() {
     this.setListToShow();
     this.populateLists();
+    this.expandToDo = true;
+    this.expandDone = false;
   }
 
   setListToShow(): void {
@@ -102,6 +112,14 @@ export class ListsComponent implements OnInit, OnChanges {
     this.eventService.updateEvents([toEdit]).subscribe(() => {
       this.populateLists();
     });
+  }
+
+  toggleExpandToDo(): void {
+    this.expandToDo = !this.expandToDo;
+  }
+
+  toggleExpandDone(): void {
+    this.expandDone = !this.expandDone;
   }
 
   ngOnChanges() {

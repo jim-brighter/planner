@@ -1,6 +1,10 @@
 <div *ngIf="!isLoading" class="container-fluid row align-items-start">
-  <ul class="col-12 list-group-flush d-inline-block">
-    <h5>{{listTitle}}</h5>
+  <h5 class="col-12">
+      <fa-icon *ngIf="expandToDo" [icon]="faAngleDown"></fa-icon>
+      <fa-icon *ngIf="!expandToDo" [icon]="faAngleRight"></fa-icon>
+      <a data-toggle="collapse" (click)="toggleExpandToDo()" href="#toDoCollapse" aria-expanded="false" aria-controls="toDoCollapse"> {{listTitle}}</a>
+  </h5>
+  <ul class="col-12 list-group-flush collapse show" id="toDoCollapse">
     <li class="list-group-item" *ngFor="let plannerEvent of toDoEvents">
       <app-list-item [plannerEvent]="plannerEvent" (itemToDelete)="onDelete($event)" (itemToUpdate)="onComplete($event)" (itemToEdit)="onEdit($event)"></app-list-item>
     </li>
@@ -16,8 +20,12 @@
       </form>
     </li>
   </ul>
-  <ul class="col-12 list-group-flush d-inline-block">
-    <h5>{{completedListTitle}}</h5>
+  <h5 class="col-12">
+      <fa-icon *ngIf="expandDone" [icon]="faAngleDown"></fa-icon>
+      <fa-icon *ngIf="!expandDone" [icon]="faAngleRight"></fa-icon>
+      <a data-toggle="collapse" (click)="toggleExpandDone()" href="#doneCollapse" aria-expanded="false" aria-controls="doneCollapse"> {{completedListTitle}}</a>
+  </h5>
+  <ul class="col-12 collapse list-group-flush" id="doneCollapse">
     <li class="list-group-item" *ngFor="let plannerEvent of completeEvents">
       <app-list-item [plannerEvent]="plannerEvent" (itemToDelete)="onDelete($event)" (itemToUpdate)="onRedo($event)" (itemToEdit)="onEdit($event)"></app-list-item>
     </li>
