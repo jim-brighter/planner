@@ -10,7 +10,7 @@
     <button class="btn btn-outline-secondary" (click)="logout()"><fa-icon [icon]="faSignOutAlt"></fa-icon> Logout</button>
   </div>
   <div class="d-block d-md-none">
-    <ul class="nav nav-tabs">
+    <ul class="nav nav-tabs col-12 nav-fill my-4">
       <li class="nav-item">
         <a class="nav-link" [ngClass]="{'active': hideLists === false && hideComments === true}" (click)="goToDetails()">Details</a>
       </li>
