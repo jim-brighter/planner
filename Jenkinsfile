@@ -31,8 +31,10 @@ node {
         }
     }
 
-    stage("BUILD ARTIFACTS") {
-        sh label: "Build App Artifacts", script: "./pipeline/build-artifacts.sh"
+    if (isPr() || isPushToMaster()) {
+        stage("BUILD ARTIFACTS") {
+            sh label: "Build App Artifacts", script: "./pipeline/build-artifacts.sh"
+        }
     }
 
     if (isPr() || isPushToMaster()) {
