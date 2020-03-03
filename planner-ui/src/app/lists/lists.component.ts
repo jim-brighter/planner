@@ -16,6 +16,7 @@ const listMap: { [id: string]: String } = {
 
 const TO_DO = 'TO_DO';
 const COMPLETE = 'COMPLETE';
+const DELETED = 'DELETED';
 
 @Component({
   selector: 'app-lists',
@@ -86,8 +87,9 @@ export class ListsComponent implements OnInit, OnChanges {
   }
 
   onDelete(toDelete: PlannerEvent): void {
+    toDelete.eventStatus = DELETED;
     const toDeleteArray: PlannerEvent[] = [toDelete];
-    this.eventService.deleteEvent(toDeleteArray).subscribe(() => {
+    this.eventService.updateEvents(toDeleteArray).subscribe(() => {
       this.populateLists();
     });
   }

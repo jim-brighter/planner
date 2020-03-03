@@ -30,12 +30,6 @@ public class EventController {
 		return eventService.createEvent(event);
 	}
 	
-	@ApiOperation(value = "Find an event by ID")
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = APPLICATION_JSON)
-	public Event findById(@PathVariable(value = "id") String id) {
-		return eventService.findEvent(Long.parseLong(id));
-	}
-	
 	@ApiOperation(value = "Find all events")
 	@RequestMapping(value = "", method = RequestMethod.GET, produces = APPLICATION_JSON)
 	public List<Event> findAllEvents() {

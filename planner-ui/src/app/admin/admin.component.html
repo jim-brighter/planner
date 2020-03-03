@@ -1,0 +1,28 @@
+<div class="table-responsive px-5 pt-2">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Event ID</th>
+        <th>Event Title</th>
+        <th>Event Description</th>
+        <th>Event Status</th>
+        <th>Event Type</th>
+        <th>Restore?</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let event of events">
+        <td>{{event.id}}</td>
+        <td>{{event.title}}</td>
+        <td>{{event.description}}</td>
+        <td>{{event.eventStatus}}</td>
+        <td>{{event.eventType}}</td>
+        <td>
+          <button *ngIf="event.eventStatus === 'DELETED'" type="button" title="Restore" class="btn btn-outline-success btn-sm" (click)="restoreItem(event)">
+            <fa-icon [icon]="faTrashRestore"></fa-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

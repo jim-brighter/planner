@@ -9,8 +9,6 @@ public interface EventService {
 	
 	public Event createEvent(Event event);
 	
-	public Event findEvent(long id);
-	
 	public List<Event> findAllEvents();
 	
 	public List<Event> findEvents(EventType eventType);

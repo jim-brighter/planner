@@ -23,6 +23,7 @@ import { PhotosComponent } from './photos/photos.component';
 import { LoginComponent } from './login/login.component';
 import { AuthenticationService } from './authentication.service';
 import { ErrorService } from './error.service';
+import { AdminComponent } from './admin/admin.component';
 
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
@@ -46,7 +47,8 @@ export class XhrInterceptor implements HttpInterceptor {
     CommentItemComponent,
     UploadComponent,
     PhotosComponent,
-    LoginComponent
+    LoginComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
