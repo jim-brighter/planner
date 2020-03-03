@@ -10,12 +10,33 @@ def isPushToMaster() {
     return env.BRANCH_NAME == "master"
 }
 
-def updateGithubStatus() {
+def ERROR = "error"
+def FAILURE = "failure"
+def PENDING = "pending"
+def SUCCESS = "success"
+
+def acceptedStates = [ERROR, FAILURE, PENDING, SUCCESS]
+
+def updateGithubStatus(state, stage) {
     withCredentials([
         usernamePassword(credentialsId: 'git-login', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')
     ]) {
+        if (state not in acceptedStates) {
+            currentBuild.result = 'FAILURE'
+            error("Invalid github state")
+        }
+        def branch = isPr() ? env.CHANGE_BRANCH : env.BRANCH_NAME
         sh """
-            curl -i https://api.github.com -u ${GIT_USERNAME}:${GIT_PASSWORD}
+            curl https://api.github.com/repos/jim-brighter/planner/statuses/${branch} -u ${GIT_USERNAME}:${GIT_PASSWORD} \
+                -H "Accept: application/vnd.github.v3+json" \
+                -H "Content-Type: application/json" \
+                -X POST \
+                -d '{
+                    "state": "${state}",
+                    "target_url": "http://jimsjenkins.xyz/blue/organizations/jenkins/Planner/detail/${env.GIT_BRANCH}/${env.BUILD_NUMBER}/pipeline/",
+                    "description": "${stage} - ${state}",
+                    "context": continuous-integration/jenkins/${stage}"
+                }'
         """
     }
 }
@@ -28,16 +49,18 @@ node {
     deleteDir()
 
     stage("INIT") {
+        updateGithubStatus("init", PENDING)
         git(
             url: "${REPO_URL}",
             credentialsId: 'git-login',
             branch: isPr() ? env.CHANGE_BRANCH : env.BRANCH_NAME
         )
-        updateGithubStatus()
 
         DOCKER_TAG = "${BUILD_TIMESTAMP}".replace(" ","").replace(":","").replace("-","")
 
         sh "chmod +x ./pipeline/*.sh"
+
+        updateGithubStatus("init", SUCCESS)
     }
 
     if (isPr() || isPushToMaster()) {
