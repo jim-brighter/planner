@@ -21,7 +21,7 @@ def updateGithubStatus(state, stage) {
     withCredentials([
         usernamePassword(credentialsId: 'git-login', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')
     ]) {
-        if (state not in acceptedStates) {
+        if (!acceptedStates.contains(state)) {
             currentBuild.result = 'FAILURE'
             error("Invalid github state")
         }
