@@ -10,6 +10,16 @@ def isPushToMaster() {
     return env.BRANCH_NAME == "master"
 }
 
+def updateGithubStatus() {
+    withCredentials([
+        usernamePassword(credentialsId: 'git-login', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')
+    ]) {
+        sh """
+            curl -i https://api.github.com -u ${GITHUB_USERNAME}:${GITHUB_PASSWORD}
+        """
+    }
+}
+
 node {
 
     properties([[$class: 'JiraProjectProperty'], buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '5')), 
@@ -23,6 +33,8 @@ node {
             credentialsId: 'git-login',
             branch: isPr() ? env.CHANGE_BRANCH : env.BRANCH_NAME
         )
+        updateGithubStatus()
+
         DOCKER_TAG = "${BUILD_TIMESTAMP}".replace(" ","").replace(":","").replace("-","")
 
         sh "chmod +x ./pipeline/*.sh"
