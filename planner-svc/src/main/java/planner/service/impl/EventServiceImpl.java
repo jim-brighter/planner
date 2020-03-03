@@ -8,6 +8,7 @@ import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,21 +36,15 @@ public class EventServiceImpl implements EventService {
 	}
 
 	@Override
-	public Event findEvent(long id) {
-		logger.info("Finding event with ID {}", id);
-		return eventDAO.findById(id);
-	}
-
-	@Override
 	public List<Event> findAllEvents() {
 		logger.info("Finding all events");
-		return eventDAO.findAll();
+		return eventDAO.findAll(Sort.by("id"));
 	}
 	
 	@Override
 	public List<Event> findEvents(EventType eventType) {
 		logger.info("Finding all events of type {}", eventType.toString());
-		return eventDAO.findByEventTypeAndEventStatusNot(eventType, EventStatus.DELETED);
+		return eventDAO.findByEventTypeAndEventStatusNotOrderById(eventType, EventStatus.DELETED);
 	}
 
 	@Override
