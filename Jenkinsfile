@@ -15,7 +15,7 @@ def updateGithubStatus() {
         usernamePassword(credentialsId: 'git-login', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')
     ]) {
         sh """
-            curl -i https://api.github.com -u ${GITHUB_USERNAME}:${GITHUB_PASSWORD}
+            curl -i https://api.github.com -u ${GIT_USERNAME}:${GIT_PASSWORD}
         """
     }
 }
