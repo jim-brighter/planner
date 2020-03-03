@@ -49,7 +49,7 @@ public class EventServiceImpl implements EventService {
 	@Override
 	public List<Event> findEvents(EventType eventType) {
 		logger.info("Finding all events of type {}", eventType.toString());
-		return eventDAO.findByEventType(eventType);
+		return eventDAO.findByEventTypeAndEventStatusNot(eventType, EventStatus.DELETED);
 	}
 
 	@Override

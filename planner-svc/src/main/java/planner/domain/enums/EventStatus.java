@@ -3,7 +3,8 @@ package planner.domain.enums;
 public enum EventStatus {
 	
 	TO_DO("To Do"),
-	COMPLETE("Complete");
+	COMPLETE("Complete"),
+	DELETED("Deleted");
 	
 	private String desc;
 	
