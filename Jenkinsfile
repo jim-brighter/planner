@@ -23,7 +23,7 @@ def updateGithubStatus(stage, state, sha) {
     ]) {
         def branch = isPr() ? env.CHANGE_BRANCH : env.BRANCH_NAME
         sh """
-            curl --output /dev/null --silent --head --fail https://api.github.com/repos/jim-brighter/planner/statuses/${sha} \
+            curl https://api.github.com/repos/jim-brighter/planner/statuses/${sha} \
                 -u ${GIT_USERNAME}:${GIT_PASSWORD} \
                 -H "Accept: application/vnd.github.v3+json" \
                 -H "Content-Type: application/json" \
