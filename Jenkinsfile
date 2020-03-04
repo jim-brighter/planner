@@ -21,7 +21,7 @@ def updateGithubStatus(state, stage) {
     withCredentials([
         usernamePassword(credentialsId: 'git-login', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')
     ]) {
-        if (!acceptedStates.contains(state)) {
+        if (!this.acceptedStates.contains(state)) {
             currentBuild.result = 'FAILURE'
             error("Invalid github state")
         }
@@ -49,8 +49,6 @@ node {
     deleteDir()
 
     stage("INIT") {
-
-        print(acceptedStates)
 
         updateGithubStatus("init", PENDING)
         git(
