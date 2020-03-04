@@ -15,16 +15,10 @@ def FAILURE = "failure"
 def PENDING = "pending"
 def SUCCESS = "success"
 
-def acceptedStates = [ERROR, FAILURE, PENDING, SUCCESS]
-
 def updateGithubStatus(state, stage) {
     withCredentials([
         usernamePassword(credentialsId: 'git-login', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')
     ]) {
-        if (!this.acceptedStates.contains(state)) {
-            currentBuild.result = 'FAILURE'
-            error("Invalid github state")
-        }
         def branch = isPr() ? env.CHANGE_BRANCH : env.BRANCH_NAME
         sh """
             curl https://api.github.com/repos/jim-brighter/planner/statuses/${branch} -u ${GIT_USERNAME}:${GIT_PASSWORD} \
