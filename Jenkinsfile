@@ -15,7 +15,7 @@ def FAILURE = "failure"
 def PENDING = "pending"
 def SUCCESS = "success"
 
-def updateGithubStatus(stage, state, sha) {
+def updateGithubStatus(stage, state) {
     withCredentials([
         usernamePassword(credentialsId: 'git-login', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')
     ]) {
