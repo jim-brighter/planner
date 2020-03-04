@@ -15,13 +15,15 @@ def FAILURE = "failure"
 def PENDING = "pending"
 def SUCCESS = "success"
 
-def updateGithubStatus(stage, state) {
+def GIT_COMMIT
+
+def updateGithubStatus(stage, state, sha) {
     withCredentials([
         usernamePassword(credentialsId: 'git-login', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')
     ]) {
         def branch = isPr() ? env.CHANGE_BRANCH : env.BRANCH_NAME
         sh """
-            curl https://api.github.com/repos/jim-brighter/planner/statuses/${branch} -u ${GIT_USERNAME}:${GIT_PASSWORD} \
+            curl https://api.github.com/repos/jim-brighter/planner/statuses/${sha} -u ${GIT_USERNAME}:${GIT_PASSWORD} \
                 -H "Accept: application/vnd.github.v3+json" \
                 -H "Content-Type: application/json" \
                 -X POST \
@@ -43,21 +45,21 @@ node {
     deleteDir()
 
     stage("INIT") {
-
-        updateGithubStatus("init", PENDING)
-        sha = git(
+        gitOutput = git(
             url: "${REPO_URL}",
             credentialsId: 'git-login',
             branch: isPr() ? env.CHANGE_BRANCH : env.BRANCH_NAME
         )
 
-        print(sha)
+        GIT_COMMIT = gitOutput.GIT_COMMIT
+
+        updateGithubStatus("init", PENDING, GIT_COMMIT)
 
         DOCKER_TAG = "${BUILD_TIMESTAMP}".replace(" ","").replace(":","").replace("-","")
 
         sh "chmod +x ./pipeline/*.sh"
 
-        updateGithubStatus("init", SUCCESS)
+        updateGithubStatus("init", SUCCESS, GIT_COMMIT)
     }
 
     if (isPr() || isPushToMaster()) {
