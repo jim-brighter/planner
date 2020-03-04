@@ -15,7 +15,7 @@ def FAILURE = "failure"
 def PENDING = "pending"
 def SUCCESS = "success"
 
-def updateGithubStatus(state, stage) {
+def updateGithubStatus(stage, state, sha) {
     withCredentials([
         usernamePassword(credentialsId: 'git-login', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')
     ]) {
@@ -45,11 +45,13 @@ node {
     stage("INIT") {
 
         updateGithubStatus("init", PENDING)
-        git(
+        sha = git(
             url: "${REPO_URL}",
             credentialsId: 'git-login',
             branch: isPr() ? env.CHANGE_BRANCH : env.BRANCH_NAME
         )
+
+        print(sha)
 
         DOCKER_TAG = "${BUILD_TIMESTAMP}".replace(" ","").replace(":","").replace("-","")
 
