@@ -49,6 +49,9 @@ node {
     deleteDir()
 
     stage("INIT") {
+
+        print(acceptedStates)
+
         updateGithubStatus("init", PENDING)
         git(
             url: "${REPO_URL}",
