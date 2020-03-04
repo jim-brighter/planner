@@ -23,7 +23,7 @@ def updateGithubStatus(stage, state, sha) {
     ]) {
         def branch = isPr() ? env.CHANGE_BRANCH : env.BRANCH_NAME
         sh """
-            curl https://api.github.com/repos/jim-brighter/planner/statuses/${sha} \
+            curl --head https://api.github.com/repos/jim-brighter/planner/statuses/${sha} \
                 -u ${GIT_USERNAME}:${GIT_PASSWORD} \
                 -H "Accept: application/vnd.github.v3+json" \
                 -H "Content-Type: application/json" \
@@ -65,35 +65,35 @@ node {
 
     if (isPr() || isPushToMaster()) {
         stage("PULL BASE IMAGES") {
-            updateGithubStatus("pull base images", PENDING, GIT_COMMIT)
+            updateGithubStatus("pull-base-images", PENDING, GIT_COMMIT)
             sh label: "Pull Base Images", script: "./pipeline/pull-base-images.sh"
-            updateGithubStatus("pull base images", SUCCESS, GIT_COMMIT)
+            updateGithubStatus("pull-base-images", SUCCESS, GIT_COMMIT)
         }
     }
 
     if (isPr() || isPushToMaster()) {
         stage("BUILD ARTIFACTS") {
-            updateGithubStatus("build artifacts", PENDING, GIT_COMMIT)
+            updateGithubStatus("build-artifacts", PENDING, GIT_COMMIT)
             sh label: "Build App Artifacts", script: "./pipeline/build-artifacts.sh"
-            updateGithubStatus("build artifacts", SUCCESS, GIT_COMMIT)
+            updateGithubStatus("build-artifacts", SUCCESS, GIT_COMMIT)
         }
     }
 
     if (isPr() || isPushToMaster()) {
         stage("BUILD DOCKER") {
-            updateGithubStatus("build docker", PENDING, GIT_COMMIT)
+            updateGithubStatus("build-docker", PENDING, GIT_COMMIT)
             withEnv([
                 "DOCKER_TAG=${DOCKER_TAG}"
             ]) {
                 sh label: "Build Docker Images", script: "./pipeline/build-docker.sh"
             }
-            updateGithubStatus("build docker", SUCCESS, GIT_COMMIT)
+            updateGithubStatus("build-docker", SUCCESS, GIT_COMMIT)
         }
     }
 
     if (isPr() || isPushToMaster()) {
         stage("PUSH DOCKER") {
-            updateGithubStatus("push docker", PENDING, GIT_COMMIT)
+            updateGithubStatus("push-docker", PENDING, GIT_COMMIT)
             withCredentials([
                 usernamePassword(credentialsId: "docker-login", passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')
             ]) {
@@ -108,7 +108,7 @@ node {
                     }
                 }
             }
-            updateGithubStatus("push docker", SUCCESS, GIT_COMMIT)
+            updateGithubStatus("push-docker", SUCCESS, GIT_COMMIT)
         }
     }
 
