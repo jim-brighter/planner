@@ -27,9 +27,9 @@ def updateGithubStatus(state, stage) {
                 -X POST \
                 -d '{
                     "state": "${state}",
-                    "target_url": "http://jimsjenkins.xyz/blue/organizations/jenkins/Planner/detail/${env.GIT_BRANCH}/${env.BUILD_NUMBER}/pipeline/",
+                    "target_url": "http://jimsjenkins.xyz/blue/organizations/jenkins/Planner/detail/${env.BRANCH_NAME}/${env.BUILD_NUMBER}/pipeline/",
                     "description": "${stage} - ${state}",
-                    "context": continuous-integration/jenkins/${stage}"
+                    "context": "continuous-integration/jenkins/${stage}"
                 }'
         """
     }
