@@ -16,7 +16,9 @@ export class EventService {
   private rootUrl = environment.plannerBackendRootUrl;
   private apiContext = environment.plannerBackendEventsContext;
 
-  constructor(private http: HttpClient, private auth: AuthenticationService, private errors: ErrorService) { }
+  constructor(private http: HttpClient,
+    private auth: AuthenticationService,
+    private errors: ErrorService) { }
 
   getEvents(): Observable<PlannerEvent[]> {
     return this.http.get<PlannerEvent[]>(this.rootUrl + this.apiContext, {

@@ -21,7 +21,8 @@ export class AuthenticationService {
   authToken: string;
   csrfCookie: string;
 
-  constructor(private http: HttpClient, private errors: ErrorService, private router: Router) {
+  constructor(private http: HttpClient,
+              private errors: ErrorService) {
     const tokenAuth = localStorage.getItem(TOKEN_KEY);
     const tokenCsrf = localStorage.getItem(CSRF_KEY);
     if (tokenAuth && tokenCsrf) {
