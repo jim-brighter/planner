@@ -88,7 +88,7 @@ export class AuthenticationService {
     return this.errors.handleError(operation, result);
   }
 
-  wipeSession() {
+  private wipeSession() {
     this.authenticated = false;
     this.authToken = null;
     this.csrfCookie = null;

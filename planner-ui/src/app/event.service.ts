@@ -7,6 +7,7 @@ import { environment } from '../environments/environment';
 import { PlannerEvent } from './event';
 import { AuthenticationService } from './authentication.service';
 import { ErrorService } from './error.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,9 @@ export class EventService {
   private rootUrl = environment.plannerBackendRootUrl;
   private apiContext = environment.plannerBackendEventsContext;
 
-  constructor(private http: HttpClient, private auth: AuthenticationService, private errors: ErrorService) { }
+  constructor(private http: HttpClient,
+    private auth: AuthenticationService,
+    private errors: ErrorService) { }
 
   getEvents(): Observable<PlannerEvent[]> {
     return this.http.get<PlannerEvent[]>(this.rootUrl + this.apiContext, {
@@ -27,7 +30,7 @@ export class EventService {
       withCredentials: true
     })
       .pipe(
-        catchError(this.handleError('getEvents', new Array<PlannerEvent>()))
+        catchError(this.errors.handleError('getEvents', new Array<PlannerEvent>()))
       );
   }
 
@@ -40,7 +43,7 @@ export class EventService {
       withCredentials: true
     })
       .pipe(
-        catchError(this.handleError('getEventsByType', new Array<PlannerEvent>()))
+        catchError(this.errors.handleError('getEventsByType', new Array<PlannerEvent>()))
       );
   }
 
@@ -54,7 +57,7 @@ export class EventService {
       withCredentials: true
     })
       .pipe(
-        catchError(this.handleError('saveEvent', new PlannerEvent()))
+        catchError(this.errors.handleError('saveEvent', new PlannerEvent()))
       );
   }
 
@@ -69,7 +72,7 @@ export class EventService {
         withCredentials: true
       })
       .pipe(
-        catchError(this.handleError('deleteEvent', null))
+        catchError(this.errors.handleError('deleteEvent', null))
       );
   }
 
@@ -84,12 +87,8 @@ export class EventService {
         withCredentials: true
       })
       .pipe(
-        catchError(this.handleError('updateEvents', new Array<PlannerEvent>()))
+        catchError(this.errors.handleError('updateEvents', new Array<PlannerEvent>()))
       );
-  }
-
-  private handleError<T> (operation = 'operation', result ?: T) {
-    return this.errors.handleError(operation, result);
   }
 
 }
