@@ -125,6 +125,7 @@ export class ListsComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
+    this.isLoading = true;
     this.setListToShow();
     this.populateLists();
   }
