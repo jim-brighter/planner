@@ -3,7 +3,10 @@
   <app-navbar></app-navbar>
 </div>
 <div class="container-fluid justify-content-center align-content-center text-center">
-  <span *ngFor="let errorMessage of errors.getErrors()" class="d-block alert alert-danger">{{errorMessage}}</span>
+  <span *ngFor="let errorMessage of errors.getErrors(); let i = index" class="d-block alert alert-danger">{{errorMessage.errorMessage}} 
+  <button *ngIf="i === 0" type="button" class="close" aria-label="Close" (click)="errors.clear()">
+    <fa-icon class="bigger" [icon]="faTimes"></fa-icon>
+  </button></span>
 </div>
 <div *ngIf="authenticated()" class="container-fluid" id="all-container">
   <div class="d-block justify-content-end text-right align-content-end">

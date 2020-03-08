@@ -23,7 +23,7 @@ const DELETED = 'DELETED';
   templateUrl: './lists.component.html',
   styleUrls: ['./lists.component.css']
 })
-export class ListsComponent implements OnInit, OnChanges {
+export class ListsComponent implements OnChanges {
 
   listTitle: String;
   completedListTitle: String;
@@ -47,7 +47,8 @@ export class ListsComponent implements OnInit, OnChanges {
 
   constructor(private eventService: EventService) { }
 
-  ngOnInit() {
+  ngOnChanges() {
+    this.isLoading = true;
     this.setListToShow();
     this.populateLists();
     this.expandToDo = true;
@@ -122,12 +123,6 @@ export class ListsComponent implements OnInit, OnChanges {
 
   toggleExpandDone(): void {
     this.expandDone = !this.expandDone;
-  }
-
-  ngOnChanges() {
-    this.isLoading = true;
-    this.setListToShow();
-    this.populateLists();
   }
 
 }

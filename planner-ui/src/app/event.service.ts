@@ -27,7 +27,7 @@ export class EventService {
       withCredentials: true
     })
       .pipe(
-        catchError(this.errors.handleError('getEvents', new Array<PlannerEvent>()))
+        catchError(this.handleError('getEvents', new Array<PlannerEvent>()))
       );
   }
 
@@ -40,7 +40,7 @@ export class EventService {
       withCredentials: true
     })
       .pipe(
-        catchError(this.errors.handleError('getEventsByType', new Array<PlannerEvent>()))
+        catchError(this.handleError('getEventsByType', new Array<PlannerEvent>()))
       );
   }
 
@@ -54,7 +54,7 @@ export class EventService {
       withCredentials: true
     })
       .pipe(
-        catchError(this.errors.handleError('saveEvent', new PlannerEvent()))
+        catchError(this.handleError('saveEvent', new PlannerEvent()))
       );
   }
 
@@ -69,7 +69,7 @@ export class EventService {
         withCredentials: true
       })
       .pipe(
-        catchError(this.errors.handleError('deleteEvent', null))
+        catchError(this.handleError('deleteEvent', null))
       );
   }
 
@@ -84,8 +84,12 @@ export class EventService {
         withCredentials: true
       })
       .pipe(
-        catchError(this.errors.handleError('updateEvents', new Array<PlannerEvent>()))
+        catchError(this.handleError('updateEvents', new Array<PlannerEvent>()))
       );
+  }
+
+  private handleError<T> (operation = 'operation', result ?: T) {
+    return this.errors.handleError(operation, result);
   }
 
 }

@@ -1,21 +1,27 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { PlannerError } from './planner-error';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ErrorService {
 
-  private errorMessages: Array<string> = new Array<string>();
+  private errorMessages: Array<PlannerError> = new Array<PlannerError>();
 
   constructor() { }
 
-  getErrors(): Array<string> {
+  getErrors(): Array<PlannerError> {
     return this.errorMessages;
   }
 
-  addError(errorMessage: string): void {
-    this.errorMessages.push(errorMessage);
+  addError(errorCode: number, errorMessage: string): void {
+    const error: PlannerError = new PlannerError();
+    error.errorCode = errorCode;
+    error.errorMessage = errorMessage;
+    if (this.errorMessages.filter((e) => e.errorCode === error.errorCode).length === 0) {
+      this.errorMessages.push(error);
+    }
   }
 
   clear(): void {
@@ -28,7 +34,7 @@ export class ErrorService {
       if (error.status === 403) {
         message = 'Your session is invalid. Please try logging in again.';
       }
-      this.addError(message);
+      this.addError(error.status, message);
       return of(result as T);
     };
   }
