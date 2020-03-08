@@ -7,7 +7,6 @@ import { environment } from '../environments/environment';
 import { PlannerEvent } from './event';
 import { AuthenticationService } from './authentication.service';
 import { ErrorService } from './error.service';
-import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
