@@ -17,10 +17,16 @@ export class AdminComponent implements OnInit {
 
   faTrashRestore = faTrashRestore;
 
+  descriptionText = '';
+
   constructor(private eventService: EventService) { }
 
   ngOnInit() {
     this.populateEvents();
+  }
+
+  updateDescriptionModal(text: string): void {
+    this.descriptionText = text;
   }
 
   populateEvents(): void {
