@@ -18,6 +18,7 @@ export class AdminComponent implements OnInit {
   faTrashRestore = faTrashRestore;
 
   descriptionText = '';
+  eventTitle = '';
 
   constructor(private eventService: EventService) { }
 
@@ -25,8 +26,9 @@ export class AdminComponent implements OnInit {
     this.populateEvents();
   }
 
-  updateDescriptionModal(text: string): void {
-    this.descriptionText = text;
+  updateDescriptionModal(event: PlannerEvent): void {
+    this.eventTitle = event.title;
+    this.descriptionText = event.description;
   }
 
   populateEvents(): void {
