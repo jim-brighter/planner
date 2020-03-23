@@ -1,6 +1,6 @@
 <div class="row align-items-start" (mouseenter)="showButtons = true" (mouseleave)="showButtons = false">
   <div class="col-9 d-inline-block">
-    <h6 *ngIf="!this.editing"><fa-icon class="smaller-text" [icon]="faCircle"></fa-icon> {{plannerEvent.title}}</h6>  
+    <h6 *ngIf="!this.editing">{{plannerEvent.title}}</h6>
     <p *ngIf="!this.editing" class="prewrapped">{{plannerEvent.description}}</p>
     <form *ngIf="this.editing">
       <div class="form-group">
