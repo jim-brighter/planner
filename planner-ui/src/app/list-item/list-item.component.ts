@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { PlannerEvent } from '../event';
-import { faEdit, faCheck, faRedo, faCircle, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faCheck, faRedo, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-list-item',
@@ -18,9 +18,8 @@ export class ListItemComponent implements OnInit {
   faEdit = faEdit;
   faCheck = faCheck;
   faRedo = faRedo;
-  faCircle = faCircle;
   faTrash = faTrash;
-  
+
   showButtons = false;
   updateAction = '';
   updateTitle = '';
