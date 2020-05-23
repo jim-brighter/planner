@@ -1,1 +1,1 @@
-exec java -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -XX:MaxRAMFraction=2 -Djava.security.egd=file:/dev/./urandom -jar app.jar
+exec java -XX:MaxRAMPercentage=50 -Djava.security.egd=file:/dev/./urandom -jar app.jar
