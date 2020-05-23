@@ -1,4 +1,4 @@
-FROM openjdk:8-jre-alpine
+FROM openjdk:11-jre-slim
 EXPOSE 8443
 ENTRYPOINT "/entrypoint.sh"
 COPY build/libs/planner-svc-1.0.jar app.jar

@@ -9,6 +9,8 @@ buildscript {
 		dependencyManagementVersion = '1.0.6.RELEASE'
 		junitVersion = '4.+'
 		springSessionVersion = '2.0.5.RELEASE'
+		jaxbVersion = '2.3.3'
+		javassistVersion = '3.27.0-GA'
 	}
 	repositories {
 		mavenCentral()
@@ -49,7 +51,8 @@ jar {
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: "${junitVersion}"
+    testCompile("junit:junit:${junitVersion}")
+    testCompile("org.springframework.boot:spring-boot-starter-test:${springbootVersion}")
     
     compile("org.springframework.boot:spring-boot-starter:${springbootVersion}")
     compile("org.springframework.boot:spring-boot-starter-web:${springbootVersion}")
@@ -69,6 +72,9 @@ dependencies {
     compile("io.springfox:springfox-swagger2:${swaggerVersion}")
     compile("io.springfox:springfox-swagger-ui:${swaggerVersion}")
     
-    testCompile("org.springframework.boot:spring-boot-starter-test:${springbootVersion}")
+    // added when upgrading to java 11
+    compile("jakarta.xml.bind:jakarta.xml.bind-api:${jaxbVersion}")
+    compile("com.sun.xml.bind:jaxb-impl:${jaxbVersion}")
+    compile("org.javassist:javassist:${javassistVersion}")
 }
 
