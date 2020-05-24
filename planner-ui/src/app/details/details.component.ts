@@ -52,11 +52,6 @@ export class DetailsComponent implements OnInit, OnDestroy {
     return this.authenticator.authenticated;
   }
 
-  logout(): void {
-    this.authenticator.logout();
-    this.router.navigateByUrl('/');
-  }
-
   getList(): void {
     const list = this.enumify(this.route.snapshot.paramMap.get('list'));
     this.list = list;

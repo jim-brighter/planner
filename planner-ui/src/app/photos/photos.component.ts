@@ -19,10 +19,10 @@ export class PhotosComponent implements OnInit, OnDestroy {
 
   faSignOutAlt = faSignOutAlt;
 
-  constructor(private imageService: ImageService, 
-    public errors: ErrorService, 
+  constructor(private imageService: ImageService,
+    public errors: ErrorService,
     private authenticator: AuthenticationService,
-    private router: Router) { 
+    private router: Router) {
 
       this.navigationSubscription = this.router.events.subscribe((e: any) => {
         if (e instanceof NavigationEnd) {
@@ -41,11 +41,6 @@ export class PhotosComponent implements OnInit, OnDestroy {
 
   authenticated(): boolean {
     return this.authenticator.authenticated;
-  }
-
-  logout(): void {
-    this.authenticator.logout();
-    this.router.navigateByUrl('/');
   }
 
   getImages(): void {

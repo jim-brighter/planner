@@ -24,6 +24,7 @@ import { LoginComponent } from './login/login.component';
 import { AuthenticationService } from './authentication.service';
 import { ErrorService } from './error.service';
 import { AdminComponent } from './admin/admin.component';
+import { LogoutComponent } from './logout/logout.component';
 
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
@@ -48,7 +49,8 @@ export class XhrInterceptor implements HttpInterceptor {
     UploadComponent,
     PhotosComponent,
     LoginComponent,
-    AdminComponent
+    AdminComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,
