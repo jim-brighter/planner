@@ -18,7 +18,7 @@ export class PhotosComponent implements OnInit, OnDestroy {
   isLoading = true;
 
   digitalOceanSpace = 'https://image-space-jbrighter92.nyc3.digitaloceanspaces.com/';
-  selectedImage = {};
+  selectedImage: PlannerImage;
 
   faSignOutAlt = faSignOutAlt;
 
