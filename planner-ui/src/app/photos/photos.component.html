@@ -2,6 +2,15 @@
   <h1 class="container-fluid d-flex justify-content-center">Jim and Fangzhuo's Pics!</h1>
   <app-navbar></app-navbar>
 </div>
+<div class="modal fade bd-example-modal-lg" id="zoomModal" tabindex="-1" role="dialog" aria-labelledby="zoomModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <img class="w-100" src="{{digitalOceanSpace + selectedImage.digitalOceanSpaceKey}}"/>
+      </div>
+    </div>
+  </div>
+</div>
 <div *ngIf="authenticated() && !isLoading" class="container-fluid">
   <app-logout></app-logout>
   <div class="container-fluid justify-content-center align-content-center text-center">
@@ -15,7 +24,7 @@
   <div class="container-fluid d-flex">
     <ul class="list-inline d-inline-block">
       <li class="list-inline-item custom-image" *ngFor="let image of images">
-        <img src="{{'https://image-space-jbrighter92.nyc3.digitaloceanspaces.com/' + image.digitalOceanSpaceKey}}" />
+        <img data-toggle="modal" data-target="#zoomModal" (click)="zoomImage(image)" src="{{digitalOceanSpace + image.digitalOceanSpaceKey}}" />
       </li>
     </ul>
   </div>

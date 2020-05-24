@@ -17,6 +17,9 @@ export class PhotosComponent implements OnInit, OnDestroy {
 
   isLoading = true;
 
+  digitalOceanSpace = 'https://image-space-jbrighter92.nyc3.digitaloceanspaces.com/';
+  selectedImage: PlannerImage;
+
   faSignOutAlt = faSignOutAlt;
 
   constructor(private imageService: ImageService,
@@ -48,6 +51,10 @@ export class PhotosComponent implements OnInit, OnDestroy {
       this.images = data;
       this.isLoading = false;
     });
+  }
+
+  zoomImage(image): void {
+    this.selectedImage = image;
   }
 
   ngOnDestroy() {
