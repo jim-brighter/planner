@@ -2,7 +2,7 @@
   <h1 class="container-fluid d-flex justify-content-center">Jim and Fangzhuo's Pics!</h1>
   <app-navbar></app-navbar>
 </div>
-<div class="modal fade bd-example-modal-lg" id="zoomModal" tabindex="-1" role="dialog" aria-labelledby="zoomModalLabel" aria-hidden="true">
+<div *ngIf="!!selectedImage" class="modal fade bd-example-modal-lg" id="zoomModal" tabindex="-1" role="dialog" aria-labelledby="zoomModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-body">
