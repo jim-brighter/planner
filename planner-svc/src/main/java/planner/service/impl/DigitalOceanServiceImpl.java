@@ -18,36 +18,39 @@ import planner.service.DigitalOceanService;
 
 @Service
 public class DigitalOceanServiceImpl implements DigitalOceanService {
-	
-	@Inject 
-	AmazonS3 doClient;
-	
-	private static final String SPACE_NAME = "image-space-jbrighter92";
 
-	@Override
-	public S3Object retrieve(String key) {
-		return doClient.getObject(SPACE_NAME, key);
-	}
+    @Inject
+    AmazonS3 doClient;
 
-	@Override
-	public void delete(String key) {
-		doClient.deleteObject(SPACE_NAME, key);
-	}
+    private static final String SPACE_NAME = "image-space-jbrighter92";
 
-	@Override
-	public String store(InputStream is, Map<String, Object> metaData) {
-		String key = UUID.randomUUID().toString();
-		doClient.putObject(SPACE_NAME, key, is, buildMetadata(metaData));
-		return key;
-	}
-	
-	private ObjectMetadata buildMetadata(Map<String, Object> metaData) {
-		ObjectMetadata objectMetadata = new ObjectMetadata();
-		if (!CollectionUtils.isEmpty(metaData)) {
-			objectMetadata.setContentLength((long) metaData.get(Headers.CONTENT_LENGTH));
-			objectMetadata.setHeader("x-amz-acl", "public-read");
-		}
-		return objectMetadata;
-	}
+    @Override
+    public S3Object retrieve(String key) {
+        return doClient.getObject(SPACE_NAME, key);
+    }
+
+    @Override
+    public void delete(String key) {
+        doClient.deleteObject(SPACE_NAME, key);
+    }
+
+    @Override
+    public String store(InputStream is, Map<String, Object> metaData) {
+        String contentType = (String) metaData.get(Headers.CONTENT_TYPE);
+        String extension = contentType.substring(contentType.indexOf("/") + 1);
+        String key = UUID.randomUUID().toString() + "." + extension;
+        doClient.putObject(SPACE_NAME, key, is, buildMetadata(metaData));
+        return key;
+    }
+
+    private ObjectMetadata buildMetadata(Map<String, Object> metaData) {
+        ObjectMetadata objectMetadata = new ObjectMetadata();
+        objectMetadata.setHeader("x-amz-acl", "public-read");
+        if (!CollectionUtils.isEmpty(metaData)) {
+            objectMetadata.setContentLength((long) metaData.get(Headers.CONTENT_LENGTH));
+            objectMetadata.setContentType((String) metaData.get(Headers.CONTENT_TYPE));
+        }
+        return objectMetadata;
+    }
 
 }

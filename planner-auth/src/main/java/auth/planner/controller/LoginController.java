@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class LoginController {
 
-	@RequestMapping(value = "/token", method = RequestMethod.GET)
-	public Map<String, String> token(HttpSession session) {
-		return Collections.singletonMap("token", session.getId());
-	}
+    @RequestMapping(value = "/token", method = RequestMethod.GET)
+    public Map<String, String> token(HttpSession session) {
+        return Collections.singletonMap("token", session.getId());
+    }
 }

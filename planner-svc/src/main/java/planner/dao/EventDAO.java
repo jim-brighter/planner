@@ -10,12 +10,12 @@ import planner.domain.jpa.Event;
 
 public interface EventDAO extends JpaRepository<Event, Long> {
 
-	/**
-	 * Find events by type that are not deleted
-	 * 
-	 * @param eventType
-	 * @param eventStatus
-	 * @return
-	 */
-	public List<Event> findByEventTypeAndEventStatusNotOrderById(EventType eventType, EventStatus eventStatus);
+    /**
+     * Find events by type that are not deleted
+     * 
+     * @param eventType
+     * @param eventStatus
+     * @return
+     */
+    public List<Event> findByEventTypeAndEventStatusNotOrderById(EventType eventType, EventStatus eventStatus);
 }
