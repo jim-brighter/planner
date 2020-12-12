@@ -8,7 +8,7 @@ import planner.domain.jpa.Event;
 import planner.domain.jpa.Image;
 
 public interface ImageDAO extends JpaRepository<Image, Long> {
-	
-	public List<Image> findByParentEvent(Event event);
+
+    public List<Image> findByParentEvent(Event event);
 
 }

@@ -15,25 +15,25 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @Configuration
 @Profile("default")
 public class LocalCorsConfig {
-	
-	private static final Logger logger = LoggerFactory.getLogger(LocalCorsConfig.class);
 
-	@Bean
-	public CorsConfigurationSource corsConfigurationSource() {
-		logger.info("Loading local CORS config");
-		List<String> origins = new ArrayList<String>();
-		origins.add("http://localhost:4200");
-		List<String> methods = new ArrayList<String>();
-		methods.add("GET");
-		methods.add("POST");
-		methods.add("OPTIONS");
-		CorsConfiguration config = new CorsConfiguration();
-		config.setAllowCredentials(true);
-		config.setAllowedOrigins(origins);
-		config.setAllowedMethods(methods);
-		config.addAllowedHeader("*");
-		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		source.registerCorsConfiguration("/**", config);
-		return source;
-	}
+    private static final Logger logger = LoggerFactory.getLogger(LocalCorsConfig.class);
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        logger.info("Loading local CORS config");
+        List<String> origins = new ArrayList<String>();
+        origins.add("http://localhost:4200");
+        List<String> methods = new ArrayList<String>();
+        methods.add("GET");
+        methods.add("POST");
+        methods.add("OPTIONS");
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(true);
+        config.setAllowedOrigins(origins);
+        config.setAllowedMethods(methods);
+        config.addAllowedHeader("*");
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config);
+        return source;
+    }
 }

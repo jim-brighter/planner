@@ -17,46 +17,46 @@ import planner.service.CommentService;
 
 @Service
 public class CommentServiceImpl implements CommentService {
-	
-	private static final Logger logger = LoggerFactory.getLogger(CommentServiceImpl.class);
-	
-	@Inject
-	private CommentDAO commentDAO;
 
-	@Override
-	@Transactional
-	public Comment createComment(Comment comment) {
-		logger.info("Creating new comment '{}'", comment.getCommentText());
-		comment.setCreatedTime(new Date(System.currentTimeMillis()));
-		return commentDAO.save(comment);
-	}
+    private static final Logger logger = LoggerFactory.getLogger(CommentServiceImpl.class);
 
-	@Override
-	public List<Comment> findAllComments() {
-		logger.info("Finding all comments");
-		return commentDAO.findAll();
-	}
+    @Inject
+    private CommentDAO commentDAO;
 
-	@Override
-	@Transactional
-	public void deleteComments(List<Comment> comments) {
-		logger.info("Deleting comments {}", getIdsAndText(comments));
-		commentDAO.deleteInBatch(comments);
-	}
+    @Override
+    @Transactional
+    public Comment createComment(Comment comment) {
+        logger.info("Creating new comment '{}'", comment.getCommentText());
+        comment.setCreatedTime(new Date(System.currentTimeMillis()));
+        return commentDAO.save(comment);
+    }
 
-	@Override
-	@Transactional
-	public List<Comment> updateComments(List<Comment> comments) {
-		logger.info("Updating comments {}", getIdsAndText(comments));
-		return commentDAO.saveAll(comments);
-	}
-	
-	private List<String> getIdsAndText(List<Comment> comments) {
-		List<String> ids = new ArrayList<String>();
-		for (Comment c : comments) {
-			ids.add("[" + c.getId() + ": " + c.getCommentText() + "]");
-		}
-		return ids;
-	}
+    @Override
+    public List<Comment> findAllComments() {
+        logger.info("Finding all comments");
+        return commentDAO.findAll();
+    }
+
+    @Override
+    @Transactional
+    public void deleteComments(List<Comment> comments) {
+        logger.info("Deleting comments {}", getIdsAndText(comments));
+        commentDAO.deleteInBatch(comments);
+    }
+
+    @Override
+    @Transactional
+    public List<Comment> updateComments(List<Comment> comments) {
+        logger.info("Updating comments {}", getIdsAndText(comments));
+        return commentDAO.saveAll(comments);
+    }
+
+    private List<String> getIdsAndText(List<Comment> comments) {
+        List<String> ids = new ArrayList<String>();
+        for (Comment c : comments) {
+            ids.add("[" + c.getId() + ": " + c.getCommentText() + "]");
+        }
+        return ids;
+    }
 
 }

@@ -19,21 +19,22 @@ import planner.service.ImageService;
 @RestController
 @RequestMapping("/api/images")
 public class ImageController {
-	
-	@Inject
-	private ImageService imageService;
-	
-	@ApiOperation("Save new images")
-	@RequestMapping(value = "", method = RequestMethod.POST, consumes = "multipart/form-data", produces = "application/json")
-	//TODO: return a list of created IMAGES
-	public List<Image> uploadImages(@RequestPart("images") MultipartFile[] files, @RequestPart("event") Event event) throws IOException {
-		return imageService.saveImages(files);
-	}
-	
-	@ApiOperation("Retrieve all images")
-	@RequestMapping(value = "", method = RequestMethod.GET, produces = "application/json")
-	public List<Image> getAllImages() {
-		return imageService.getAllImages();
-	}
+
+    @Inject
+    private ImageService imageService;
+
+    @ApiOperation("Save new images")
+    @RequestMapping(value = "", method = RequestMethod.POST, consumes = "multipart/form-data", produces = "application/json")
+    // TODO: return a list of created IMAGES
+    public List<Image> uploadImages(@RequestPart("images") MultipartFile[] files, @RequestPart("event") Event event)
+            throws IOException {
+        return imageService.saveImages(files);
+    }
+
+    @ApiOperation("Retrieve all images")
+    @RequestMapping(value = "", method = RequestMethod.GET, produces = "application/json")
+    public List<Image> getAllImages() {
+        return imageService.getAllImages();
+    }
 
 }

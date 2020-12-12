@@ -18,44 +18,44 @@ import javax.validation.constraints.NotNull;
 @Table(name = "IMAGES")
 public class Image implements Serializable {
 
-	private static final long serialVersionUID = -8183662133829448118L;
-	
-	@Id
-	@SequenceGenerator(name = "image_gen", sequenceName = "IMAGE_SEQ", allocationSize = 50)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "image_gen")
-	@Column(name = "IMAGE_ID")
-	private long id;
-	
-	@Column(name = "DIGITAL_OCEAN_KEY")
-	@NotNull
-	private String digitalOceanSpaceKey;
+    private static final long serialVersionUID = -8183662133829448118L;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "fk_event")
-	private Event parentEvent;
+    @Id
+    @SequenceGenerator(name = "image_gen", sequenceName = "IMAGE_SEQ", allocationSize = 50)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "image_gen")
+    @Column(name = "IMAGE_ID")
+    private long id;
 
-	public long getId() {
-		return id;
-	}
+    @Column(name = "DIGITAL_OCEAN_KEY")
+    @NotNull
+    private String digitalOceanSpaceKey;
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_event")
+    private Event parentEvent;
 
-	public String getDigitalOceanSpaceKey() {
-		return digitalOceanSpaceKey;
-	}
+    public long getId() {
+        return id;
+    }
 
-	public void setDigitalOceanSpaceKey(String digitalOceanSpaceKey) {
-		this.digitalOceanSpaceKey = digitalOceanSpaceKey;
-	}
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	public Event getParentEvent() {
-		return parentEvent;
-	}
+    public String getDigitalOceanSpaceKey() {
+        return digitalOceanSpaceKey;
+    }
 
-	public void setParentEvent(Event parentEvent) {
-		this.parentEvent = parentEvent;
-	}
-	
+    public void setDigitalOceanSpaceKey(String digitalOceanSpaceKey) {
+        this.digitalOceanSpaceKey = digitalOceanSpaceKey;
+    }
+
+    public Event getParentEvent() {
+        return parentEvent;
+    }
+
+    public void setParentEvent(Event parentEvent) {
+        this.parentEvent = parentEvent;
+    }
+
 }

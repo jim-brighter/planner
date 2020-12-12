@@ -18,44 +18,44 @@ import javax.validation.constraints.NotNull;
 @Table(name = "EVENT_COMMENTS")
 public class EventComment implements Serializable {
 
-	private static final long serialVersionUID = -5379517551740151319L;
+    private static final long serialVersionUID = -5379517551740151319L;
 
-	@Id
-	@SequenceGenerator(name = "event_comment_gen", sequenceName = "EVENT_COMMENT_SEQ", allocationSize = 50)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "event_comment_gen")
-	@Column(name = "EVENT_COMMENT_ID")
-	private long id;
+    @Id
+    @SequenceGenerator(name = "event_comment_gen", sequenceName = "EVENT_COMMENT_SEQ", allocationSize = 50)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "event_comment_gen")
+    @Column(name = "EVENT_COMMENT_ID")
+    private long id;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "fk_event")
-	@NotNull
-	private Event parentEvent;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_event")
+    @NotNull
+    private Event parentEvent;
 
-	@Column(name = "COMMENT")
-	private String comment;
+    @Column(name = "COMMENT")
+    private String comment;
 
-	public long getId() {
-		return id;
-	}
+    public long getId() {
+        return id;
+    }
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	public Event getParentEvent() {
-		return parentEvent;
-	}
+    public Event getParentEvent() {
+        return parentEvent;
+    }
 
-	public void setParentEvent(Event parentEvent) {
-		this.parentEvent = parentEvent;
-	}
+    public void setParentEvent(Event parentEvent) {
+        this.parentEvent = parentEvent;
+    }
 
-	public String getComment() {
-		return comment;
-	}
+    public String getComment() {
+        return comment;
+    }
 
-	public void setComment(String comment) {
-		this.comment = comment;
-	}
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
 
 }
