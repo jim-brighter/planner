@@ -36,16 +36,19 @@ public class DigitalOceanServiceImpl implements DigitalOceanService {
 
 	@Override
 	public String store(InputStream is, Map<String, Object> metaData) {
-		String key = UUID.randomUUID().toString();
+	    String contentType = (String) metaData.get(Headers.CONTENT_TYPE);
+	    String extension = contentType.substring(contentType.indexOf("/") + 1);
+		String key = UUID.randomUUID().toString() + "." + extension;
 		doClient.putObject(SPACE_NAME, key, is, buildMetadata(metaData));
 		return key;
 	}
 	
 	private ObjectMetadata buildMetadata(Map<String, Object> metaData) {
 		ObjectMetadata objectMetadata = new ObjectMetadata();
+		objectMetadata.setHeader("x-amz-acl", "public-read");
 		if (!CollectionUtils.isEmpty(metaData)) {
 			objectMetadata.setContentLength((long) metaData.get(Headers.CONTENT_LENGTH));
-			objectMetadata.setHeader("x-amz-acl", "public-read");
+			objectMetadata.setContentType((String) metaData.get(Headers.CONTENT_TYPE));
 		}
 		return objectMetadata;
 	}

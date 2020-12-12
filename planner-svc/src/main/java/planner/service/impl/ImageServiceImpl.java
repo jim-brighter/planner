@@ -42,6 +42,7 @@ public class ImageServiceImpl implements ImageService {
 		for (MultipartFile file : files) {
 			try {
 				metaData.put(Headers.CONTENT_LENGTH, file.getSize());
+				metaData.put(Headers.CONTENT_TYPE, file.getContentType());
 				String key = doService.store(file.getInputStream(), metaData);
 				Image i = persistImageRecord(key, event);
 				images.add(i);
