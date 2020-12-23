@@ -1,36 +1,21 @@
 import org.apache.tools.ant.taskdefs.condition.Os;
 
 buildscript {
-    ext {
-        gradleNodeVersion = '1.2.0'
-    }
     repositories {
         mavenCentral()
-        maven { url "https://plugins.gradle.org/m2/" }
-    }
-    dependencies {
-        classpath "com.moowork.gradle:gradle-node-plugin:$gradleNodeVersion"
     }
 }
 
-apply plugin: 'com.moowork.node'
-
-node {
-    version = '10.13.0'
-    npmVersion = '6.4.1'
-    download = true
-    workDir = file("${rootDir}/planner-ui/node")
-    nodeModulesDir = file("${rootDir}/planner-ui")
+task npmInstall(type: Exec) {
+    commandLine 'npm', 'i'
 }
 
-task buildAngular(type: NpmTask, dependsOn: npmInstall) {
-    description = 'Build Angular App'
-    args = ['run', 'build']
+task buildAngular(type: Exec, dependsOn: npmInstall) {
+    commandLine 'npm', 'run', 'build'
 }
 
-task buildAngularProd(type: NpmTask, dependsOn: npmInstall) {
-    description = 'Build Angular for Prod'
-    args = ['run', 'buildProd']
+task buildAngularProd(type: Exec, dependsOn: npmInstall) {
+    commandLine 'npm', 'run', 'buildProd'
 }
 
 task cleanAngular(type: Exec) {
@@ -44,11 +29,6 @@ task cleanAngular(type: Exec) {
 
 task clean {
     dependsOn 'cleanAngular'
-}
-
-task serveAngular(type: NpmTask, dependsOn: npmInstall) {
-    description = 'Serve Angular and Watch'
-    args = ['run', 'start']
 }
 
 task assemble {
