@@ -15,7 +15,7 @@ task buildAngular(type: Exec, dependsOn: npmInstall) {
 }
 
 task buildAngularProd(type: Exec, dependsOn: npmInstall) {
-    commandLine 'npm', '--max-old-space-size=2048', 'run', 'buildProd'
+    commandLine 'npm', 'run', 'buildProd'
 }
 
 task cleanAngular(type: Exec) {
