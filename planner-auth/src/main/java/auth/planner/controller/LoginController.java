@@ -1,6 +1,6 @@
 package auth.planner.controller;
 
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -14,6 +14,10 @@ public class LoginController {
 
     @RequestMapping(value = "/token", method = RequestMethod.GET)
     public Map<String, String> token(HttpSession session) {
-        return Collections.singletonMap("token", session.getId());
+        Map<String, String> response = new HashMap<String, String>();
+        response.put("token", session.getId());
+        response.put("expiration", "" + (session.getMaxInactiveInterval() * 1000 + System.currentTimeMillis()));
+
+        return response;
     }
 }
