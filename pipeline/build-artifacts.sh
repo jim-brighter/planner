@@ -1,4 +1,8 @@
 #!/bin/bash
 
-export NODE_OPTIONS=--max-old-space-size=700
-./gradlew clean build
+./gradlew clean build --no-daemon
+
+cd planner-ui
+npm i
+npm run buildProd
+cp nginx.conf staging/
