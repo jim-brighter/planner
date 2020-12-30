@@ -8,27 +8,32 @@ import { Observable, of } from 'rxjs';
 
 const TOKEN_KEY = 'authToken';
 const CSRF_KEY = 'csrfToken';
+const TOKEN_EXPIRATION = 'tokenExpiration';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
 
-  private rootUrl = environment.plannerBackendRootUrl;
   private rootAuthUrl = environment.plannerAuthBackend;
 
   authenticated = false;
   authToken: string;
   csrfCookie: string;
+  tokenExpiration: string;
 
   constructor(private http: HttpClient,
               private errors: ErrorService) {
     const tokenAuth = localStorage.getItem(TOKEN_KEY);
     const tokenCsrf = localStorage.getItem(CSRF_KEY);
-    if (tokenAuth && tokenCsrf) {
+    const tokenExpiration = localStorage.getItem(TOKEN_EXPIRATION);
+    if (tokenAuth && tokenCsrf && (new Date().getTime() < parseInt(tokenExpiration))) {
       this.authenticated = true;
       this.authToken = tokenAuth;
       this.csrfCookie = tokenCsrf;
+      this.tokenExpiration = tokenExpiration;
+    } else {
+      this.wipeSession();
     }
   }
 
@@ -54,10 +59,16 @@ export class AuthenticationService {
       .subscribe(response => {
         if (response && response['token']) {
           this.authenticated = true;
+
           this.authToken = response['token'];
           localStorage.setItem(TOKEN_KEY, this.authToken);
+
           this.csrfCookie = this.getCsrfCookie();
           localStorage.setItem(CSRF_KEY, this.csrfCookie);
+
+          this.tokenExpiration = response['token_expiration'];
+          localStorage.setItem(TOKEN_EXPIRATION, this.tokenExpiration);
+
           this.errors.clear();
         } else {
           this.wipeSession();
@@ -92,6 +103,7 @@ export class AuthenticationService {
     this.authenticated = false;
     this.authToken = null;
     this.csrfCookie = null;
+    this.tokenExpiration = null;
     localStorage.clear();
   }
 
