@@ -74,7 +74,8 @@ node {
     if (isPr() || isPushToMaster()) {
         stage("BUILD ARTIFACTS") {
             //updateGithubStatus("build-artifacts", PENDING, GIT_COMMIT)
-            sh label: "Build App Artifacts", script: "./pipeline/build-artifacts.sh"
+            sh label: "Build Java Artifacts", script: "./pipeline/build-java.sh"
+            sh label: "Build UI Artifacts", script: "./pipeline/build-ui.sh"
             //updateGithubStatus("build-artifacts", SUCCESS, GIT_COMMIT)
         }
     }
