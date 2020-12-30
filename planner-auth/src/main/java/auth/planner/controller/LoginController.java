@@ -16,7 +16,7 @@ public class LoginController {
     public Map<String, String> token(HttpSession session) {
         Map<String, String> response = new HashMap<String, String>();
         response.put("token", session.getId());
-        response.put("expiration", "" + (session.getMaxInactiveInterval() * 1000 + System.currentTimeMillis()));
+        response.put("token_expiration", "" + (session.getMaxInactiveInterval() * 1000 + System.currentTimeMillis()));
 
         return response;
     }
