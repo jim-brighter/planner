@@ -26,19 +26,27 @@ def updateGithubStatus(stage, state, sha) {
         usernamePassword(credentialsId: 'git-login', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')
     ]) {
         def branch = isPr() ? env.CHANGE_BRANCH : env.BRANCH_NAME
-        sh """
-            curl --output /dev/null --silent --fail https://api.github.com/repos/jim-brighter/planner/statuses/${sha} \
-                -H "Authorization: token ${GIT_PASSWORD}" \
-                -H "Accept: application/vnd.github.v3+json" \
-                -H "Content-Type: application/json" \
-                -X POST \
-                -d '{
-                    "state": "${state}",
-                    "target_url": "http://jimsjenkins.xyz/blue/organizations/jenkins/Planner/detail/${env.BRANCH_NAME}/${env.BUILD_NUMBER}/pipeline/",
-                    "description": "${stage} - ${state}",
-                    "context": "continuous-integration/jenkins/${stage}"
-                }'
-        """
+        withEnv([
+            "sha=${sha}",
+            "state=${state}",
+            "stage=${stage}",
+            "branch=${env.BRANCH_NAME}",
+            "buildNumber=${env.BUILD_NUMBER}"
+        ]) {
+            sh '''
+                curl --output /dev/null --silent --fail https://api.github.com/repos/jim-brighter/planner/statuses/$sha \
+                    -H "Authorization: token $GIT_PASSWORD" \
+                    -H "Accept: application/vnd.github.v3+json" \
+                    -H "Content-Type: application/json" \
+                    -X POST \
+                    -d '{
+                        "state": "'"$state"'",
+                        "target_url": "'"http://jimsjenkins.xyz/blue/organizations/jenkins/Planner/detail/$branch/$buildNumber/pipeline/"'",
+                        "description": "'"$stage - $state"'",
+                        "context": "'"continuous-integration/jenkins/$stage"'"
+                    }'
+            '''
+        }
     }
 }
 
