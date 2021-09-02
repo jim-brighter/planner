@@ -1,7 +1,5 @@
 def REPO_URL = "https://github.com/jim-brighter/planner.git"
 
-def DOCKER_TAG
-
 def isPr() {
     return env.BRANCH_NAME.startsWith("PR-")
 }
@@ -74,8 +72,6 @@ node {
 
         updateGithubStatus(STAGE_NAME, PENDING, GIT_COMMIT)
 
-        DOCKER_TAG = "${BUILD_TIMESTAMP}".replace(" ","").replace(":","").replace("-","")
-
         sh "chmod +x ./pipeline/*.sh"
 
         updateGithubStatus(STAGE_NAME, SUCCESS, GIT_COMMIT)
@@ -101,11 +97,9 @@ node {
 
     stage("BUILD DOCKER") {
         updateGithubStatus(STAGE_NAME, PENDING, GIT_COMMIT)
-        withEnv([
-            "DOCKER_TAG=${DOCKER_TAG}"
-        ]) {
-            sh label: "Build Docker Images", script: "./pipeline/build-docker.sh"
-        }
+
+        sh label: "Build Docker Images", script: "./pipeline/build-docker.sh"
+
         updateGithubStatus(STAGE_NAME, SUCCESS, GIT_COMMIT)
     }
 
@@ -119,16 +113,7 @@ node {
         withCredentials([
             usernamePassword(credentialsId: "docker-login", passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')
         ]) {
-
-            withEnv([
-                "DOCKER_TAG=${DOCKER_TAG}"
-            ]) {
-                sh label: "Push Docker Images - Tag", script: "./pipeline/push-docker-tag.sh"
-
-                if (isPushToMaster()) {
-                    sh label: "Push Docker Images - Latest", script: "./pipeline/push-docker-latest.sh"
-                }
-            }
+            sh label: "Push Docker Images - Tag", script: "./pipeline/push-docker-tag.sh"
         }
         updateGithubStatus(STAGE_NAME, SUCCESS, GIT_COMMIT)
     }
