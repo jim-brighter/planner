@@ -1,25 +1,19 @@
 package planner.controller;
 
-import java.util.List;
-
-import javax.inject.Inject;
-
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 import planner.domain.enums.EventType;
 import planner.domain.jpa.Event;
 import planner.service.EventService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/events")
 public class EventController {
 
-    @Inject
+    @Autowired
     private EventService eventService;
 
     private static final String APPLICATION_JSON = "application/json";

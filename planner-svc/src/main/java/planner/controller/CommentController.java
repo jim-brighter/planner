@@ -1,23 +1,21 @@
 package planner.controller;
 
-import java.util.List;
-
-import javax.inject.Inject;
-
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import io.swagger.annotations.ApiOperation;
 import planner.domain.jpa.Comment;
 import planner.service.CommentService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/comments")
 public class CommentController {
 
-    @Inject
+    @Autowired
     private CommentService commentService;
 
     private static final String APPLICATION_JSON = "application/json";

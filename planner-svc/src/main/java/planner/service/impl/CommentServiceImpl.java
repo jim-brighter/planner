@@ -1,26 +1,24 @@
 package planner.service.impl;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import javax.inject.Inject;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import planner.dao.CommentDAO;
 import planner.domain.jpa.Comment;
 import planner.service.CommentService;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Service
 public class CommentServiceImpl implements CommentService {
 
     private static final Logger logger = LoggerFactory.getLogger(CommentServiceImpl.class);
 
-    @Inject
+    @Autowired
     private CommentDAO commentDAO;
 
     @Override
@@ -41,7 +39,7 @@ public class CommentServiceImpl implements CommentService {
     @Transactional
     public void deleteComments(List<Comment> comments) {
         logger.info("Deleting comments {}", getIdsAndText(comments));
-        commentDAO.deleteInBatch(comments);
+        commentDAO.deleteAllInBatch(comments);
     }
 
     @Override
