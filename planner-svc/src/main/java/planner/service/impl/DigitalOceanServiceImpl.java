@@ -55,7 +55,7 @@ public class DigitalOceanServiceImpl implements DigitalOceanService {
                 .metadata(Map.of(
                         X_AMZ_ACL, PUBLIC_READ,
                         HttpHeaders.CONTENT_TYPE, (String) metaData.get(HttpHeaders.CONTENT_TYPE),
-                        HttpHeaders.CONTENT_LENGTH, (String) metaData.get(HttpHeaders.CONTENT_LENGTH)
+                        HttpHeaders.CONTENT_LENGTH, String.valueOf((long) metaData.get(HttpHeaders.CONTENT_LENGTH))
                 ))
                 .build();
         doClient.putObject(putObjectRequest, RequestBody.fromInputStream(is, (long) metaData.get(HttpHeaders.CONTENT_LENGTH)));
