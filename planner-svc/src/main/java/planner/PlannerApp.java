@@ -25,7 +25,7 @@ public class PlannerApp {
 
     @Bean
     public S3Client digitalOceanClient() throws URISyntaxException {
-        return S3Client.builder().endpointOverride(new URI("http://nyc3.digitaloceanspaces.com")).region(Region.of("nyc3")).build();
+        return S3Client.builder().endpointOverride(new URI("https://nyc3.digitaloceanspaces.com")).region(Region.of("nyc3")).build();
     }
 
 }
