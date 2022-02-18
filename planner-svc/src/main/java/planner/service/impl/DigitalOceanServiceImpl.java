@@ -8,6 +8,7 @@ import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
+import software.amazon.awssdk.services.s3.model.ObjectCannedACL;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 import java.io.InputStream;
@@ -18,9 +19,6 @@ import static planner.constant.Constants.SPACE_NAME;
 
 @Service
 public class DigitalOceanServiceImpl implements DigitalOceanService {
-
-    public static final String X_AMZ_ACL = "x-amz-acl";
-    public static final String PUBLIC_READ = "public-read";
 
     @Autowired
     S3Client doClient;
@@ -52,11 +50,9 @@ public class DigitalOceanServiceImpl implements DigitalOceanService {
         PutObjectRequest putObjectRequest = PutObjectRequest.builder()
                 .bucket(SPACE_NAME)
                 .key(key)
-                .metadata(Map.of(
-                        X_AMZ_ACL, PUBLIC_READ,
-                        HttpHeaders.CONTENT_TYPE, (String) metaData.get(HttpHeaders.CONTENT_TYPE),
-                        HttpHeaders.CONTENT_LENGTH, String.valueOf((long) metaData.get(HttpHeaders.CONTENT_LENGTH))
-                ))
+                .contentType((String) metaData.get(HttpHeaders.CONTENT_TYPE))
+                .contentLength((long) metaData.get(HttpHeaders.CONTENT_LENGTH))
+                .acl(ObjectCannedACL.PUBLIC_READ)
                 .build();
         doClient.putObject(putObjectRequest, RequestBody.fromInputStream(is, (long) metaData.get(HttpHeaders.CONTENT_LENGTH)));
         return key;
