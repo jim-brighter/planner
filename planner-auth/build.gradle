@@ -1,50 +1,37 @@
-buildscript {
-	ext {
-		springbootVersion = '2.0.3.RELEASE'
-		swaggerVersion = '2.4.0'
-		javaxInjectVersion = '1'
-		junitVersion = '4.+'
-		springSessionVersion = '2.0.5.RELEASE'
-	}
-} 
-
 plugins {
+	id 'org.springframework.boot' version '2.6.3'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
-	id 'org.springframework.boot' version '2.0.3.RELEASE'
 }
+
+group = 'com.jimbrighter'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
 
 repositories {
 	mavenCentral()
-    jcenter()
-}
-
-sourceCompatibility = 1.8
-
-version = '1.0'
-
-jar {
-	manifest {
-		attributes 'Implementation-Title': 'Planner-Auth',
-					'Implementation-Version': version
-	}
-	baseName = 'planner-auth'
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: "${junitVersion}"
-    
-    compile("org.springframework.boot:spring-boot-starter:${springbootVersion}")
-    compile("org.springframework.boot:spring-boot-starter-web:${springbootVersion}")
-    compile("org.springframework.boot:spring-boot-starter-security:${springbootVersion}")
-    compile("org.springframework.boot:spring-boot-starter-actuator:${springbootVersion}")
-    compile("org.springframework.boot:spring-boot-devtools:${springbootVersion}")
-    compile("org.springframework.boot:spring-boot-starter-data-redis:${springbootVersion}")
-    compile("org.springframework.session:spring-session-data-redis:${springSessionVersion}")
-	compile("javax.inject:javax.inject:${javaxInjectVersion}")
-	
-    compile("io.springfox:springfox-swagger2:${swaggerVersion}")
-    compile("io.springfox:springfox-swagger-ui:${swaggerVersion}")
-    
-    testCompile("org.springframework.boot:spring-boot-starter-test:${springbootVersion}")
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-devtools'
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	implementation 'org.springframework.session:spring-session-data-redis'
+
+	implementation 'io.springfox:springfox-swagger2:3.0.0'
+	implementation 'io.springfox:springfox-swagger-ui:3.0.0'
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
+}
+
+tasks.withType(JavaCompile) {
+	options.deprecation = true
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
 }
 

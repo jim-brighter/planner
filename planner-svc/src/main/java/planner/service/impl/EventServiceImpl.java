@@ -1,29 +1,27 @@
 package planner.service.impl;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import javax.inject.Inject;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import planner.dao.EventDAO;
 import planner.domain.enums.EventStatus;
 import planner.domain.enums.EventType;
 import planner.domain.jpa.Event;
 import planner.service.EventService;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 @Service
 public class EventServiceImpl implements EventService {
 
     private static final Logger logger = LoggerFactory.getLogger(EventServiceImpl.class);
 
-    @Inject
+    @Autowired
     private EventDAO eventDAO;
 
     @Override
@@ -51,7 +49,7 @@ public class EventServiceImpl implements EventService {
     @Transactional
     public void deleteEvents(List<Event> events) {
         logger.info("Deleting events {}", getIdsAndTitles(events));
-        eventDAO.deleteInBatch(events);
+        eventDAO.deleteAllInBatch(events);
     }
 
     @Override

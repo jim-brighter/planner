@@ -1,80 +1,43 @@
-buildscript {
-	ext {
-		awsVersion = '1.11.372'
-		springbootVersion = '2.0.3.RELEASE'
-		swaggerVersion = '2.4.0'
-		springTxVersion = '5.0.7.RELEASE'
-		javaxInjectVersion = '1'
-		postgresVersion = '42.2.4.jre7'
-		dependencyManagementVersion = '1.0.6.RELEASE'
-		junitVersion = '4.+'
-		springSessionVersion = '2.0.5.RELEASE'
-		jaxbVersion = '2.3.3'
-		javassistVersion = '3.27.0-GA'
-	}
-	repositories {
-		mavenCentral()
-	}
-	dependencies {
-		classpath "io.spring.gradle:dependency-management-plugin:${dependencyManagementVersion}"
-	}
-} 
-
 plugins {
+	id 'org.springframework.boot' version '2.6.3'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
-	id 'org.springframework.boot' version '2.0.3.RELEASE'
 }
 
-apply plugin: "io.spring.dependency-management"
+group = 'com.jimbrighter'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
 
 repositories {
 	mavenCentral()
-    jcenter()
-}
-
-dependencyManagement {
-	imports {
-		mavenBom "com.amazonaws:aws-java-sdk-bom:${awsVersion}"
-	}
-}
-
-sourceCompatibility = 1.8
-
-version = '1.0'
-
-jar {
-	manifest {
-		attributes 'Implementation-Title': 'Planner',
-					'Implementation-Version': version
-	}
-	baseName = 'planner'
 }
 
 dependencies {
-    testCompile("junit:junit:${junitVersion}")
-    testCompile("org.springframework.boot:spring-boot-starter-test:${springbootVersion}")
-    
-    compile("org.springframework.boot:spring-boot-starter:${springbootVersion}")
-    compile("org.springframework.boot:spring-boot-starter-web:${springbootVersion}")
-    compile("org.springframework.boot:spring-boot-starter-data-jpa:${springbootVersion}")
-    compile("org.springframework.boot:spring-boot-starter-security:${springbootVersion}")
-    compile("org.springframework.boot:spring-boot-starter-actuator:${springbootVersion}")
-    compile("org.springframework.boot:spring-boot-devtools:${springbootVersion}")
-    compile("org.springframework.boot:spring-boot-starter-data-redis:${springbootVersion}")
-	compile("org.springframework.session:spring-session-data-redis:${springSessionVersion}")
-    compile("org.springframework:spring-tx:${springTxVersion}")
-	compile("javax.inject:javax.inject:${javaxInjectVersion}")
-	
-	compile("com.amazonaws:aws-java-sdk-s3:${awsVersion}")
-    
-    compile("org.postgresql:postgresql:${postgresVersion}")
-    
-    compile("io.springfox:springfox-swagger2:${swaggerVersion}")
-    compile("io.springfox:springfox-swagger-ui:${swaggerVersion}")
-    
-    // added when upgrading to java 11
-    compile("jakarta.xml.bind:jakarta.xml.bind-api:${jaxbVersion}")
-    compile("com.sun.xml.bind:jaxb-impl:${jaxbVersion}")
-    compile("org.javassist:javassist:${javassistVersion}")
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.session:spring-session-data-redis'
+	implementation 'org.springframework.boot:spring-boot-devtools'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+	implementation 'org.postgresql:postgresql:42.3.3'
+
+	implementation 'io.springfox:springfox-swagger2:3.0.0'
+	implementation 'io.springfox:springfox-swagger-ui:3.0.0'
+
+	implementation platform('software.amazon.awssdk:bom:2.17.131')
+	implementation 'software.amazon.awssdk:s3'
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
 }
 
+tasks.withType(JavaCompile) {
+	options.deprecation = true
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

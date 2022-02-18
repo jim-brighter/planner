@@ -1,26 +1,24 @@
 package planner.controller;
 
-import java.io.IOException;
-import java.util.List;
-
-import javax.inject.Inject;
-
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
-import io.swagger.annotations.ApiOperation;
 import planner.domain.jpa.Event;
 import planner.domain.jpa.Image;
 import planner.service.ImageService;
+
+import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/images")
 public class ImageController {
 
-    @Inject
+    @Autowired
     private ImageService imageService;
 
     @ApiOperation("Save new images")
