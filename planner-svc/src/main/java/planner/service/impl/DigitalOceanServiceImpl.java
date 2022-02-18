@@ -14,6 +14,8 @@ import java.io.InputStream;
 import java.util.Map;
 import java.util.UUID;
 
+import static planner.constant.Constants.SPACE_NAME;
+
 @Service
 public class DigitalOceanServiceImpl implements DigitalOceanService {
 
@@ -22,8 +24,6 @@ public class DigitalOceanServiceImpl implements DigitalOceanService {
 
     @Autowired
     S3Client doClient;
-
-    private static final String SPACE_NAME = "image-space-jbrighter92";
 
     @Override
     public String retrieve(String key) {
