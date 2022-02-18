@@ -1,6 +1,5 @@
 package planner.controller;
 
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,7 +20,6 @@ public class ImageController {
     @Autowired
     private ImageService imageService;
 
-    @ApiOperation("Save new images")
     @RequestMapping(value = "", method = RequestMethod.POST, consumes = "multipart/form-data", produces = "application/json")
     // TODO: return a list of created IMAGES
     public List<Image> uploadImages(@RequestPart("images") MultipartFile[] files, @RequestPart("event") Event event)
@@ -29,7 +27,6 @@ public class ImageController {
         return imageService.saveImages(files);
     }
 
-    @ApiOperation("Retrieve all images")
     @RequestMapping(value = "", method = RequestMethod.GET, produces = "application/json")
     public List<Image> getAllImages() {
         return imageService.getAllImages();
