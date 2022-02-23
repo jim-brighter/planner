@@ -9,7 +9,7 @@ services:
     image: jimbrighter/planner-auth:latest
     ports:
       - "8442:8442"
-    mem_limit: 512m
+    mem_limit: 256m
     restart: always
     depends_on:
       - planner-redis
@@ -26,7 +26,7 @@ services:
     image: jimbrighter/planner-svc:latest
     ports:
       - "8443:8443"
-    mem_limit: 1g
+    mem_limit: 512m
     restart: always
     depends_on:
       - planner-db
@@ -45,7 +45,7 @@ services:
     ports:
       - "80:80"
       - "443:443"
-    mem_limit: 50m
+    mem_limit: 25m
     restart: always
     networks:
       planner:
@@ -57,7 +57,7 @@ services:
   planner-db:
     container_name: planner-db
     image: jimbrighter/planner-db:latest
-    mem_limit: 100m
+    mem_limit: 50m
     restart: always
     networks:
       planner:
@@ -70,7 +70,7 @@ services:
   planner-redis:
     container_name: planner-redis
     image: redis:6-alpine
-    mem_limit: 50m
+    mem_limit: 25m
     restart: always
     networks:
       planner:
