@@ -2,11 +2,11 @@
   <h1 class="container-fluid d-flex justify-content-center">Jim and Fangzhuo's Pics!</h1>
   <app-navbar></app-navbar>
 </div>
-<div *ngIf="!!selectedImage" class="modal fade bd-example-modal-lg" id="zoomModal" tabindex="-1" role="dialog" aria-labelledby="zoomModalLabel" aria-hidden="true">
+<div class="modal fade bd-example-modal-lg" id="zoomModal" tabindex="-1" role="dialog" aria-labelledby="zoomModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-body">
-        <img class="w-100" src="{{digitalOceanSpace + selectedImage.digitalOceanSpaceKey}}"/>
+        <img *ngIf="!!selectedImage" class="w-100" src="{{digitalOceanSpace + selectedImage.digitalOceanSpaceKey}}"/>
       </div>
     </div>
   </div>
@@ -23,8 +23,8 @@
   </div>
   <div class="container-fluid d-flex">
     <ul class="list-inline d-inline-block">
-      <li class="list-inline-item custom-image" *ngFor="let image of images">
-        <img data-toggle="modal" data-target="#zoomModal" (click)="zoomImage(image)" src="{{digitalOceanSpace + image.digitalOceanSpaceKey}}" />
+      <li class="list-inline-item custom-image p-1" *ngFor="let image of images">
+        <img data-bs-toggle="modal" data-bs-target="#zoomModal" (click)="zoomImage(image)" src="{{digitalOceanSpace + image.digitalOceanSpaceKey}}"/>
       </li>
     </ul>
   </div>
