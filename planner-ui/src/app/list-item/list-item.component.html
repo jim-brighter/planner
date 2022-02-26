@@ -13,8 +13,8 @@
     </form>
   </div>
   <div class="col-3 d-inline-block">
-    <button type="button" title="Edit" class="btn btn-outline-info btn-sm mr-2" [hidden]="!showButtons" (click)="editItem()"><fa-icon [icon]="faEdit"></fa-icon></button>
-    <button type="button" title="{{updateTitle}}" class="btn btn-outline-success btn-sm mr-2" [hidden]="!showButtons" (click)="updateItem()">
+    <button type="button" title="Edit" class="btn btn-outline-primary btn-sm me-2" [hidden]="!showButtons" (click)="editItem()"><fa-icon [icon]="faEdit"></fa-icon></button>
+    <button type="button" title="{{updateTitle}}" class="btn btn-outline-success btn-sm me-2" [hidden]="!showButtons" (click)="updateItem()">
       <fa-icon *ngIf="updateAction === 'faCheck'" [icon]="faCheck"></fa-icon>
       <fa-icon *ngIf="updateAction === 'faRedo'" [icon]="faRedo"></fa-icon>
     </button>
