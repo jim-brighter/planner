@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import planner.dao.ImageDAO;
+import planner.domain.dto.ImageRotationRequest;
 import planner.domain.jpa.Event;
 import planner.domain.jpa.Image;
 import planner.service.DigitalOceanService;
@@ -75,4 +76,9 @@ public class ImageServiceImpl implements ImageService {
         imageDAO.deleteAllInBatch(images);
     }
 
+    @Override
+    @Transactional
+    public void updateRotation(ImageRotationRequest imageRotationRequest) {
+        imageDAO.updateRotation(imageRotationRequest.getImageId(), imageRotationRequest.getRotation());
+    }
 }

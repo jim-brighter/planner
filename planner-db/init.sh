@@ -30,6 +30,7 @@ psql -v ON_ERROR_STOP=1 -U postgres -d eventsdb <<-EOSQL
         image_id int8 NOT NULL,
         digital_ocean_key varchar(255) NOT NULL,
         fk_event int8 NULL,
+        rotation int4,
         CONSTRAINT images_pkey PRIMARY KEY (image_id),
         CONSTRAINT images_event_fkey FOREIGN KEY (fk_event) REFERENCES events.events(event_id)
     )

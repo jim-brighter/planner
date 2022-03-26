@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import planner.domain.dto.ImageRotationRequest;
 import planner.domain.jpa.Event;
 import planner.domain.jpa.Image;
 
@@ -18,4 +19,6 @@ public interface ImageService {
     public List<Image> getAllImagesForEvent(Event event);
 
     public void deleteImages(List<Image> images);
+
+    public void updateRotation(ImageRotationRequest imageRotationRequest);
 }

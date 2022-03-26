@@ -1,11 +1,9 @@
 package planner.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import planner.domain.dto.ImageRotationRequest;
 import planner.domain.jpa.Event;
 import planner.domain.jpa.Image;
 import planner.service.ImageService;
@@ -30,6 +28,11 @@ public class ImageController {
     @RequestMapping(value = "", method = RequestMethod.GET, produces = "application/json")
     public List<Image> getAllImages() {
         return imageService.getAllImages();
+    }
+
+    @RequestMapping(value = "/rotate", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    public void updateRotation(@RequestBody ImageRotationRequest imageRotationRequest) {
+        imageService.updateRotation(imageRotationRequest);
     }
 
 }

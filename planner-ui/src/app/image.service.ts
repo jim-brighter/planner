@@ -44,4 +44,19 @@ export class ImageService {
       );
   }
 
+  rotateImage(imageId: number, degrees: number): Observable<void> {
+    return this.http.post<any>(this.rootUrl + this.apiContext + '/rotate' + `?_csrf=${this.auth.csrfCookie}`, {
+      imageId: imageId,
+      rotation: degrees
+    }, {
+      headers: new HttpHeaders({
+        'X-Auth-Token': this.auth.authToken,
+        'X-Xsrf-Token': this.auth.csrfCookie
+      }),
+      withCredentials: true
+    })
+      .pipe(
+        catchError(this.errors.handleError('rotateImage', null))
+      );
+  }
 }
