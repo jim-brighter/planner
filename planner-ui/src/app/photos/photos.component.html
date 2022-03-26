@@ -6,7 +6,14 @@
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-body">
-        <img *ngIf="!!selectedImage" class="w-100" src="{{digitalOceanSpace + selectedImage.digitalOceanSpaceKey}}"/>
+        <img *ngIf="!!selectedImage" class="w-100" [ngClass]="{
+          'rotate0': selectedImage.rotation === 0 || selectedImage.rotation === 360,
+          'rotate90': selectedImage.rotation === 90,
+          'rotate180': selectedImage.rotation === 180,
+          'rotate270': selectedImage.rotation === 270
+        }"
+        src="{{digitalOceanSpace + selectedImage.digitalOceanSpaceKey}}"/>
+        <span class="rotate-icon-modal" (click)="rotate(selectedImage)"><fa-icon [icon]="faRotate"></fa-icon></span>
       </div>
     </div>
   </div>
@@ -24,7 +31,15 @@
   <div class="container-fluid d-flex">
     <ul class="list-inline d-inline-block">
       <li class="list-inline-item custom-image p-1" *ngFor="let image of images">
-        <img data-bs-toggle="modal" data-bs-target="#zoomModal" (click)="zoomImage(image)" src="{{digitalOceanSpace + image.digitalOceanSpaceKey}}"/>
+        <img data-bs-toggle="modal" data-bs-target="#zoomModal" (click)="zoomImage(image)"
+        [ngClass]="{
+          'rotate0': image.rotation === 0 || image.rotation === 360,
+          'rotate90': image.rotation === 90,
+          'rotate180': image.rotation === 180,
+          'rotate270': image.rotation === 270
+        }"
+        src="{{digitalOceanSpace + image.digitalOceanSpaceKey}}"/>
+        <span class="rotate-icon" (click)="rotate(image)"><fa-icon [icon]="faRotate"></fa-icon></span>
       </li>
     </ul>
   </div>

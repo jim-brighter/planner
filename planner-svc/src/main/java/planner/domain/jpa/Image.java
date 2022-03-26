@@ -34,6 +34,9 @@ public class Image implements Serializable {
     @JoinColumn(name = "fk_event")
     private Event parentEvent;
 
+    @Column(name = "ROTATION")
+    private int rotation;
+
     public long getId() {
         return id;
     }
@@ -58,4 +61,11 @@ public class Image implements Serializable {
         this.parentEvent = parentEvent;
     }
 
+    public int getRotation() {
+        return rotation;
+    }
+
+    public void setRotation(int rotation) {
+        this.rotation = rotation;
+    }
 }
