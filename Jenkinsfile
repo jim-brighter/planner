@@ -32,6 +32,11 @@ node {
 
     deleteDir()
 
+    if (isWorkingBranch()) {
+        currentBuild.result = 'SUCCESS'
+        return
+    }
+
     stage("INIT") {
         gitOutput = git(
             url: "${REPO_URL}",
@@ -47,11 +52,6 @@ node {
     stage("BUILD ARTIFACTS") {
         sh label: "Build Java Artifacts", script: "./pipeline/build-java.sh"
         sh label: "Build UI Artifacts", script: "./pipeline/build-ui.sh"
-    }
-
-    if (isWorkingBranch()) {
-        currentBuild.result = 'SUCCESS'
-        return
     }
 
     stage("PULL BASE IMAGES") {
